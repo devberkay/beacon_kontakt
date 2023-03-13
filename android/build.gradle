@@ -12,6 +12,7 @@ buildscript {
         implementation 'io.kontak.mvn:sdk:7.0.12.2'
         classpath 'com.android.tools.build:gradle:7.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        implementation files('/Users/berkay/flutter/bin/cache/artifacts/engine/android-x64/flutter.jar')
     }
 }
 
