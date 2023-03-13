@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="devberkay.kontakt.beacon_kontakt">
-  <application>
+
     <uses-permission android:name="android.permission.BLUETOOTH"/> // add android:maxSdkVersion="30" when compiling against sdk 31 or higher
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/> // add android:maxSdkVersion="30" when compiling against sdk 31 or higher
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +12,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" /> // you could also add "neverForLocation"=true and remove ACCESS_FINE_LOCATION permission if location is used only for bt scanning purposes
     // When compiling against and targetting sdk=31 and higher
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-  
+    
+  <application>
     <service android:name="com.kontakt.sdk.android.ble.service.ProximityService" android:exported="false"/>
   </application>
 
