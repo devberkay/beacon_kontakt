@@ -19,7 +19,7 @@ class BeaconKontaktPlugin: FlutterPlugin, MethodCallHandler {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
     channel.setMethodCallHandler(this)
-    KontaktSDK.initialize(this);
+    KontaktSDK.initialize("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")
 
   }
 
