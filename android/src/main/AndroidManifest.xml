@@ -1,18 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="devberkay.kontakt.beacon_kontakt">
-  <uses-permission android:name="android.permission.BLUETOOTH"/> // add android:maxSdkVersion="30" when compiling against sdk 31 or higher
-  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/> // add android:maxSdkVersion="30" when compiling against sdk 31 or higher
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <application>
+    <uses-permission android:name="android.permission.BLUETOOTH"/> // add android:maxSdkVersion="30" when compiling against sdk 31 or higher
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/> // add android:maxSdkVersion="30" when compiling against sdk 31 or higher
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
   // Access fine location is necessary when sdk version is equal / bigger than Android 10; below that you can use ACCESS_COARSE_LOCATION for BT scanning; when targetting Android 12 or higher, and BLUETOOTH_SCAN does not have neverForLocation tag, ACCESS_FINE_LOCATION should also be present in the manifest file
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-  // When compiling against and targetting sdk=31 and higher
-  <uses-permission android:name="android.permission.BLUETOOTH_SCAN" /> // you could also add "neverForLocation"=true and remove ACCESS_FINE_LOCATION permission if location is used only for bt scanning purposes
-  // When compiling against and targetting sdk=31 and higher
-  <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    // When compiling against and targetting sdk=31 and higher
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" /> // you could also add "neverForLocation"=true and remove ACCESS_FINE_LOCATION permission if location is used only for bt scanning purposes
+    // When compiling against and targetting sdk=31 and higher
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
   
-  <service android:name="com.kontakt.sdk.android.ble.service.ProximityService" android:exported="false"/>
+    <service android:name="com.kontakt.sdk.android.ble.service.ProximityService" android:exported="false"/>
+  </application>
 
 
 </manifest>
