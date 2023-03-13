@@ -10,6 +10,8 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.getPlatformVersion();
   }
 
+
+
   
   
 }
