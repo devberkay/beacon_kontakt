@@ -10,8 +10,6 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.getPlatformVersion();
   }
 
-  Future<void> initialize() {
-    return BeaconKontaktPlatform.instance.initialize();
-  }
+  
   
 }
