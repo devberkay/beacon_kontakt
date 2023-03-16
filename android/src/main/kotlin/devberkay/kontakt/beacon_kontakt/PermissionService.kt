@@ -22,7 +22,6 @@ class PermissionService(private val activity: Activity,private val context: Cont
         if (isAnyOfPermissionsNotGranted(requiredPermissions)) {
             ActivityCompat.requestPermissions(activity, requiredPermissions, REQUEST_CODE_PERMISSIONS)
         }
-
     }
 
     private fun isAnyOfPermissionsNotGranted(requiredPermissions: Array<String>): Boolean {
