@@ -38,7 +38,7 @@ class PermissionService(private val activity: Activity,private val context: Cont
 
 
     companion object {
-        const val REQUEST_CODE_PERMISSIONS = 100
+        const val REQUEST_CODE_PERMISSIONS = 315
     }
 
 
