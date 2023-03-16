@@ -36,6 +36,7 @@ import io.flutter.plugin.common.PluginRegistry
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
       foregroundScanService = ForegroundScanService(applicationContext)
+      permissionService = PermissionService(activity,applicationContext)
       kontaktSDK = KontaktSDK.initialize("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
     }
 
