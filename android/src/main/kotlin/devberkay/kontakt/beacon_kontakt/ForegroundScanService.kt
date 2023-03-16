@@ -17,7 +17,7 @@ import com.kontakt.sdk.android.cloud.KontaktCloudFactory
 import com.kontakt.sdk.android.common.profile.ISecureProfile
 import java.util.concurrent.TimeUnit
 
-class ForegroundScanService(private val activity: Activity, private val context: Context) {
+class ForegroundScanService(private val context: Context) {
 
     private val proximityManager: ProximityManager by lazy {
         ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {

@@ -35,7 +35,7 @@ import io.flutter.plugin.common.PluginRegistry
       channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
-      foregroundScanService = ForegroundScanService(activity, applicationContext)
+      foregroundScanService = ForegroundScanService(applicationContext)
       kontaktSDK = KontaktSDK.initialize("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
     }
 
@@ -44,7 +44,7 @@ import io.flutter.plugin.common.PluginRegistry
       result.success("Android ${android.os.Build.VERSION.RELEASE}")
     }
     else if(call.method == "checkPermissions") {
-      foregroundScanService.checkPermissions()
+
     }
     else {
       result.notImplemented()
@@ -66,7 +66,7 @@ import io.flutter.plugin.common.PluginRegistry
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
-    
+
   }
 
 
