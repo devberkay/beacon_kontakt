@@ -68,7 +68,7 @@ class ForegroundScanService(private val activity: Activity, private val context:
     // Permission related methods are below :
 
 
-    private fun checkPermissions() {
+     fun checkPermissions() {
         val requiredPermissions = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION) // ACCESS_FINE_LOCATION must be requested with ACCESS_COARSE_LOCATION.
 

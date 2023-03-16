@@ -11,7 +11,4 @@ import androidx.core.content.ContextCompat
 class PermissionService(private val activity: Activity,private val context: Context) {
 
 
-
-
-
 }

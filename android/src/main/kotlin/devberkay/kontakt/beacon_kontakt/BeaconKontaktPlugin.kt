@@ -28,18 +28,24 @@ import io.flutter.plugin.common.PluginRegistry
     private lateinit var activity : Activity
     private lateinit var kontaktSDK : KontaktSDK
     private lateinit var permissionService : PermissionService
+    private lateinit var foregroundScanService : ForegroundScanService
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
       channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
+      foregroundScanService = ForegroundScanService(activity, applicationContext)
       kontaktSDK = KontaktSDK.initialize("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "getPlatformVersion") {
       result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
+    }
+    else if(call.method == "checkPermissions") {
+      foregroundScanService.checkPermissions()
+    }
+    else {
       result.notImplemented()
     }
   }
