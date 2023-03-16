@@ -4,6 +4,7 @@ package devberkay.kontakt.beacon_kontakt
 
 import android.app.Activity
 import android.content.Context
+import android.content.pm.PackageManager
 import androidx.annotation.NonNull
 import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
 import com.kontakt.sdk.android.common.KontaktSDK
@@ -65,16 +66,7 @@ import io.flutter.plugin.common.PluginRegistry
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
-    binding.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
-      if (requestCode == 1) {
-        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          result.success(true)
-        } else {
-          result.success(false)
-        }
-      }
-      false
-    }
+    
   }
 
 
