@@ -62,12 +62,23 @@ import io.flutter.plugin.common.PluginRegistry
       TODO("Not yet implemented")
     }
 
-    override fun onAttachedToActivity(binding: ActivityPluginBinding) {
-      activity = binding.activity;
-      permissionService = PermissionService(activity, applicationContext)
-    }
 
-    override fun onDetachedFromActivityForConfigChanges() {
+  override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    activity = binding.activity
+    binding.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
+      if (requestCode == 1) {
+        if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+          result.success(true)
+        } else {
+          result.success(false)
+        }
+      }
+      false
+    }
+  }
+
+
+  override fun onDetachedFromActivityForConfigChanges() {
       TODO("Not yet implemented")
     }
 
