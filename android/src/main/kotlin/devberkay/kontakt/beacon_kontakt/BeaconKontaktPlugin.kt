@@ -40,7 +40,6 @@ import io.flutter.plugin.common.PluginRegistry
       applicationContext = flutterPluginBinding.applicationContext
       foregroundScanService = ForegroundScanService(applicationContext)
       permissionService = PermissionService(activity,applicationContext)
-
       kontaktSDK = KontaktSDK.initialize("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
     }
 
