@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
   // Access fine location is necessary when sdk version is equal / bigger than Android 10; below that you can use ACCESS_COARSE_LOCATION for BT scanning; when targetting Android 12 or higher, and BLUETOOTH_SCAN does not have neverForLocation tag, ACCESS_FINE_LOCATION should also be present in the manifest file
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     // When compiling against and targetting sdk=31 and higher

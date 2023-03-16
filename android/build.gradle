@@ -9,10 +9,8 @@ buildscript {
     }
 
     dependencies {
-        implementation 'io.kontak.mvn:sdk:7.0.12.2'
-        classpath 'com.android.tools.build:gradle:7.2.0'
+        classpath 'com.android.tools.build:gradle:7.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
     }
 }
 
@@ -25,7 +23,7 @@ allprojects {
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 31
 
@@ -45,4 +43,9 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
+}
+
+dependencies {
+    implementation("io.kontakt.mvn:sdk:7.0.13")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
