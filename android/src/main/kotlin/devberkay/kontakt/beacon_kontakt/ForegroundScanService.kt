@@ -81,14 +81,14 @@ class ForegroundScanService(private val activity: Activity, private val context:
         }
     }
 
-    private fun isAnyOfPermissionsNotGranted(requiredPermissions: Array<String>): Boolean {
-        for (permission in requiredPermissions) {
-            val checkSelfPermissionResult = ContextCompat.checkSelfPermission(context, permission)
-            if (PackageManager.PERMISSION_GRANTED != checkSelfPermissionResult) {
-                return true
+        private fun isAnyOfPermissionsNotGranted(requiredPermissions: Array<String>): Boolean {
+            for (permission in requiredPermissions) {
+                val checkSelfPermissionResult = ContextCompat.checkSelfPermission(context, permission)
+                if (PackageManager.PERMISSION_GRANTED != checkSelfPermissionResult) {
+                    return true
+                }
             }
-        }
-        return false
+            return false
     }
 
 
