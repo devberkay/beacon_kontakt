@@ -45,7 +45,6 @@ class ForegroundScanService(private val activity: Activity, private val context:
     }
 
     fun startScanning() {
-    checkPermissions()
     proximityManager.connect {
         if (proximityManager.isScanning) {
             Log.i(TAG, "Already scanning")

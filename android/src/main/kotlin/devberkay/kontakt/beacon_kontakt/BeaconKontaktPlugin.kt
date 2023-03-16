@@ -30,7 +30,6 @@ import io.flutter.plugin.common.MethodChannel.Result
     private lateinit var permissionService : PermissionService
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-
       channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
