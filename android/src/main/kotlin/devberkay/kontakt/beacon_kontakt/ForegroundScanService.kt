@@ -66,7 +66,7 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
             for (profile in list) {
-                Log.i(TAG, "onProfileUpdated: " + profile.toString())
+
             }
         }
 
