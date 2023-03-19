@@ -41,7 +41,6 @@ import io.flutter.plugin.common.PluginRegistry
       applicationContext = flutterPluginBinding.applicationContext
       foregroundScanService = ForegroundScanService(applicationContext)
       permissionService = PermissionService(activity,applicationContext)
-
     }
 
       override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
@@ -67,8 +66,7 @@ import io.flutter.plugin.common.PluginRegistry
         }
         else if(call.method == "startScanning") {
          if (kontaktSDK!=null) {
-           foregroundScanService.startScanning()
-           result.success(null)
+           result.success(foregroundScanService.startScanning())
          }
           else {
            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
@@ -76,8 +74,7 @@ import io.flutter.plugin.common.PluginRegistry
         }
         else if(call.method == "stopScanning") {
           if(kontaktSDK!=null) {
-            foregroundScanService.stopScanning()
-            result.success(null)
+            result.success(foregroundScanService.stopScanning())
           }
           else {
             result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)

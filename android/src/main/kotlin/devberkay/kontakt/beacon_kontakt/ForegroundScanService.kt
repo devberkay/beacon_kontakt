@@ -47,10 +47,10 @@ class ForegroundScanService(private val context: Context) {
     fun startScanning() {
         proximityManager.connect {
             if (proximityManager.isScanning) {
-                Log.i(TAG, "Already scanning")
+                "Already scanning"
             } else {
                 proximityManager.startScanning()
-                Log.i(TAG, "Scanning started")
+                "Scanning started"
             }
         }
     }
