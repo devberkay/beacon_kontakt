@@ -12,8 +12,11 @@ import com.kontakt.sdk.android.ble.configuration.ScanMode
 import com.kontakt.sdk.android.ble.configuration.ScanPeriod
 import com.kontakt.sdk.android.ble.manager.ProximityManager
 import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
+import com.kontakt.sdk.android.ble.manager.listeners.IBeaconListener
 import com.kontakt.sdk.android.ble.manager.listeners.SecureProfileListener
 import com.kontakt.sdk.android.cloud.KontaktCloudFactory
+import com.kontakt.sdk.android.common.profile.IBeaconDevice
+import com.kontakt.sdk.android.common.profile.IBeaconRegion
 import com.kontakt.sdk.android.common.profile.ISecureProfile
 import java.util.concurrent.TimeUnit
 
@@ -28,11 +31,26 @@ class ForegroundScanService(private val context: Context) {
         }
     }
 
+    private val iBeaconListener = object : IBeaconListener {
+        override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
+            TODO("Not yet implemented")
+        }
 
+        override fun onIBeaconsUpdated(
+            iBeacons: MutableList<IBeaconDevice>?,
+            region: IBeaconRegion?
+        ) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
+            TODO("Not yet implemented")
+        }
+    }
 
     private val secureProfileListener = object : SecureProfileListener {
         override fun onProfileDiscovered(iSecureProfile: ISecureProfile) {
-           
+
             Log.i(TAG, "onProfileDiscovered: " + iSecureProfile.toString())
         }
 

@@ -26,17 +26,18 @@ import io.flutter.plugin.common.PluginRegistry
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel : MethodChannel
-    private lateinit var eventChannel : EventChannel
+    private lateinit var permissionEventChannel : EventChannel
     private lateinit var applicationContext : Context
     private lateinit var activity : Activity
     private var kontaktSDK : KontaktSDK? = null
     private lateinit var permissionService : PermissionService
     private lateinit var foregroundScanService : ForegroundScanService
-
+    private lateinit var foregroundScanEventChannel : EventChannel
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
       channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
-      eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_permission_event")
+      permissionEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_permission_event")
+      foregroundScanEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_event")
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
       foregroundScanService = ForegroundScanService(applicationContext)
@@ -100,7 +101,8 @@ import io.flutter.plugin.common.PluginRegistry
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
-    eventChannel.setStreamHandler(PermissionStreamHandler(binding))
+    permissionEventChannel.setStreamHandler(PermissionStreamHandler(binding))
+    foregroundScanEventChannel
   }
 
 
