@@ -1,14 +1,24 @@
 package devberkay.kontakt.beacon_kontakt
 
+import android.content.pm.PackageManager
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodChannel
 
 
-class PermissionStreamHandler : EventChannel.StreamHandler {
+class PermissionStreamHandler(binding : ActivityPluginBinding) : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
+    private lateinit var permissionResult: MethodChannel.Result
+
+    init {
+        binding.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
+            onRequestPermissionsResult(requestCode, permissions, grantResults)
+            true
+        }
+    }
 
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
-        eventSink = sink
-        // Start sending events to the Flutter side
+
     }
 
     override fun onCancel(arguments: Any?) {
@@ -16,5 +26,16 @@ class PermissionStreamHandler : EventChannel.StreamHandler {
         // Stop sending events to the Flutter side
     }
 
-    // ...
+    private fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PermissionService.REQUEST_CODE_PERMISSIONS) {
+            val granted = grantResults.isNotEmpty()  &&  grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+            if (granted) {
+                permissionResult.success("Permissions are granted")
+            } else {
+                permissionResult.error("Permissions are denied", "The user denied the permission request", null)
+            }
+        }
+    }
+
+
 }

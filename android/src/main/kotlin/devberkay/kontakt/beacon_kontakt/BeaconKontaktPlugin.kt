@@ -32,7 +32,7 @@ import io.flutter.plugin.common.PluginRegistry
     private var kontaktSDK : KontaktSDK? = null
     private lateinit var permissionService : PermissionService
     private lateinit var foregroundScanService : ForegroundScanService
-    private lateinit var permissionResult: Result
+
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
       channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
@@ -103,12 +103,7 @@ import io.flutter.plugin.common.PluginRegistry
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
-    binding.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
-      onRequestPermissionsResult(requestCode, permissions, grantResults)
-      true
-    }
-    eventChannel.setStreamHandler(PermissionStreamHandler())
-
+    eventChannel.setStreamHandler(PermissionStreamHandler(binding))
   }
 
 
@@ -117,16 +112,7 @@ import io.flutter.plugin.common.PluginRegistry
     }
 
 
-  private fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-    if (requestCode == PermissionService.REQUEST_CODE_PERMISSIONS) {
-      val granted = grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
-      if (granted) {
-        permissionResult.success("Permission granted")
-      } else {
-        permissionResult.error("Permission denied", "The user denied the permission request", null)
-      }
-    }
-  }
+
 
 
 
