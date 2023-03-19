@@ -18,9 +18,19 @@ import com.kontakt.sdk.android.cloud.KontaktCloudFactory
 import com.kontakt.sdk.android.common.profile.IBeaconDevice
 import com.kontakt.sdk.android.common.profile.IBeaconRegion
 import com.kontakt.sdk.android.common.profile.ISecureProfile
+import io.flutter.plugin.common.EventChannel
 import java.util.concurrent.TimeUnit
 
-class ForegroundScanService(private val context: Context) {
+class ForegroundScanService(private val context: Context) : EventChannel.StreamHandler  {
+    private var eventSink: EventChannel.EventSink? = null
+
+    override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+        eventSink = events
+    }
+
+    override fun onCancel(arguments: Any?) {
+        eventSink = null
+    }
 
     private val proximityManager: ProximityManager by lazy {
         ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {

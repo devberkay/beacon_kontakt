@@ -102,7 +102,7 @@ import io.flutter.plugin.common.PluginRegistry
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
     permissionEventChannel.setStreamHandler(PermissionStreamHandler(binding))
-    foregroundScanEventChannel
+    foregroundScanEventChannel.setStreamHandler(foregroundScanService)
   }
 
 
