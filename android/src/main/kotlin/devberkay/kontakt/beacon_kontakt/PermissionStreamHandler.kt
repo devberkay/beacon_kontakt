@@ -30,9 +30,9 @@ class PermissionStreamHandler(binding : ActivityPluginBinding) : EventChannel.St
         if (requestCode == PermissionService.REQUEST_CODE_PERMISSIONS) {
             val granted = grantResults.isNotEmpty()  &&  grantResults.all { it == PackageManager.PERMISSION_GRANTED }
             if (granted) {
-                permissionResult.success("Permissions are granted")
+                eventSink?.success("PERMISSION_GRANTED")
             } else {
-                permissionResult.error("Permissions are denied", "The user denied the permission request", null)
+                eventSink?.error("PERMISSION_DENIED", "The user denied the permission request", null)
             }
         }
     }
