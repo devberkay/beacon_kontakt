@@ -51,7 +51,7 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
             iBeacons: MutableList<IBeaconDevice>?,
             region: IBeaconRegion?
         ) {
-            TODO("Not yet implemented")
+            eventSink?.success(iBeacons)
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
