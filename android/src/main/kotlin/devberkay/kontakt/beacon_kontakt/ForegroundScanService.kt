@@ -30,6 +30,7 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
 
     override fun onCancel(arguments: Any?) {
         eventSink = null
+        proximityManager.disconnect()
     }
 
     private val proximityManager: ProximityManager by lazy {
@@ -78,6 +79,7 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
     init {
         proximityManager.setIBeaconListener(iBeaconListener)
         proximityManager.setSecureProfileListener(secureProfileListener)
+
     }
 
     fun startScanning() {
