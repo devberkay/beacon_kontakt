@@ -75,6 +75,11 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
         }
     }
 
+    init {
+        proximityManager.setIBeaconListener(iBeaconListener)
+        proximityManager.setSecureProfileListener(secureProfileListener)
+    }
+
     fun startScanning() {
         proximityManager.connect {
             if (proximityManager.isScanning) {
