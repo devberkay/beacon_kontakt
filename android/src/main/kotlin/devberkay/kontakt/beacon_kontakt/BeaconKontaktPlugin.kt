@@ -29,29 +29,62 @@ import io.flutter.plugin.common.PluginRegistry
     private lateinit var eventChannel : EventChannel
     private lateinit var applicationContext : Context
     private lateinit var activity : Activity
-    private lateinit var kontaktSDK : KontaktSDK
+    private var kontaktSDK : KontaktSDK? = null
     private lateinit var permissionService : PermissionService
     private lateinit var foregroundScanService : ForegroundScanService
+    private lateinit var permissionResult: Result
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
       channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
-      eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_event")
+      eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_permission_event")
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
       foregroundScanService = ForegroundScanService(applicationContext)
       permissionService = PermissionService(activity,applicationContext)
-      kontaktSDK = KontaktSDK.initialize("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
-    }
-
-    override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    }
-    else if(call.method == "checkPermissions") {
 
     }
-    else {
-      result.notImplemented()
+
+      override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+        if (call.method == "getPlatformVersion") {
+          result.success("Android ${android.os.Build.VERSION.RELEASE}")
+        }
+        else if(call.method == "initialize") {
+          kontaktSDK = KontaktSDK.initialize(call.argument("apiKey") as String?)
+          if(kontaktSDK != null) {
+            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
+          }
+          else {
+            result.success(null)
+          }
+        }
+        else if(call.method == "checkPermissions") {
+          if(kontaktSDK!=null) {
+            permissionService.checkPermissions()
+          }
+          else {
+            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
+          }
+        }
+        else if(call.method == "startScanning") {
+         if (kontaktSDK!=null) {
+           foregroundScanService.startScanning()
+           result.success(null)
+         }
+          else {
+           result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
+         }
+        }
+        else if(call.method == "stopScanning") {
+          if(kontaktSDK!=null) {
+            foregroundScanService.stopScanning()
+            result.success(null)
+          }
+          else {
+            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
+          }
+        }
+        else {
+          result.notImplemented()
     }
   }
 
@@ -70,6 +103,11 @@ import io.flutter.plugin.common.PluginRegistry
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
+    binding.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
+      onRequestPermissionsResult(requestCode, permissions, grantResults)
+      true
+    }
+    eventChannel.setStreamHandler(PermissionStreamHandler())
 
   }
 
@@ -79,6 +117,19 @@ import io.flutter.plugin.common.PluginRegistry
     }
 
 
-
-
+  private fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    if (requestCode == PermissionService.REQUEST_CODE_PERMISSIONS) {
+      val granted = grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+      if (granted) {
+        permissionResult.success("Permission granted")
+      } else {
+        permissionResult.error("Permission denied", "The user denied the permission request", null)
+      }
+    }
   }
+
+
+
+
+
+}

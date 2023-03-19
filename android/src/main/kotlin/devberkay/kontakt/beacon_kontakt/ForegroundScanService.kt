@@ -22,9 +22,9 @@ class ForegroundScanService(private val context: Context) {
     private val proximityManager: ProximityManager by lazy {
         ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {
             configuration()
-                .scanPeriod(ScanPeriod.RANGING)
+                .scanPeriod(ScanPeriod.MONITORING)
                 .scanMode(ScanMode.BALANCED)
-                .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
+                .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(8))
         }
     }
 
@@ -45,15 +45,15 @@ class ForegroundScanService(private val context: Context) {
     }
 
     fun startScanning() {
-    proximityManager.connect {
-        if (proximityManager.isScanning) {
-            Log.i(TAG, "Already scanning")
-        } else {
-            proximityManager.startScanning()
-            Log.i(TAG, "Scanning started")
+        proximityManager.connect {
+            if (proximityManager.isScanning) {
+                Log.i(TAG, "Already scanning")
+            } else {
+                proximityManager.startScanning()
+                Log.i(TAG, "Scanning started")
+            }
         }
     }
-}
 
     fun stopScanning() {
         if (proximityManager.isScanning) {
