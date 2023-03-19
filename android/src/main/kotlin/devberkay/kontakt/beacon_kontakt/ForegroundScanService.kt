@@ -21,7 +21,7 @@ import com.kontakt.sdk.android.common.profile.ISecureProfile
 import io.flutter.plugin.common.EventChannel
 import java.util.concurrent.TimeUnit
 
-class ForegroundScanService(private val context: Context) : EventChannel.StreamHandler  {
+class ForegroundScanService(private val context: Context, private val listenerType : String) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
         eventSink = events
@@ -76,8 +76,15 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
     }
 
     init {
-        proximityManager.setIBeaconListener(iBeaconListener)
-        proximityManager.setSecureProfileListener(secureProfileListener)
+        if(listenerType=="iBeacon") {
+            proximityManager.setIBeaconListener(iBeaconListener)
+        }
+        else if(listenerType=="SecureProfile") {
+            proximityManager.setSecureProfileListener(secureProfileListener)
+        }
+        else {
+
+        }
 
     }
 
