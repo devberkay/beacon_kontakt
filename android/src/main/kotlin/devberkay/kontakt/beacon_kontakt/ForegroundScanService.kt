@@ -28,8 +28,11 @@ class ForegroundScanService(private val context: Context) {
         }
     }
 
+
+
     private val secureProfileListener = object : SecureProfileListener {
         override fun onProfileDiscovered(iSecureProfile: ISecureProfile) {
+           
             Log.i(TAG, "onProfileDiscovered: " + iSecureProfile.toString())
         }
 
