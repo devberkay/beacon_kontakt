@@ -18,7 +18,7 @@ class PermissionStreamHandler(binding : ActivityPluginBinding) : EventChannel.St
     }
 
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
-
+        eventSink = sink
     }
 
     override fun onCancel(arguments: Any?) {
