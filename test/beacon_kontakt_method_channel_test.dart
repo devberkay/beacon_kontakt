@@ -23,6 +23,6 @@ void main() {
   });
 
   test('checkPermissions', () async {
-    
+    await platform.checkPermissions();
   });
 }
