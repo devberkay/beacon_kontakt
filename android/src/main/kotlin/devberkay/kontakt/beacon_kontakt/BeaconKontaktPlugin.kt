@@ -4,9 +4,7 @@ package devberkay.kontakt.beacon_kontakt
 
 import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
 import androidx.annotation.NonNull
-import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
 import com.kontakt.sdk.android.common.KontaktSDK
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -16,7 +14,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-import io.flutter.plugin.common.PluginRegistry
 
 
 /** BeaconKontaktPlugin */
