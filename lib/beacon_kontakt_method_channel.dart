@@ -51,4 +51,17 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   Future<void> startScanning() async {
     await methodChannel.invokeMethod<void>('startScanning');
   }
+
+  @override
+  Stream<Map<String,dynamic>> listenScanResults() async*{
+   try {
+      await for (final listOfDevices in foregroundScanEventChannel
+          .receiveBroadcastStream()
+          ) {
+        yield listOfDevices as Map<String,dynamic>;
+      }
+    } on PlatformException catch (e) {
+      debugPrint(e.message);
+    }
+  }
 }

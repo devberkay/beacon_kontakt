@@ -35,11 +35,16 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
     throw UnimplementedError('onPermissionChanged() has not been implemented.');
   }
 
+
   Future<void> initKontaktSDK(String apiKey) {
     throw UnimplementedError('initKontaktSDK() has not been implemented.');
   }
 
   Future<void> startScanning() {
     throw UnimplementedError('startScanning() has not been implemented.');
+  }
+
+  Stream<void> listenScanResults() {
+    throw UnimplementedError('listenScanResults() has not been implemented.');
   }
 }

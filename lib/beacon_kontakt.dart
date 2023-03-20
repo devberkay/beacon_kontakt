@@ -28,7 +28,7 @@ class BeaconKontakt {
   }
 
   Future<void> listenScanResults() {
-    
+    return BeaconKontaktPlatform.instance.listenScanResults();
   }
 
 
