@@ -18,11 +18,17 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _beaconKontaktPlugin = BeaconKontakt();
+  late final Stream<String> permissionStatus;
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
+    listenPermissionStatus();
+  }
+
+  Future<void> listenPermissionStatus() {
+    
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -47,15 +53,30 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> checkPermissions() async {
+    await _beaconKontaktPlugin.checkPermissions();
+
+    if (!mounted) return;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        floatingActionButton: FloatingActionButton(onPressed: () async {
+         checkPermissions;
+        }),
         appBar: AppBar(
+          
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              Text('Permissions are granted : $')
+            ],
+          ),
         ),
       ),
     );
