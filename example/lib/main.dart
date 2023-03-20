@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
                     await _beaconKontaktPlugin.startScanning(
                         ScanPeriod.monitoring, ListenerType.SecureProfile);
                     _beaconKontaktPlugin.listenScanResults().listen((event) {
-                      print(event);
+                      print("shutup $event");
                     });
                   },
                   child: Text("Start Scanning")),
