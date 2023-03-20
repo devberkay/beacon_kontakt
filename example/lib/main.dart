@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                   onPressed: () async {
                     await _beaconKontaktPlugin.startScanning(
-                        ScanPeriod.monitoring, ListenerType.SecureProfile);
+                        ScanPeriod.monitoring, ListenerType.iBeacon);
                     _beaconKontaktPlugin.listenScanResults().listen((event) {
                       print("shutup $event");
                     });
