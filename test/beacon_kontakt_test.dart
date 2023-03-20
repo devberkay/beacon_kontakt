@@ -11,12 +11,14 @@ class MockBeaconKontaktPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<void> checkPermissions() {
-    
+  Future<void> checkPermissions() async {
+    return Future.value(null);
   }
 
   @override
-  Stream<void> listenPermissionStatus() {}
+  Stream<void> listenPermissionStatus() {
+    return Stream.value(null);
+  }
 }
 
 void main() {
