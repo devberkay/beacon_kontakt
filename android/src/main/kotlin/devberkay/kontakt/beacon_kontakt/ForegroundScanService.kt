@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit
 class ForegroundScanService(private val context: Context) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+        
         eventSink = events
     }
 
