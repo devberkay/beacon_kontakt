@@ -37,8 +37,6 @@ import io.flutter.plugin.common.MethodChannel.Result
       foregroundScanEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_event")
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
-
-
     }
 
       override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
