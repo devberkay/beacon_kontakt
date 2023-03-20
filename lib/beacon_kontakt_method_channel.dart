@@ -63,12 +63,12 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Stream<Map<String, dynamic>> listenScanResults() async* {
+  Stream<List<Map<String, dynamic>>> listenScanResults() async* {
     try {
       await for (final listOfDevices
           in foregroundScanEventChannel.receiveBroadcastStream()) {
        
-        yield listOfDevices as Map<String, dynamic>;
+        yield listOfDevices as List<Map<String, dynamic>>;
       }
     } on PlatformException catch (e) {
       debugPrint(e.message);

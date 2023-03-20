@@ -29,7 +29,7 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.startScanning(scanPeriod,listenerType);
   }
 
-  Stream<Map<String,dynamic>>  listenScanResults() {
+  Stream<List<Map<String, dynamic>>>  listenScanResults() {
     return BeaconKontaktPlatform.instance.listenScanResults();
   }
 
