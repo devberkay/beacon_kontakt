@@ -38,7 +38,7 @@ import io.flutter.plugin.common.MethodChannel.Result
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
       foregroundScanService = ForegroundScanService(applicationContext)
-      permissionService = PermissionService(activity,applicationContext)
+
     }
 
       override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
@@ -93,6 +93,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
+    permissionService = PermissionService(activity,applicationContext)
     permissionEventChannel.setStreamHandler(PermissionStreamHandler(binding))
     foregroundScanEventChannel.setStreamHandler(foregroundScanService)
   }
