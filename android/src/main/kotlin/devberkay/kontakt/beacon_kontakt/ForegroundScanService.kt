@@ -25,9 +25,10 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
     private var eventSink: EventChannel.EventSink? = null
     private lateinit var proximityManager : ProximityManager
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+        eventSink = events
         val argumentMap = arguments as Map<String, Any>
         val scanMode = argumentMap["scanMode"] as String
-        
+        val scanPeriod = if(scanMode == "Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
         val listenerType = argumentMap["listenerType"] as String
         if(listenerType=="iBeacon") {
             proximityManager.setIBeaconListener(iBeaconListener)
@@ -38,7 +39,7 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
         ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {
             configuration()
                 .scanMode(ScanMode.BALANCED)
-                .scanPeriod(ScanPeriod.MONITORING)
+                .scanPeriod(scanPeriod)
                 .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
                 .forceScanConfiguration(ForceScanConfiguration.DISABLED)
                 .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
@@ -49,7 +50,7 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
         }
-        eventSink = events
+
     }
 
     override fun onCancel(arguments: Any?) {
