@@ -50,7 +50,7 @@ class ForegroundScanService(private val context: Context, private val listenerTy
             iBeacons: MutableList<IBeaconDevice>?,
             region: IBeaconRegion?
         ) {
-            eventSink?.success(iBeacons.map {  })
+            eventSink?.success(iBeacons.map {   })
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
