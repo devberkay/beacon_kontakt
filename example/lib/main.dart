@@ -94,17 +94,17 @@ class _MyAppState extends State<MyApp> {
                     return Text('Permissions are ${permissionStatus.name}');
                   }),
               TextButton(
-                  onPressed: () {
-                    _beaconKontaktPlugin.startScanning(
+                  onPressed: () async {
+                    await _beaconKontaktPlugin.startScanning(
                         ScanPeriod.monitoring, ListenerType.SecureProfile);
-                    // _beaconKontaktPlugin.listenScanResults().listen((event) {
-                    //   print(event);
-                    // });
+                    _beaconKontaktPlugin.listenScanResults().listen((event) {
+                      print(event);
+                    });
                   },
                   child: Text("Start Scanning")),
               TextButton(
-                  onPressed: () {
-                     _beaconKontaktPlugin.stopScanning();
+                  onPressed: () async {
+                     await _beaconKontaktPlugin.stopScanning();
                     // _beaconKontaktPlugin.listenScanResults().listen((event) {
                     //   print(event);
                     // });
