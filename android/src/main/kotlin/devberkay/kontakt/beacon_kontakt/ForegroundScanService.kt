@@ -34,7 +34,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     }
 
     private val proximityManager: ProximityManager by lazy {
-        ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {
+        ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
             configuration()
                 .scanMode(ScanMode.BALANCED)
                 .scanPeriod(ScanPeriod.MONITORING)
@@ -48,11 +48,6 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
 
-        }.apply {
-            when (listenerType) {
-                "iBeacon" -> this.setIBeaconListener(iBeaconListener)
-                "SecureProfile" -> this.setSecureProfileListener(secureProfileListener)
-            }
         }
     }
 
