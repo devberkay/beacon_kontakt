@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _beaconKontaktPlugin = BeaconKontakt();
   late final StreamSubscription permissionStatusStreamSubscription;
-  
+
   @override
   void initState() {
     super.initState();
@@ -34,10 +34,9 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  
-
   Future<void> initKontaktSDK() async {
-    await _beaconKontaktPlugin.initKontaktSDK("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
+    await _beaconKontaktPlugin
+        .initKontaktSDK("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -85,16 +84,18 @@ class _MyAppState extends State<MyApp> {
             children: [
               Text('Running on: $_platformVersion\n'),
               StreamBuilder<BLEPermissionStatus>(
-                initialData: BLEPermissionStatus.denied,
-                stream: _beaconKontaktPlugin.listenPermissionStatus(),
-                builder: (context,snapshot) {
-                  final permissionStatus = snapshot.data ?? BLEPermissionStatus.denied;
-                  return Text('Permissions are ${permissionStatus.name}');
-                }
-              ),
-              TextButton(onPressed: () {
-                
-              }, child: Text("Start Scanning")),
+                  initialData: BLEPermissionStatus.denied,
+                  stream: _beaconKontaktPlugin.listenPermissionStatus(),
+                  builder: (context, snapshot) {
+                    final permissionStatus =
+                        snapshot.data ?? BLEPermissionStatus.denied;
+                    return Text('Permissions are ${permissionStatus.name}');
+                  }),
+              TextButton(
+                  onPressed: () {
+                    _beaconKontaktPlugin.startScanning();
+                  },
+                  child: Text("Start Scanning")),
             ],
           ),
         ),
