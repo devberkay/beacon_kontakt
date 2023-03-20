@@ -37,6 +37,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
         yield status;
       }
     } on PlatformException catch (e) {
+      debugPrint(e.message);
       yield BLEPermissionStatus.denied;
     }
   }
