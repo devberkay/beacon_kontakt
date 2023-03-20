@@ -1,6 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'beacon_kontakt_method_channel.dart';
+import 'permission_enum.dart';
 
 abstract class BeaconKontaktPlatform extends PlatformInterface {
   /// Constructs a BeaconKontaktPlatform.
@@ -30,7 +31,7 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
   Future<void> checkPermissions() {
     throw UnimplementedError('checkPermissions() has not been implemented.');
   }
-  Stream<void> listenPermissionStatus() {
+  Stream<BLEPermissionStatus> listenPermissionStatus() {
     throw UnimplementedError('onPermissionChanged() has not been implemented.');
   }
 }

@@ -1,3 +1,4 @@
+import 'package:beacon_kontakt/permission_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:beacon_kontakt/beacon_kontakt.dart';
 import 'package:beacon_kontakt/beacon_kontakt_platform_interface.dart';
@@ -16,7 +17,7 @@ class MockBeaconKontaktPlatform
   }
 
   @override
-  Stream<void> listenPermissionStatus() {
+  Stream<BLEPermissionStatus> listenPermissionStatus() {
     return Stream.value(null);
   }
 }
