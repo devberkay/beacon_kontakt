@@ -7,9 +7,16 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockBeaconKontaktPlatform
     with MockPlatformInterfaceMixin
     implements BeaconKontaktPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<void> checkPermissions() {
+    
+  }
+
+  @override
+  Stream<void> listenPermissionStatus() {}
 }
 
 void main() {
