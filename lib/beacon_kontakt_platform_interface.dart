@@ -26,4 +26,11 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
+  Future<void> checkPermissions() {
+    throw UnimplementedError('checkPermissions() has not been implemented.');
+  }
+  Stream<void> onPermissionChanged() {
+    throw UnimplementedError('onPermissionChanged() has not been implemented.');
+  }
 }
