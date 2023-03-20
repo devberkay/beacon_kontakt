@@ -97,9 +97,9 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {
                     _beaconKontaktPlugin.startScanning(
                         ScanPeriod.monitoring, ListenerType.SecureProfile);
-                    _beaconKontaktPlugin.listenScanResults().listen((event) {
-                      print(event);
-                    });
+                    // _beaconKontaktPlugin.listenScanResults().listen((event) {
+                    //   print(event);
+                    // });
                   },
                   child: Text("Start Scanning")),
             ],
