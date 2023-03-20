@@ -98,7 +98,7 @@ import io.flutter.plugin.common.MethodChannel.Result
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
     activity = binding.activity
     permissionService = PermissionService(activity,applicationContext)
-    permissionEventChannel.setStreamHandler(PermissionStreamHandler(binding))
+    permissionEventChannel.setStreamHandler(PermissionStreamHandler(binding,permissionService))
     foregroundScanEventChannel.setStreamHandler(foregroundScanService)
   }
 
