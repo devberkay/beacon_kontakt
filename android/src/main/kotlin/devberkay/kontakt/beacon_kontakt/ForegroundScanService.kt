@@ -13,6 +13,8 @@ import com.kontakt.sdk.android.ble.manager.ProximityManager
 import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
 import com.kontakt.sdk.android.ble.manager.listeners.IBeaconListener
 import com.kontakt.sdk.android.ble.manager.listeners.SecureProfileListener
+import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleIBeaconListener
+import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleSecureProfileListener
 import com.kontakt.sdk.android.ble.rssi.RssiCalculators
 import com.kontakt.sdk.android.cloud.KontaktCloudFactory
 import com.kontakt.sdk.android.common.profile.IBeaconDevice
@@ -50,10 +52,10 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         }
     }
 
-    private val iBeaconListener = object : IBeaconListener {
-        override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
-            TODO("Not yet implemented")
-        }
+    private val iBeaconListener = object : SimpleIBeaconListener() {
+//        override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
+//            TODO("Not yet implemented")
+//        }
 
         override fun onIBeaconsUpdated(
             iBeacons: MutableList<IBeaconDevice>?,
@@ -62,24 +64,24 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             eventSink?.success(iBeacons?.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
         }
 
-        override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
-            TODO("Not yet implemented")
-        }
+//        override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
+//            TODO("Not yet implemented")
+//        }
     }
 
-    private val secureProfileListener = object : SecureProfileListener {
-        override fun onProfileDiscovered(iSecureProfile: ISecureProfile) {
-
-            Log.i(TAG, "onProfileDiscovered: " + iSecureProfile.toString())
-        }
+    private val secureProfileListener = object : SimpleSecureProfileListener() {
+//        override fun onProfileDiscovered(iSecureProfile: ISecureProfile) {
+//
+//            Log.i(TAG, "onProfileDiscovered: " + iSecureProfile.toString())
+//        }
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
             eventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
         }
 
-        override fun onProfileLost(iSecureProfile: ISecureProfile) {
-            Log.e(TAG, "onProfileLost: " + iSecureProfile.toString())
-        }
+//        override fun onProfileLost(iSecureProfile: ISecureProfile) {
+//            Log.e(TAG, "onProfileLost: " + iSecureProfile.toString())
+//        }
     }
 
 
