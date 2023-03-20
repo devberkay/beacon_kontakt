@@ -1,0 +1,4 @@
+enum ScanPeriod {
+  monitoring,
+  ranging
+}

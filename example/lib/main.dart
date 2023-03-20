@@ -1,4 +1,6 @@
+import 'package:beacon_kontakt/listener_type_enum.dart';
 import 'package:beacon_kontakt/permission_enum.dart';
+import 'package:beacon_kontakt/scan_period_enum.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -93,7 +95,8 @@ class _MyAppState extends State<MyApp> {
                   }),
               TextButton(
                   onPressed: () {
-                    _beaconKontaktPlugin.startScanning();
+                    _beaconKontaktPlugin.startScanning(ScanPeriod.monitoring,
+                        ListenerType.SecureProfile);
                   },
                   child: Text("Start Scanning")),
             ],

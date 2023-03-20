@@ -3,6 +3,8 @@ import 'package:beacon_kontakt/permission_enum.dart';
 import 'package:flutter/services.dart';
 
 import 'beacon_kontakt_platform_interface.dart';
+import 'listener_type_enum.dart';
+import 'scan_period_enum.dart';
 
 class BeaconKontakt {
   
@@ -23,8 +25,8 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.initKontaktSDK(apiKey);
   }
 
-  Future<void> startScanning() {
-    return BeaconKontaktPlatform.instance.startScanning();
+  Future<void> startScanning(ScanPeriod scanPeriod,ListenerType listenerType) {
+    return BeaconKontaktPlatform.instance.startScanning(scanPeriod,listenerType);
   }
 
   Stream<Map<String,dynamic>>  listenScanResults() {

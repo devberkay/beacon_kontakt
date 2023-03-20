@@ -1,7 +1,9 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'beacon_kontakt_method_channel.dart';
+import 'listener_type_enum.dart';
 import 'permission_enum.dart';
+import 'scan_period_enum.dart';
 
 abstract class BeaconKontaktPlatform extends PlatformInterface {
   /// Constructs a BeaconKontaktPlatform.
@@ -40,7 +42,7 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
     throw UnimplementedError('initKontaktSDK() has not been implemented.');
   }
 
-  Future<void> startScanning() {
+  Future<void> startScanning(ScanPeriod scanPeriod,ListenerType listenerType) {
     throw UnimplementedError('startScanning() has not been implemented.');
   }
 
