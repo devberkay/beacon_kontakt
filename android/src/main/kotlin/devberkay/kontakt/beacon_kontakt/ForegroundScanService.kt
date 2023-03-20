@@ -21,25 +21,23 @@ import com.kontakt.sdk.android.common.profile.ISecureProfile
 import io.flutter.plugin.common.EventChannel
 import java.util.concurrent.TimeUnit
 
-class ForegroundScanService(private val context: Context, private val apiKey : String) : EventChannel.StreamHandler  {
+class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
-    private lateinit var proximityManager : ProximityManager
+
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
         eventSink = events
-        val argumentMap = arguments as Map<String, Any>
-        val scanMode = argumentMap["scanMode"] as String
-        val scanPeriod = if(scanMode == "Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
-        val listenerType = argumentMap["listenerType"] as String
-        if(listenerType=="iBeacon") {
-            proximityManager.setIBeaconListener(iBeaconListener)
-        }
-        else if(listenerType=="SecureProfile") {
-            proximityManager.setSecureProfileListener(secureProfileListener)
-        }
-        proximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
+    }
+
+    override fun onCancel(arguments: Any?) {
+        eventSink = null
+        proximityManager.disconnect()
+    }
+
+    private val proximityManager: ProximityManager by lazy {
+        ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {
             configuration()
                 .scanMode(ScanMode.BALANCED)
-                .scanPeriod(scanPeriod)
+                .scanPeriod(ScanPeriod.MONITORING)
                 .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
                 .forceScanConfiguration(ForceScanConfiguration.DISABLED)
                 .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
@@ -51,28 +49,6 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
         }
     }
-
-    override fun onCancel(arguments: Any?) {
-        eventSink = null
-        proximityManager.disconnect()
-    }
-
-//    private val proximityManager: ProximityManager by lazy {
-//        ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {
-//            configuration()
-//                .scanMode(ScanMode.BALANCED)
-//                .scanPeriod(ScanPeriod.MONITORING)
-//                .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
-//                .forceScanConfiguration(ForceScanConfiguration.DISABLED)
-//                .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
-//                .rssiCalculator(RssiCalculators.DEFAULT)
-//                .cacheFileName("BLE_CACHE")
-//                .resolveShuffledInterval(3)
-//                .monitoringEnabled(true)
-//                .monitoringSyncInterval(10)
-//                .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
-//        }
-//    }
 
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
