@@ -50,7 +50,7 @@ class ForegroundScanService(private val context: Context, private val listenerTy
             iBeacons: MutableList<IBeaconDevice>?,
             region: IBeaconRegion?
         ) {
-            eventSink?.success(iBeacons.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID, "proximity" to it.proximity )  })
+            eventSink?.success(iBeacons?.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID, "proximity" to it.proximity )  })
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
