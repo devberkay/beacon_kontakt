@@ -51,7 +51,7 @@ import io.flutter.plugin.common.MethodChannel.Result
         }
         else if(call.method == "checkPermissions") {
           if(kontaktSDK!=null) {
-            permissionService.checkPermissions()
+            permissionService.checkPermissions(false)
           }
           else {
             result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)

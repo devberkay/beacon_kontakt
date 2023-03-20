@@ -19,7 +19,7 @@ class PermissionStreamHandler(private var binding : ActivityPluginBinding,privat
 
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
         eventSink = sink
-        var permissionStatus = if(permissionService.checkPermissions()) "PERMISSION_GRANTED" else "PERMISSION_DENIED"
+        var permissionStatus = if(permissionService.checkPermissions(true)) "PERMISSION_GRANTED" else "PERMISSION_DENIED"
         eventSink?.success(permissionStatus)
     }
 
