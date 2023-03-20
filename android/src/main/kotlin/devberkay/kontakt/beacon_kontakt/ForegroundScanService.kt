@@ -24,7 +24,15 @@ import java.util.concurrent.TimeUnit
 class ForegroundScanService(private val context: Context) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-        
+        val argumentMap = arguments as Map<String, Any>
+        val scanMode = argumentMap["scanMode"] as String
+        val listenerType = argumentMap["listenerType"] as String
+        if(listenerType=="iBeacon") {
+            proximityManager.setIBeaconListener(iBeaconListener)
+        }
+        else if(listenerType=="SecureProfile") {
+            proximityManager.setSecureProfileListener(secureProfileListener)
+        }
         eventSink = events
     }
 
@@ -82,18 +90,6 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
         }
     }
 
-    init {
-        if(listenerType=="iBeacon") {
-            proximityManager.setIBeaconListener(iBeaconListener)
-        }
-        else if(listenerType=="SecureProfile") {
-            proximityManager.setSecureProfileListener(secureProfileListener)
-        }
-        else {
-
-        }
-
-    }
 
     fun startScanning() {
         proximityManager.connect {
