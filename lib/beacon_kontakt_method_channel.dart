@@ -26,8 +26,12 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Stream<BLEPermissionStatus> listenPermissionStatus() {
-    
+  Stream<BLEPermissionStatus> listenPermissionStatus() async* {
+    await for (final status in permissionEventChannel
+        .receiveBroadcastStream()
+        .map((status) => BLEPermissionStatus.values[status])) {
+      yield status;
+    }
   }
 
 
