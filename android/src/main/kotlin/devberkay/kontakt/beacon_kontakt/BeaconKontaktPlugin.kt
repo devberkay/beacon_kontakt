@@ -37,7 +37,7 @@ import io.flutter.plugin.common.MethodChannel.Result
       foregroundScanEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_event")
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
-      foregroundScanService = ForegroundScanService(applicationContext)
+
 
     }
 
@@ -46,7 +46,9 @@ import io.flutter.plugin.common.MethodChannel.Result
           result.success("Android ${android.os.Build.VERSION.RELEASE}")
         }
         else if(call.method == "initKontaktSDK") {
-          kontaktSDK = KontaktSDK.initialize(call.argument("apiKey") as String?)
+          var apiKey = call.argument("apiKey") as String?
+          kontaktSDK = KontaktSDK.initialize(apiKey)
+          foregroundScanService = ForegroundScanService(applicationContext,apiKey)
           result.success(null)
         }
         else if(call.method == "checkPermissions") {

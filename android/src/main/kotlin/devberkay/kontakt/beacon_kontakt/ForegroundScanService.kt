@@ -21,7 +21,7 @@ import com.kontakt.sdk.android.common.profile.ISecureProfile
 import io.flutter.plugin.common.EventChannel
 import java.util.concurrent.TimeUnit
 
-class ForegroundScanService(private val context: Context) : EventChannel.StreamHandler  {
+class ForegroundScanService(private val context: Context, private val apiKey : String) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
     private lateinit var proximityManager : ProximityManager
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
