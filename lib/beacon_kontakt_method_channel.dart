@@ -44,6 +44,6 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
 
   @override
   Future<void> initKontaktSDK(String apiKey) async {
-    await methodChannel.invokeMethod<void>('initKontaktSDK');
+    await methodChannel.invokeMethod<void>('initKontaktSDK',"dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
   }
 }

@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> initKontaktSDK() async {
-    await _beaconKontaktPlugin.initKontaktSDK();
+    await _beaconKontaktPlugin.initKontaktSDK("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
