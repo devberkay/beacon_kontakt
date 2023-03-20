@@ -46,21 +46,29 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
 
   @override
   Future<void> initKontaktSDK(String apiKey) async {
-    await methodChannel.invokeMethod<void>('initKontaktSDK',{'apiKey': apiKey});
-  }
-
-  @override 
-  Future<void> startScanning(ScanPeriod scanPeriod,ListenerType listenerType) async {
-    await methodChannel.invokeMethod<void>('startScanning',{"scanPeriod" :scanPeriod==ScanPeriod.monitoring? "Monitoring" : "Ranging", "listenerType" :  listenerType==ListenerType.SecureProfile ? "SecureProfile" : "iBeacon"});
+    await methodChannel
+        .invokeMethod<void>('initKontaktSDK', {'apiKey': apiKey});
   }
 
   @override
-  Stream<Map<String,dynamic>> listenScanResults() async*{
-   try {
-      await for (final listOfDevices in foregroundScanEventChannel
-          .receiveBroadcastStream()
-          ) {
-        yield listOfDevices as Map<String,dynamic>;
+  Future<void> startScanning(
+      ScanPeriod scanPeriod, ListenerType listenerType) async {
+    await methodChannel.invokeMethod<void>('startScanning', {
+      "scanPeriod":
+          scanPeriod == ScanPeriod.monitoring ? "Monitoring" : "Ranging",
+      "listenerType": listenerType == ListenerType.SecureProfile
+          ? "SecureProfile"
+          : "iBeacon"
+    });
+  }
+
+  @override
+  Stream<Map<String, dynamic>> listenScanResults() async* {
+    try {
+      await for (final listOfDevices
+          in foregroundScanEventChannel.receiveBroadcastStream()) {
+        print(listOfDevices);
+        yield listOfDevices as Map<String, dynamic>;
       }
     } on PlatformException catch (e) {
       debugPrint(e.message);
