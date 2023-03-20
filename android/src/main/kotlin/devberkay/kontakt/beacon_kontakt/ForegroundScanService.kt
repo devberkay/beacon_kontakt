@@ -23,9 +23,11 @@ import java.util.concurrent.TimeUnit
 
 class ForegroundScanService(private val context: Context) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
+    private lateinit var proximityManager : ProximityManager
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
         val argumentMap = arguments as Map<String, Any>
         val scanMode = argumentMap["scanMode"] as String
+        
         val listenerType = argumentMap["listenerType"] as String
         if(listenerType=="iBeacon") {
             proximityManager.setIBeaconListener(iBeaconListener)
@@ -33,15 +35,6 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
         else if(listenerType=="SecureProfile") {
             proximityManager.setSecureProfileListener(secureProfileListener)
         }
-        eventSink = events
-    }
-
-    override fun onCancel(arguments: Any?) {
-        eventSink = null
-        proximityManager.disconnect()
-    }
-
-    private val proximityManager: ProximityManager by lazy {
         ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {
             configuration()
                 .scanMode(ScanMode.BALANCED)
@@ -56,7 +49,30 @@ class ForegroundScanService(private val context: Context) : EventChannel.StreamH
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
         }
+        eventSink = events
     }
+
+    override fun onCancel(arguments: Any?) {
+        eventSink = null
+        proximityManager.disconnect()
+    }
+
+//    private val proximityManager: ProximityManager by lazy {
+//        ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {
+//            configuration()
+//                .scanMode(ScanMode.BALANCED)
+//                .scanPeriod(ScanPeriod.MONITORING)
+//                .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
+//                .forceScanConfiguration(ForceScanConfiguration.DISABLED)
+//                .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
+//                .rssiCalculator(RssiCalculators.DEFAULT)
+//                .cacheFileName("BLE_CACHE")
+//                .resolveShuffledInterval(3)
+//                .monitoringEnabled(true)
+//                .monitoringSyncInterval(10)
+//                .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
+//        }
+//    }
 
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
