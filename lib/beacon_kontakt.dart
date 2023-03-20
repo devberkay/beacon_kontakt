@@ -19,6 +19,10 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.listenPermissionStatus();
   }
 
+  Future<void> initKontaktSDK(String apiKey) {
+    return BeaconKontaktPlatform.instance.initKontaktSDK(apiKey);
+  }
+
 
 
   

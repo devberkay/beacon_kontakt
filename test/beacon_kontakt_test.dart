@@ -22,6 +22,8 @@ class MockBeaconKontaktPlatform
   }
 }
 
+
+
 void main() {
   final BeaconKontaktPlatform initialPlatform = BeaconKontaktPlatform.instance;
 

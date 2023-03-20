@@ -41,4 +41,9 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       yield BLEPermissionStatus.denied;
     }
   }
+
+  @override
+  Future<void> initKontaktSDK(String apiKey) async {
+    await methodChannel.invokeMethod<void>('initKontaktSDK');
+  }
 }

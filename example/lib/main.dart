@@ -20,22 +20,33 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _beaconKontaktPlugin = BeaconKontakt();
   late final StreamSubscription permissionStatusStreamSubscription;
-
+  BLEPermissionStatus permissionStatus = BLEPermissionStatus.denied;
   @override
   void initState() {
     super.initState();
     initPlatformState();
-    
+    initKontaktSDK();
+  }
+
+  @override
+  void dispose() {
+    permissionStatusStreamSubscription.cancel();
+    super.dispose();
   }
 
   listenPermissionStatus() {
     final permissionStatusStream = _beaconKontaktPlugin.requestPermissions();
-    permissionStatusStreamSubscription = permissionStatusStream.listen((status) {
-      print(status);
+    permissionStatusStreamSubscription =
+        permissionStatusStream.listen((status) {
+      setState(() {
+        permissionStatus = status;
+      });
     });
   }
 
-  
+  Future<void> initKontaktSDK() async {
+    await _beaconKontaktPlugin.initKontaktSDK();
+  }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
@@ -43,8 +54,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _beaconKontaktPlugin.getPlatformVersion() ?? 'Unknown platform version';
+      platformVersion = await _beaconKontaktPlugin.getPlatformVersion() ??
+          'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -69,18 +80,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        floatingActionButton: FloatingActionButton(onPressed: () async {
-         await checkPermissions();
-        }),
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.search),
+            onPressed: () async {
+              await checkPermissions();
+            }),
         appBar: AppBar(
-          
           title: const Text('Plugin example app'),
         ),
         body: Center(
           child: Column(
             children: [
               Text('Running on: $_platformVersion\n'),
-              Text('Permissions are granted : $')
+              Text('Permissions are ${permissionStatus.name}')
             ],
           ),
         ),

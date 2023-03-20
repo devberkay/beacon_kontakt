@@ -45,14 +45,9 @@ import io.flutter.plugin.common.MethodChannel.Result
         if (call.method == "getPlatformVersion") {
           result.success("Android ${android.os.Build.VERSION.RELEASE}")
         }
-        else if(call.method == "initialize") {
+        else if(call.method == "initKontaktSDK") {
           kontaktSDK = KontaktSDK.initialize(call.argument("apiKey") as String?)
-          if(kontaktSDK != null) {
-            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
-          }
-          else {
-            result.success(null)
-          }
+          result.success(null)
         }
         else if(call.method == "checkPermissions") {
           if(kontaktSDK!=null) {

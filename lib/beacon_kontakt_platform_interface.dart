@@ -34,4 +34,8 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
   Stream<BLEPermissionStatus> listenPermissionStatus() {
     throw UnimplementedError('onPermissionChanged() has not been implemented.');
   }
+
+  Future<void> initKontaktSDK(String apiKey) {
+    throw UnimplementedError('initKontaktSDK() has not been implemented.');
+  }
 }
