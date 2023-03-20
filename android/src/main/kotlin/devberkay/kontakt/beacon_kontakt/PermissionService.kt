@@ -12,7 +12,7 @@ import io.flutter.plugin.common.EventChannel
 class PermissionService(private val activity: Activity,private val context: Context) {
 
 
-    fun checkPermissions() : boolean {
+    fun checkPermissions() : Boolean {
         val requiredPermissions = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION) // some android 12 devices requires coarse_location with fine_location
         } else {

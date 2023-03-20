@@ -6,7 +6,7 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
 
 
-class PermissionStreamHandler(binding : ActivityPluginBinding) : EventChannel.StreamHandler {
+class PermissionStreamHandler(private var binding : ActivityPluginBinding,private var permissionService: PermissionService) : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
     private lateinit var permissionResult: MethodChannel.Result
 
@@ -19,6 +19,8 @@ class PermissionStreamHandler(binding : ActivityPluginBinding) : EventChannel.St
 
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
         eventSink = sink
+        var permissionStatus = if(permissionService.checkPermissions()) "PERMISSION_GRANTED" else "PERMISSION_DENIED"
+        eventSink?.success(permissionStatus)
     }
 
     override fun onCancel(arguments: Any?) {
