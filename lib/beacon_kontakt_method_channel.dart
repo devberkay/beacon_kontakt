@@ -67,7 +67,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
     try {
       await for (final listOfDevices
           in foregroundScanEventChannel.receiveBroadcastStream()) {
-        print(listOfDevices);
+       
         yield listOfDevices as Map<String, dynamic>;
       }
     } on PlatformException catch (e) {
