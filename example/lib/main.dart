@@ -1,3 +1,4 @@
+import 'package:beacon_kontakt/permission_enum.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -18,18 +19,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _beaconKontaktPlugin = BeaconKontakt();
-  late final Stream<String> permissionStatus;
+  late final StreamSubscription permissionStatusStreamSubscription;
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
-    listenPermissionStatus();
-  }
-
-  Future<void> listenPermissionStatus() {
     
   }
+
+  listenPermissionStatus() {
+    final permissionStatusStream = _beaconKontaktPlugin.requestPermissions();
+    permissionStatusStreamSubscription = permissionStatusStream.listen((status) {
+      print(status);
+    });
+  }
+
+  
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
@@ -64,7 +70,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(onPressed: () async {
-         checkPermissions;
+         await checkPermissions();
         }),
         appBar: AppBar(
           

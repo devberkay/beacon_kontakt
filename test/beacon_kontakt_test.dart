@@ -18,7 +18,7 @@ class MockBeaconKontaktPlatform
 
   @override
   Stream<BLEPermissionStatus> listenPermissionStatus() {
-    return Stream.value(null);
+    return Stream.value(BLEPermissionStatus.granted);
   }
 }
 
