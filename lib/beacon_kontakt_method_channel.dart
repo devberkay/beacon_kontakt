@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'beacon_kontakt_platform_interface.dart';
+import 'permission_enum.dart';
 
 /// An implementation of [BeaconKontaktPlatform] that uses method channels.
 class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
@@ -25,7 +26,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Stream<String?> listenPermissionStatus() {
+  Stream<BLEPermissionStatus> listenPermissionStatus() {
     
   }
 
