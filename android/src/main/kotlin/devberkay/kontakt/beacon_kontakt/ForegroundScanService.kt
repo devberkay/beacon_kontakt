@@ -50,7 +50,7 @@ class ForegroundScanService(private val context: Context, private val listenerTy
             iBeacons: MutableList<IBeaconDevice>?,
             region: IBeaconRegion?
         ) {
-            eventSink?.success(iBeacons.map {   })
+            eventSink?.success(iBeacons.map { mapOf("rssi" to it.rssi, "txPower")  })
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
@@ -65,7 +65,7 @@ class ForegroundScanService(private val context: Context, private val listenerTy
         }
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
-            eventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel ) })
+            eventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress, "distance" to it.location.localTimeMs ) })
         }
 
         override fun onProfileLost(iSecureProfile: ISecureProfile) {
