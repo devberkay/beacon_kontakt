@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
                   child: Text("Start Scanning")),
               TextButton(
                   onPressed: () {
-                    _beaconKontaktPlugin.stopScanning();
+                     _beaconKontaktPlugin.stopScanning();
                     // _beaconKontaktPlugin.listenScanResults().listen((event) {
                     //   print(event);
                     // });
