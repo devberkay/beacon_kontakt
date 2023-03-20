@@ -48,7 +48,7 @@ import io.flutter.plugin.common.MethodChannel.Result
         else if(call.method == "initKontaktSDK") {
           var apiKey = call.argument("apiKey") as String?
           kontaktSDK = KontaktSDK.initialize(apiKey)
-          foregroundScanService = ForegroundScanService(applicationContext,apiKey)
+          foregroundScanService = ForegroundScanService(applicationContext,apiKey!!)
           result.success(null)
         }
         else if(call.method == "checkPermissions") {
