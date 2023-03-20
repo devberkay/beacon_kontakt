@@ -65,9 +65,7 @@ class ForegroundScanService(private val context: Context, private val listenerTy
         }
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
-            for (profile in list) {
-
-            }
+            eventSink?.success(list.map { mapOf("rssi" to ) })
         }
 
         override fun onProfileLost(iSecureProfile: ISecureProfile) {
