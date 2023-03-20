@@ -9,7 +9,8 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('beacon_kontakt');
 
-  final permissionEventChannel = const EventChannel('beacon_kontakt_permission_event');
+  final permissionEventChannel =
+      const EventChannel('beacon_kontakt_permission_event');
   final foregroundScanEventChannel =
       const EventChannel("beacon_kontakt_foreground_scan_event");
 
@@ -22,17 +23,21 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
 
   @override
   Future<void> checkPermissions() {
-     return methodChannel.invokeMethod('checkPermissions');
+    return methodChannel.invokeMethod('checkPermissions');
   }
 
   @override
   Stream<BLEPermissionStatus> listenPermissionStatus() async* {
-    await for (final status in permissionEventChannel
-        .receiveBroadcastStream()
-        .map((status) => status == "PERMISSION_GRANTED")) {
-      yield status;
+    try {
+      await for (final status in permissionEventChannel
+          .receiveBroadcastStream()
+          .map((status) => status == "PERMISSION_GRANTED"
+              ? BLEPermissionStatus.granted
+              : BLEPermissionStatus.denied)) {
+        yield status;
+      }
+    } on PlatformException catch (e) {
+      yield BLEPermissionStatus.denied;
     }
   }
-
-
 }
