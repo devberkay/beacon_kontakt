@@ -32,7 +32,7 @@ class PermissionStreamHandler(binding : ActivityPluginBinding) : EventChannel.St
             if (granted) {
                 eventSink?.success("PERMISSION_GRANTED")
             } else {
-                eventSink?.error("PERMISSION_DENIED", "The user denied the permission request", null)
+                eventSink?.success("PERMISSION_DENIED")
             }
         }
     }

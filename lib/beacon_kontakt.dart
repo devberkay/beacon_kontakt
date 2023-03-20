@@ -15,12 +15,16 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.checkPermissions();
   }
 
-  Stream<BLEPermissionStatus> requestPermissions() {
+  Stream<BLEPermissionStatus> listenPermissionStatus() {
     return BeaconKontaktPlatform.instance.listenPermissionStatus();
   }
 
   Future<void> initKontaktSDK(String apiKey) {
     return BeaconKontaktPlatform.instance.initKontaktSDK(apiKey);
+  }
+
+  Future<void> startScanning() {
+    return BeaconKontaktPlatform.instance.startScanning();
   }
 
 

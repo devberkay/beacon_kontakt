@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _beaconKontaktPlugin = BeaconKontakt();
   late final StreamSubscription permissionStatusStreamSubscription;
-  BLEPermissionStatus permissionStatus = BLEPermissionStatus.denied;
+  
   @override
   void initState() {
     super.initState();
@@ -34,15 +34,7 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  listenPermissionStatus() {
-    final permissionStatusStream = _beaconKontaktPlugin.requestPermissions();
-    permissionStatusStreamSubscription =
-        permissionStatusStream.listen((status) {
-      setState(() {
-        permissionStatus = status;
-      });
-    });
-  }
+  
 
   Future<void> initKontaktSDK() async {
     await _beaconKontaktPlugin.initKontaktSDK("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
@@ -92,7 +84,17 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               Text('Running on: $_platformVersion\n'),
-              Text('Permissions are ${permissionStatus.name}')
+              StreamBuilder<BLEPermissionStatus>(
+                initialData: BLEPermissionStatus.denied,
+                stream: _beaconKontaktPlugin.listenPermissionStatus(),
+                builder: (context,snapshot) {
+                  final permissionStatus = snapshot.data ?? BLEPermissionStatus.denied;
+                  return Text('Permissions are ${permissionStatus.name}');
+                }
+              ),
+              TextButton(onPressed: () {
+                
+              }, child: Text("Start Scanning")),
             ],
           ),
         ),
