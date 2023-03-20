@@ -27,6 +27,10 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.startScanning();
   }
 
+  Future<void> listenScanResults() {
+    
+  }
+
 
 
   

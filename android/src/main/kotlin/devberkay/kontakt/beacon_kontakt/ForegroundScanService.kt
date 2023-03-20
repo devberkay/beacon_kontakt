@@ -36,7 +36,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         else if(listenerType=="SecureProfile") {
             proximityManager.setSecureProfileListener(secureProfileListener)
         }
-        ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
+        proximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
             configuration()
                 .scanMode(ScanMode.BALANCED)
                 .scanPeriod(scanPeriod)
@@ -50,7 +50,6 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
         }
-
     }
 
     override fun onCancel(arguments: Any?) {
