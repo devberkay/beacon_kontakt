@@ -7,6 +7,8 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('beacon_kontakt');
 
+  final eventChannel = const EventChannel('beacon_kontakt_platform_event');
+
   @override
   Future<String?> getPlatformVersion() async {
     final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
