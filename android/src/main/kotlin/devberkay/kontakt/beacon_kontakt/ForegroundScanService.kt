@@ -8,12 +8,12 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.kontakt.sdk.android.ble.configuration.ScanMode
-import com.kontakt.sdk.android.ble.configuration.ScanPeriod
+import com.kontakt.sdk.android.ble.configuration.*
 import com.kontakt.sdk.android.ble.manager.ProximityManager
 import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
 import com.kontakt.sdk.android.ble.manager.listeners.IBeaconListener
 import com.kontakt.sdk.android.ble.manager.listeners.SecureProfileListener
+import com.kontakt.sdk.android.ble.rssi.RssiCalculators
 import com.kontakt.sdk.android.cloud.KontaktCloudFactory
 import com.kontakt.sdk.android.common.profile.IBeaconDevice
 import com.kontakt.sdk.android.common.profile.IBeaconRegion
@@ -35,9 +35,17 @@ class ForegroundScanService(private val context: Context, private val listenerTy
     private val proximityManager: ProximityManager by lazy {
         ProximityManagerFactory.create(context, KontaktCloudFactory.create("dgSRGSjPdKlgymeNiratRYxucDqGOCtj")).apply {
             configuration()
-                .scanPeriod(ScanPeriod.MONITORING)
                 .scanMode(ScanMode.BALANCED)
-                .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(8))
+                .scanPeriod(ScanPeriod.MONITORING)
+                .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
+                .forceScanConfiguration(ForceScanConfiguration.DISABLED)
+                .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
+                .rssiCalculator(RssiCalculators.DEFAULT)
+                .cacheFileName("BLE_CACHE")
+                .resolveShuffledInterval(3)
+                .monitoringEnabled(true)
+                .monitoringSyncInterval(10)
+                .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
         }
     }
 
