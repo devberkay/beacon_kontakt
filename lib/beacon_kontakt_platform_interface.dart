@@ -49,7 +49,7 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
     throw UnimplementedError('stopScanning() has not been implemented.');
   }
 
-  Stream<List<Map<String, dynamic>>>  listenScanResults() {
+  Stream<dynamic>  listenScanResults() {
     throw UnimplementedError('listenScanResults() has not been implemented.');
   }
 }

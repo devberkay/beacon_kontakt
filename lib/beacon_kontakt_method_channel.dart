@@ -62,12 +62,13 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
     });
   }
 
+  @override
   Future<void> stopScanning() async {
     await methodChannel.invokeMethod<void>('stopScanning');
   }
 
   @override
-  Stream<List<Map<String, dynamic>>> listenScanResults() async* {
+  Stream<dynamic> listenScanResults() async* {
     try {
       await for (final listOfDevices
           in foregroundScanEventChannel.receiveBroadcastStream()) {
