@@ -37,7 +37,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
             configuration()
                 .scanMode(ScanMode.BALANCED)
-                .scanPeriod(ScanPeriod.MONITORING)
+                .scanPeriod(scanPeriod)
                 .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
                 .forceScanConfiguration(ForceScanConfiguration.DISABLED)
                 .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
@@ -47,7 +47,6 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .monitoringEnabled(true)
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
-
         }
     }
 
