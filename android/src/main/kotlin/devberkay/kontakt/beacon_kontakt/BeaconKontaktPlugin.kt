@@ -5,6 +5,7 @@ package devberkay.kontakt.beacon_kontakt
 import android.app.Activity
 import android.content.Context
 import androidx.annotation.NonNull
+import com.kontakt.sdk.android.ble.configuration.ScanPeriod
 import com.kontakt.sdk.android.common.KontaktSDK
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -30,7 +31,7 @@ import io.flutter.plugin.common.MethodChannel.Result
     private lateinit var permissionService : PermissionService
     private lateinit var foregroundScanService : ForegroundScanService
     private lateinit var foregroundScanEventChannel : EventChannel
-
+    private var apiKey : String? = null
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
       channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
       permissionEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_permission_event")
@@ -44,9 +45,8 @@ import io.flutter.plugin.common.MethodChannel.Result
           result.success("Android ${android.os.Build.VERSION.RELEASE}")
         }
         else if(call.method == "initKontaktSDK") {
-          var apiKey = call.argument("apiKey") as String?
+          apiKey = call.argument("apiKey") as String?
           kontaktSDK = KontaktSDK.initialize(apiKey)
-          foregroundScanService = ForegroundScanService(applicationContext,apiKey!!)
           result.success(null)
         }
         else if(call.method == "checkPermissions") {
@@ -58,8 +58,12 @@ import io.flutter.plugin.common.MethodChannel.Result
           }
         }
         else if(call.method == "startScanning") {
+          var scanPeriod = call.argument("scanPeriod") as String? // Monitoring or Ranging
+          var listenerType = call.argument("listenerType") as String? // iBeacon or SecureProfile
+          var scanPeriodObj = if(scanPeriod=="Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
          if (kontaktSDK!=null) {
-           result.success(foregroundScanService.startScanning())
+           foregroundScanService = ForegroundScanService(applicationContext,apiKey!!,scanPeriodObj,listenerType!!)
+           foregroundScanService.startScanning()
          }
           else {
            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
@@ -67,7 +71,7 @@ import io.flutter.plugin.common.MethodChannel.Result
         }
         else if(call.method == "stopScanning") {
           if(kontaktSDK!=null) {
-            result.success(foregroundScanService.stopScanning())
+            foregroundScanService.stopScanning()
           }
           else {
             result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
