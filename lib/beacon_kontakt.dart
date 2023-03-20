@@ -29,6 +29,10 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.startScanning(scanPeriod,listenerType);
   }
 
+  Future<void> stopScanning() {
+    return BeaconKontaktPlatform.instance.stopScanning();
+  }
+
   Stream<List<Map<String, dynamic>>>  listenScanResults() {
     return BeaconKontaktPlatform.instance.listenScanResults();
   }

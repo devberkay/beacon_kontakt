@@ -45,6 +45,9 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
   Future<void> startScanning(ScanPeriod scanPeriod,ListenerType listenerType) {
     throw UnimplementedError('startScanning() has not been implemented.');
   }
+  Future<void> stopScanning() {
+    throw UnimplementedError('stopScanning() has not been implemented.');
+  }
 
   Stream<List<Map<String, dynamic>>>  listenScanResults() {
     throw UnimplementedError('listenScanResults() has not been implemented.');
