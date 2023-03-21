@@ -57,8 +57,8 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       "scanPeriod":
           scanPeriod == ScanPeriod.monitoring ? "Monitoring" : "Ranging",
       "listenerType": listenerType == ListenerType.SecureProfile
-          ? "SecureProfile"
-          : "iBeacon",
+          ? "secureProfileListener"
+          : "iBeaconListener",
       "proximityUUID": "f2142874-611b-11ed-9b6a-0242ac120002",
       "major": major,
       "minor": minor
