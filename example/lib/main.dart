@@ -85,14 +85,14 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               Text('Running on: $_platformVersion\n'),
-              StreamBuilder<BLEPermissionStatus>(
-                  initialData: BLEPermissionStatus.denied,
-                  stream: _beaconKontaktPlugin.listenPermissionStatus(),
-                  builder: (context, snapshot) {
-                    final permissionStatus =
-                        snapshot.data ?? BLEPermissionStatus.denied;
-                    return Text('Permissions are ${permissionStatus.name}');
-                  }),
+              // StreamBuilder<BLEPermissionStatus>(
+              //     initialData: BLEPermissionStatus.denied,
+              //     stream: _beaconKontaktPlugin.listenPermissionStatus(),
+              //     builder: (context, snapshot) {
+              //       final permissionStatus =
+              //           snapshot.data ?? BLEPermissionStatus.denied;
+              //       return Text('Permissions are ${permissionStatus.name}');
+              //     }),
               TextButton(
                   onPressed: () async {
                     await _beaconKontaktPlugin.startScanning(
