@@ -96,15 +96,16 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                   onPressed: () async {
                     await _beaconKontaktPlugin.startScanning(
-                        ScanPeriod.monitoring, ListenerType.iBeacon,'f2142874-611b-11ed-9b6a-0242ac120002',1,3674);
-                    _beaconKontaktPlugin.listenScanResults().listen((event) {
-                      print("shutup $event");
-                    });
+                        ScanPeriod.monitoring,
+                        ListenerType.iBeacon,
+                        'f2142874-611b-11ed-9b6a-0242ac120002',
+                        1,
+                        3674);
                   },
                   child: Text("Start Scanning")),
               TextButton(
                   onPressed: () async {
-                     await _beaconKontaktPlugin.stopScanning();
+                    await _beaconKontaktPlugin.stopScanning();
                     // _beaconKontaktPlugin.listenScanResults().listen((event) {
                     //   print(event);
                     // });
@@ -113,6 +114,13 @@ class _MyAppState extends State<MyApp> {
                     "Stop Scanning",
                     style: TextStyle(color: Colors.red),
                   )),
+              StreamBuilder<List<Map<String, dynamic>>>(
+                  stream: _beaconKontaktPlugin.listenScanResults(),
+                  initialData: [],
+                  builder: (context, snapshot) {
+                    final devices = snapshot.data;
+                    return Text(devices.toString());
+                  })
             ],
           ),
         ),
