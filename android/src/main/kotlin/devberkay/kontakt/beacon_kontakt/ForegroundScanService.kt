@@ -55,11 +55,11 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
 
-            this.filters().iBeaconFilters(filterList)
+//            this.filters().iBeaconFilters(filterList)
             when (listenerType) {
                 "iBeaconListener" -> this.setIBeaconListener(iBeaconListener)
-                "simpleIBeaconListener" -> this.setIBeaconListener(simpleIBeaconListener)
-                
+                "secureProfileListener" -> this.setSecureProfileListener(secureProfileListener)
+
             }
 
         }
@@ -110,22 +110,22 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
             if (proximityManager.isScanning) {
                 Log.d(TAG, "startScanning: ALREADY FUCKING SCANNING")
-                if (listenerType == "iBeaconListener") {
-                    proximityManager.setIBeaconListener(iBeaconListener)
-                    Log.d(TAG, "startScanning: SETTING IBEACON LISTENER")
-                } else if (listenerType == "secureProfileListener") {
-                    proximityManager.setSecureProfileListener(secureProfileListener)
-                    Log.d(TAG, "startScanning: SETTING SECURE PROFILE LISTENER")
-                }
+//                if (listenerType == "iBeaconListener") {
+//                    proximityManager.setIBeaconListener(iBeaconListener)
+//                    Log.d(TAG, "startScanning: SETTING IBEACON LISTENER")
+//                } else if (listenerType == "secureProfileListener") {
+//                    proximityManager.setSecureProfileListener(secureProfileListener)
+//                    Log.d(TAG, "startScanning: SETTING SECURE PROFILE LISTENER")
+//                }
             } else {
                 Log.d(TAG, "startScanning: WAS NOT FUCKING SCANNING")
-                if (listenerType == "iBeaconListener") {
-                    proximityManager.setIBeaconListener(iBeaconListener)
-                    Log.d(TAG, "WAS NOT startScanning: SETTING IBEACON LISTENER")
-                } else if (listenerType == "secureProfileListener") {
-                    proximityManager.setSecureProfileListener(secureProfileListener)
-                    Log.d(TAG, "WAS NOT startScanning: SETTING IBEACON LISTENER")
-                }
+//                if (listenerType == "iBeaconListener") {
+//                    proximityManager.setIBeaconListener(iBeaconListener)
+//                    Log.d(TAG, "WAS NOT startScanning: SETTING IBEACON LISTENER")
+//                } else if (listenerType == "secureProfileListener") {
+//                    proximityManager.setSecureProfileListener(secureProfileListener)
+//                    Log.d(TAG, "WAS NOT startScanning: SETTING IBEACON LISTENER")
+//                }
                 proximityManager.startScanning()
             }
         }
