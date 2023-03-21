@@ -52,13 +52,16 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
 
   @override
   Future<void> startScanning(
-      ScanPeriod scanPeriod, ListenerType listenerType) async {
+      ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID, [int? major, int? minor]) async {
     await methodChannel.invokeMethod<void>('startScanning', {
       "scanPeriod":
           scanPeriod == ScanPeriod.monitoring ? "Monitoring" : "Ranging",
       "listenerType": listenerType == ListenerType.SecureProfile
           ? "SecureProfile"
-          : "iBeacon"
+          : "iBeacon",
+      "proximityUUID": "f2142874-611b-11ed-9b6a-0242ac120002",
+      "major": major,
+      "minor": minor
     });
   }
 
