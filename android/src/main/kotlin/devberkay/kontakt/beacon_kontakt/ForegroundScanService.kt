@@ -3,12 +3,11 @@ package devberkay.kontakt.beacon_kontakt
 import android.content.Context
 import android.util.Log
 import com.kontakt.sdk.android.ble.configuration.*
-import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilter
+import com.kontakt.sdk.android.ble.device.BeaconRegion
 import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilters
 import com.kontakt.sdk.android.ble.manager.ProximityManager
 import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
 import com.kontakt.sdk.android.ble.manager.listeners.IBeaconListener
-import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleIBeaconListener
 import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleSecureProfileListener
 import com.kontakt.sdk.android.ble.rssi.RssiCalculators
 import com.kontakt.sdk.android.cloud.KontaktCloudFactory
@@ -60,13 +59,22 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             when (listenerType) {
                 "iBeaconListener" -> this.setIBeaconListener(iBeaconListener)
                 "secureProfileListener" -> this.setSecureProfileListener(secureProfileListener)
-
             }
+
+            proximityManager.spaces().iBeaconRegions();
+
 
         }
     }
 
 
+
+    private val primaryRegion : IBeaconRegion = BeaconRegion.Builder()
+        .identifier("primaryRegion")
+        .proximity(UUID.fromString(proximityUUID))
+        .major(BeaconRegion.ANY_MAJOR)
+        .minor(BeaconRegion.ANY_MINOR)
+        .build()
 
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
