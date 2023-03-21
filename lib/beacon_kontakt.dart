@@ -25,7 +25,7 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.initKontaktSDK(apiKey);
   }
 
-  Future<void> startScanning(ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID, [int? major, int? minor]) {
+  Stream<List<Map<String, dynamic>>> startScanning(ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID, [int? major, int? minor]) {
     return BeaconKontaktPlatform.instance.startScanning(scanPeriod,listenerType,proximityUUID,major,minor);
   }
 

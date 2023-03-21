@@ -51,7 +51,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Future<void> startScanning(
+  Stream<List<Map<String, dynamic>>> startScanning(
       ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID, [int? major, int? minor]) async {
     await methodChannel.invokeMethod<void>('startScanning', {
       "scanPeriod":
@@ -73,6 +73,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   @override
   Stream<List<Map<String, dynamic>>> listenScanResults() async* {
     try {
+
       await for (final listOfDevices
           in foregroundScanEventChannel.receiveBroadcastStream()) {
        
