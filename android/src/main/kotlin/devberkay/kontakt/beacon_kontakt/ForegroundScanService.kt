@@ -35,7 +35,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
 
-    private val proximityManager: ProximityManager = run {
+    private val proximityManager: ProximityManager by lazy {
         val filterList = listOfNotNull(
             IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
             major?.let { IBeaconFilters.newMajorFilter(it) },
@@ -54,15 +54,11 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .monitoringEnabled(true)
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
-            filters().iBeaconFilters(filterList)
-            if (listenerType == "iBeaconListener") {
-                proximityManager.setIBeaconListener(iBeaconListener)
-            } else if (listenerType == "secureProfileListener") {
-                proximityManager.setSecureProfileListener(secureProfileListener)
-            }
+                filters().iBeaconFilters(filterList)
+
+
         }
     }
-
 
 
 
@@ -108,7 +104,12 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         proximityManager.connect {
 
             if (proximityManager.isScanning) {
-
+                Log.d(TAG, "startScanning: ALREADY FUCKING SCANNING")
+                if (listenerType == "iBeaconListener") {
+                    proximityManager.setIBeaconListener(iBeaconListener)
+                } else if (listenerType == "secureProfileListener") {
+                    proximityManager.setSecureProfileListener(secureProfileListener)
+                }
             } else {
                 proximityManager.startScanning()
             }
