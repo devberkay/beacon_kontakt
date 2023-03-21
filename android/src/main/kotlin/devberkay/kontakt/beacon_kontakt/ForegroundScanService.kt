@@ -31,6 +31,9 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         proximityManager.disconnect()
     }
 
+
+
+
     private val proximityManager: ProximityManager by lazy {
         val filterList = listOfNotNull(
             IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
@@ -54,12 +57,6 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         }
     }
 
-
-    private val filterList = listOfNotNull(
-        IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
-        major?.let { IBeaconFilters.newMajorFilter(it) },
-        minor?.let { IBeaconFilters.newMinorFilter(it) }
-    )
 
 
     private val iBeaconListener = object : IBeaconListener {
