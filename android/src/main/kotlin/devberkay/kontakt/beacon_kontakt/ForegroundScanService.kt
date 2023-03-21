@@ -18,7 +18,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String,private val proximityUUID) : EventChannel.StreamHandler  {
+class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String,private val proximityUUID:String,private val major:Int?, private val minor:Int? ) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
 
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
@@ -48,9 +48,9 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     }
 
     private val filterList = listOf(
-        IBeaconFilters.newProximityUUIDFilter(UUID.fromString("f7826da6-4fa2-4e98-8024-bc5b71e0893e")),
-        IBeaconFilters.newMajorFilter(43),
-        IBeaconFilters.newMinorFilter(34)
+        IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
+        IBeaconFilters.newMajorFilter(major),
+        IBeaconFilters.newMinorFilter(minor)
     )
 
     private val iBeaconListener = object : SimpleIBeaconListener() {
