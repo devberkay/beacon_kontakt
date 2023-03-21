@@ -59,7 +59,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       "listenerType": listenerType == ListenerType.SecureProfile
           ? "secureProfileListener"
           : "iBeaconListener",
-      "proximityUUID": "f2142874-611b-11ed-9b6a-0242ac120002",
+      "proximityUUID": proximityUUID,
       "major": major,
       "minor": minor
     });
