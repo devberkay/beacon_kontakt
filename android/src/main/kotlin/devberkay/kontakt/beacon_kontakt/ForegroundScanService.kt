@@ -56,7 +56,11 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
 
             this.filters().iBeaconFilters(filterList)
-
+            when (listenerType) {
+                "iBeaconListener" -> this.setIBeaconListener(iBeaconListener)
+                "simpleIBeaconListener" -> this.setIBeaconListener(simpleIBeaconListener)
+                
+            }
 
         }
     }
