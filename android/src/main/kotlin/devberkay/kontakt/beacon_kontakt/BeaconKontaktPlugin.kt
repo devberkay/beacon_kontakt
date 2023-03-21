@@ -61,8 +61,11 @@ import io.flutter.plugin.common.MethodChannel.Result
           var scanPeriod = call.argument("scanPeriod") as String? // Monitoring or Ranging
           var listenerType = call.argument("listenerType") as String? // iBeacon or SecureProfile
           var scanPeriodObj = if(scanPeriod=="Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
+          var minor = call.argument("minor") as Int?
+          var major = call.argument("major") as Int?
+          var proximityUUID = call.argument("proximityUUID") as String?
          if (kontaktSDK!=null) {
-           foregroundScanService = ForegroundScanService(applicationContext,apiKey!!,scanPeriodObj,listenerType!!)
+           foregroundScanService = ForegroundScanService(applicationContext,apiKey!!,scanPeriodObj,listenerType!!,proximityUUID!!,major,minor)
            foregroundScanService.startScanning()
          }
           else {
