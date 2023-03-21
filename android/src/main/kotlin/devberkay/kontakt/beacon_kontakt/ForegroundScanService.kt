@@ -56,9 +56,9 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
                 filters().iBeaconFilters(filterList)
             if (listenerType == "iBeaconListener") {
-                this.setIBeaconListener(iBeaconListener)
+                proximityManager.setIBeaconListener(iBeaconListener)
             } else if (listenerType == "secureProfileListener") {
-                this.setSecureProfileListener(secureProfileListener)
+                proximityManager.setSecureProfileListener(secureProfileListener)
             }
 
         }
