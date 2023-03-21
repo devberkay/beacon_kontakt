@@ -1,18 +1,11 @@
 package devberkay.kontakt.beacon_kontakt
 
-import android.Manifest
-import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
-import android.util.Log
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.kontakt.sdk.android.ble.configuration.*
+import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilter
+import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilters
 import com.kontakt.sdk.android.ble.manager.ProximityManager
 import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
-import com.kontakt.sdk.android.ble.manager.listeners.IBeaconListener
-import com.kontakt.sdk.android.ble.manager.listeners.SecureProfileListener
 import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleIBeaconListener
 import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleSecureProfileListener
 import com.kontakt.sdk.android.ble.rssi.RssiCalculators
@@ -21,9 +14,11 @@ import com.kontakt.sdk.android.common.profile.IBeaconDevice
 import com.kontakt.sdk.android.common.profile.IBeaconRegion
 import com.kontakt.sdk.android.common.profile.ISecureProfile
 import io.flutter.plugin.common.EventChannel
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String) : EventChannel.StreamHandler  {
+
+class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String,private val proximityUUID) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
 
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
@@ -51,6 +46,12 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
         }
     }
+
+    private var filterList: List<IBeaconFilter> = Arrays.asList(
+        IBeaconFilters.newProximityUUIDFilter(UUID.fromString("f7826da6-4fa2-4e98-8024-bc5b71e0893e")),
+        IBeaconFilters.newMajorFilter(43),
+        IBeaconFilters.newMinorFilter(34)
+    )
 
     private val iBeaconListener = object : SimpleIBeaconListener() {
 //        override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
