@@ -41,6 +41,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             major?.let { IBeaconFilters.newMajorFilter(it) },
             minor?.let { IBeaconFilters.newMinorFilter(it) }
         )
+        Log.d(TAG, "proximityManager filterList: $filterList")
         ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
             configuration()
                 .scanMode(ScanMode.BALANCED)
