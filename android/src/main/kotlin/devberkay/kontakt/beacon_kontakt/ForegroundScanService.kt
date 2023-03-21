@@ -64,7 +64,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
-            TODO("Not yet implemented")
+            eventSink?.success(iBeacon?.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
         }
 
         override fun onIBeaconsUpdated(
