@@ -76,7 +76,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
         yield listOfDevices as List<Map<String, dynamic>>;
       }
     } on PlatformException catch (e) {
-      debugPrint(e.message);
+      // debugPrint(e.message);
     }
   }
 }
