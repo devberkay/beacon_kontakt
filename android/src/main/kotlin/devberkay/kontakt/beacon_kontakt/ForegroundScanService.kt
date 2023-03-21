@@ -6,6 +6,7 @@ import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilter
 import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilters
 import com.kontakt.sdk.android.ble.manager.ProximityManager
 import com.kontakt.sdk.android.ble.manager.ProximityManagerFactory
+import com.kontakt.sdk.android.ble.manager.listeners.IBeaconListener
 import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleIBeaconListener
 import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleSecureProfileListener
 import com.kontakt.sdk.android.ble.rssi.RssiCalculators
@@ -61,10 +62,10 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     )
 
 
-    private val iBeaconListener = object : SimpleIBeaconListener() {
-//        override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
-//            TODO("Not yet implemented")
-//        }
+    private val iBeaconListener = object : IBeaconListener {
+        override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
+            TODO("Not yet implemented")
+        }
 
         override fun onIBeaconsUpdated(
             iBeacons: MutableList<IBeaconDevice>?,
@@ -73,9 +74,9 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             eventSink?.success(iBeacons?.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
         }
 
-//        override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
-//            TODO("Not yet implemented")
-//        }
+        override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
+            TODO("Not yet implemented")
+        }
     }
 
     private val secureProfileListener = object : SimpleSecureProfileListener() {
