@@ -31,6 +31,11 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     }
 
     private val proximityManager: ProximityManager by lazy {
+        val filterList = listOfNotNull(
+            IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
+            major?.let { IBeaconFilters.newMajorFilter(it) },
+            minor?.let { IBeaconFilters.newMinorFilter(it) }
+        )
         ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
             configuration()
                 .scanMode(ScanMode.BALANCED)
@@ -44,8 +49,10 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .monitoringEnabled(true)
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
+                .iBeaconFilters(filterList)
         }
     }
+
 
     private val filterList = listOfNotNull(
         IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
