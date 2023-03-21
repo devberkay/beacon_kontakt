@@ -56,12 +56,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
 
 
-            when (listenerType) {
-                "iBeaconListener" -> this.setIBeaconListener(iBeaconListener)
-                "secureProfileListener" -> this.setSecureProfileListener(secureProfileListener)
-            }
 
-            proximityManager.spaces().iBeaconRegions(listOf(primaryRegion));
 
 
         }
@@ -135,6 +130,12 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 //                    proximityManager.setSecureProfileListener(secureProfileListener)
 //                    Log.d(TAG, "WAS NOT startScanning: SETTING IBEACON LISTENER")
 //                }
+                when (listenerType) {
+                    "iBeaconListener" -> proximityManager.setIBeaconListener(iBeaconListener)
+                    "secureProfileListener" -> proximityManager.setSecureProfileListener(secureProfileListener)
+                }
+
+                proximityManager.spaces().iBeaconRegions(listOf(primaryRegion));
                 proximityManager.startScanning()
             }
         }
