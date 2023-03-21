@@ -61,7 +61,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 "secureProfileListener" -> this.setSecureProfileListener(secureProfileListener)
             }
 
-            proximityManager.spaces().iBeaconRegions(arrayListOf(primaryRegion));
+            proximityManager.spaces().iBeaconRegions(listOf(primaryRegion));
 
 
         }
