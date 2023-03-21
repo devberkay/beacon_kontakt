@@ -47,7 +47,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         }
     }
 
-    private var filterList: List<IBeaconFilter> = Arrays.asList(
+    private val filterList = listOf(
         IBeaconFilters.newProximityUUIDFilter(UUID.fromString("f7826da6-4fa2-4e98-8024-bc5b71e0893e")),
         IBeaconFilters.newMajorFilter(43),
         IBeaconFilters.newMinorFilter(34)
