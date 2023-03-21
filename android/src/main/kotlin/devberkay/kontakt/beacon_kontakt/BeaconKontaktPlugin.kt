@@ -4,6 +4,7 @@ package devberkay.kontakt.beacon_kontakt
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import androidx.annotation.NonNull
 import com.kontakt.sdk.android.ble.configuration.ScanPeriod
 import com.kontakt.sdk.android.common.KontaktSDK
@@ -58,6 +59,7 @@ import io.flutter.plugin.common.MethodChannel.Result
           }
         }
         else if(call.method == "startScanning") {
+
           var scanPeriod = call.argument("scanPeriod") as String? // Monitoring or Ranging
           var listenerType = call.argument("listenerType") as String? // iBeacon or SecureProfile
           var scanPeriodObj = if(scanPeriod=="Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
@@ -67,6 +69,7 @@ import io.flutter.plugin.common.MethodChannel.Result
          if (kontaktSDK!=null) {
            foregroundScanService = ForegroundScanService(applicationContext,apiKey!!,scanPeriodObj,listenerType!!,proximityUUID!!,major,minor)
            foregroundScanService.startScanning()
+           Log.d("KontaktSDK", "Scanning started")
          }
           else {
            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)

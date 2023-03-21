@@ -1,6 +1,7 @@
 package devberkay.kontakt.beacon_kontakt
 
 import android.content.Context
+import android.util.Log
 import com.kontakt.sdk.android.ble.configuration.*
 import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilter
 import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilters
@@ -61,6 +62,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
+            Log.d("onIBeaconsUpdated", iBeacon.toString())
             eventSink?.success(iBeacon?.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
         }
 
@@ -68,6 +70,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             iBeacons: MutableList<IBeaconDevice>?,
             region: IBeaconRegion?
         ) {
+            Log.d("onIBeaconsUpdated", iBeacons.toString())
             eventSink?.success(iBeacons?.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
         }
 
