@@ -85,14 +85,14 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               Text('Running on: $_platformVersion\n'),
-              // StreamBuilder<BLEPermissionStatus>(
-              //     initialData: BLEPermissionStatus.denied,
-              //     stream: _beaconKontaktPlugin.listenPermissionStatus(),
-              //     builder: (context, snapshot) {
-              //       final permissionStatus =
-              //           snapshot.data ?? BLEPermissionStatus.denied;
-              //       return Text('Permissions are ${permissionStatus.name}');
-              //     }),
+              StreamBuilder<BLEPermissionStatus>(
+                  initialData: BLEPermissionStatus.denied,
+                  stream: _beaconKontaktPlugin.listenPermissionStatus(),
+                  builder: (context, snapshot) {
+                    final permissionStatus =
+                        snapshot.data ?? BLEPermissionStatus.denied;
+                    return Text('Permissions are ${permissionStatus.name}');
+                  }),
               TextButton(
                   onPressed: () async {
                     await _beaconKontaktPlugin.startScanning(
@@ -114,13 +114,13 @@ class _MyAppState extends State<MyApp> {
                     "Stop Scanning",
                     style: TextStyle(color: Colors.red),
                   )),
-              // StreamBuilder<List<Map<String, dynamic>>>(
-              //     stream: _beaconKontaktPlugin.listenScanResults(),
-              //     initialData: [],
-              //     builder: (context, snapshot) {
-              //       final devices = snapshot.data;
-              //       return Text(devices.toString());
-              //     })
+              StreamBuilder<List<Map<String, dynamic>>>(
+                  stream: _beaconKontaktPlugin.listenScanResults(),
+                  initialData: [],
+                  builder: (context, snapshot) {
+                    final devices = snapshot.data;
+                    return Text(devices.toString());
+                  })
             ],
           ),
         ),

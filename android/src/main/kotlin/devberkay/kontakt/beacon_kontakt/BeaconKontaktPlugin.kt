@@ -74,6 +74,7 @@ import io.flutter.plugin.common.MethodChannel.Result
             Log.d("KontaktSDK", "Proximity UUID: $proximityUUID")
          if (kontaktSDK!=null) {
            foregroundScanService = ForegroundScanService(applicationContext,apiKey!!,scanPeriodObj,listenerType!!,proximityUUID!!,major,minor)
+           foregroundScanEventChannel.setStreamHandler(foregroundScanService)
            foregroundScanService.startScanning()
            Log.d("KontaktSDK", "Scanning started")
          }
@@ -111,7 +112,7 @@ import io.flutter.plugin.common.MethodChannel.Result
     activity = binding.activity
     permissionService = PermissionService(activity,applicationContext)
     permissionEventChannel.setStreamHandler(PermissionStreamHandler(binding,permissionService))
-    foregroundScanEventChannel.setStreamHandler(foregroundScanService)
+
   }
 
 
