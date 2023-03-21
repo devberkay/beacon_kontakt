@@ -47,11 +47,12 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         }
     }
 
-    private val filterList = listOf(
+    private val filterList = listOfNotNull(
         IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
-        IBeaconFilters.newMajorFilter(major),
-        IBeaconFilters.newMinorFilter(minor)
+        major?.let { IBeaconFilters.newMajorFilter(it) },
+        minor?.let { IBeaconFilters.newMinorFilter(it) }
     )
+
 
     private val iBeaconListener = object : SimpleIBeaconListener() {
 //        override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
