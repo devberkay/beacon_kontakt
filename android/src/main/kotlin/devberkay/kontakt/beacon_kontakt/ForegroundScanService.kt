@@ -56,7 +56,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 .monitoringSyncInterval(10)
                 .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
 
-            this.filters().iBeaconFilters(filterList)
+            
             when (listenerType) {
                 "iBeaconListener" -> this.setIBeaconListener(iBeaconListener)
                 "secureProfileListener" -> this.setSecureProfileListener(secureProfileListener)
