@@ -63,13 +63,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
             proximityManager.spaces().iBeaconRegions(listOf(primaryRegion));
 
-            if (listenerType == "iBeaconListener") {
-                proximityManager.setIBeaconListener(iBeaconListener)
-                Log.d(TAG, "WAS NOT startScanning: SETTING IBEACON LISTENER")
-            } else if (listenerType == "secureProfileListener") {
-                proximityManager.setSecureProfileListener(secureProfileListener)
-                Log.d(TAG, "WAS NOT startScanning: SETTING IBEACON LISTENER")
-            }
+
 
 
         }
