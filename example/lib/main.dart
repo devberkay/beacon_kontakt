@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.search),
+            child: Icon(Icons.search), 
             onPressed: () async {
               await checkPermissions();
             }),
