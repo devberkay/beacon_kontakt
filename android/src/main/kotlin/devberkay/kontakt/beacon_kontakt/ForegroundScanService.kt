@@ -74,8 +74,8 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     private val primaryRegion : IBeaconRegion = BeaconRegion.Builder()
         .identifier("primaryRegion")
         .proximity(UUID.fromString(proximityUUID))
-        .major(BeaconRegion.ANY_MAJOR)
-        .minor(BeaconRegion.ANY_MINOR)
+        .major(major!!)
+        .minor(minor!!)
         .build()
 
     private val iBeaconListener = object : IBeaconListener {
