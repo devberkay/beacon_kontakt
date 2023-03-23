@@ -34,6 +34,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             .monitoringEnabled(true)
             .monitoringSyncInterval(10)
             .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
+
     }
 
     private val iBeaconListener = object : IBeaconListener {
@@ -78,7 +79,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     private val primaryRegion : IBeaconRegion = BeaconRegion.Builder()
         .identifier("primaryRegion")
         .proximity(UUID.fromString(proximityUUID))
-        .major(major!!)
+        .major()
         .minor(minor!!)
         .build()
 
@@ -103,7 +104,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
     init {
-        
+
         Log.d(TAG, "proximityManager filterList: $filterList")
 
         when (listenerType) {
