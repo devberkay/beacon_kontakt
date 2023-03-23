@@ -114,13 +114,7 @@ class _MyAppState extends State<MyApp> {
                     "Stop Scanning",
                     style: TextStyle(color: Colors.red),
                   )),
-              StreamBuilder<List<Map<String, dynamic>>>(
-                  stream: _beaconKontaktPlugin.listenScanResults(),
-                  initialData: [],
-                  builder: (context, snapshot) {
-                    final devices = snapshot.data;
-                    return Text(devices.toString());
-                  })
+              if()
             ],
           ),
         ),
