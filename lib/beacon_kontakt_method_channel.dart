@@ -56,7 +56,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
     await methodChannel.invokeMethod<void>('startScanning', {
       "scanPeriod":
           scanPeriod == ScanPeriod.monitoring ? "Monitoring" : "Ranging",
-      "listenerType": listenerType == ListenerType.SecureProfile
+      "listenerType": listenerType == ListenerType.secureProfile
           ? "secureProfileListener"
           : "iBeaconListener",
       "proximityUUID": proximityUUID,

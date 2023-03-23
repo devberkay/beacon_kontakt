@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
               TextButton(
                   onPressed: () async {
                     await _beaconKontaktPlugin.startScanning(
-                        ScanPeriod.monitoring,
+                        ScanPeriod.ranging,
                         ListenerType.iBeacon,
                         'f2142874-611b-11ed-9b6a-0242ac120002',
                         1,
