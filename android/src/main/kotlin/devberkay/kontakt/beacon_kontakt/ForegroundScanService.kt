@@ -109,11 +109,12 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
             } else {
                 Log.d(TAG, "startScanning: WAS NOT FUCKING SCANNING")
-                when (listenerType) {
-                    "iBeaconListener" -> proximityManager.setIBeaconListener(iBeaconListener)
-                    "secureProfileListener" -> proximityManager.setSecureProfileListener(secureProfileListener)
-                }
-
+//                when (listenerType) {
+//                    "iBeaconListener" -> proximityManager.setIBeaconListener(iBeaconListener)
+//                    "secureProfileListener" -> proximityManager.setSecureProfileListener(secureProfileListener)
+//                }
+                proximityManager.setIBeaconListener(iBeaconListener)
+                proximityManager.setSecureProfileListener(secureProfileListener)
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion));
                 proximityManager.startScanning()
 
