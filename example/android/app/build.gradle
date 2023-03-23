@@ -67,6 +67,6 @@ flutter {
 }
 
 dependencies {
-    implementation("io.kontakt.mvn:sdk:7.0.13")
+    implementation("io.kontakt.mvn:sdk:7.1.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
