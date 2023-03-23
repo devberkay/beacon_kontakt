@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit
 
 class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String,private val proximityUUID:String,private val major:Int?, private val minor:Int? ) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
-    private  var proximityManager: ProximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
+    private var proximityManager: ProximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
         configuration()
             .scanMode(ScanMode.BALANCED)
             .scanPeriod(scanPeriod)
@@ -34,8 +34,16 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             .monitoringEnabled(true)
             .monitoringSyncInterval(10)
             .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
-
+            .apply {
+                Log.d(TAG, "proximityManager filterList: $filterList")
+                when (listenerType) {
+                    "iBeaconListener" -> setIBeaconListener(iBeaconListener)
+                    "secureProfileListener" -> setSecureProfileListener(secureProfileListener)
+                }
+                spaces().iBeaconRegions(listOf(primaryRegion))
+            }
     }
+
 
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
@@ -100,21 +108,6 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         proximityManager.disconnect()
     }
 
-
-
-
-    init {
-
-        Log.d(TAG, "proximityManager filterList: $filterList")
-
-        when (listenerType) {
-            "iBeaconListener" -> proximityManager.setIBeaconListener(iBeaconListener)
-            "secureProfileListener" -> proximityManager.setSecureProfileListener(secureProfileListener)
-        }
-
-        proximityManager.spaces().iBeaconRegions(listOf(primaryRegion));
-
-    }
 
 
 
