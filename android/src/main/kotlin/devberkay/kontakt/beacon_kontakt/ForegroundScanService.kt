@@ -103,7 +103,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
         fun startScanning() {
-            
+
             proximityManager.setIBeaconListener(iBeaconListener)
             proximityManager.setSecureProfileListener(secureProfileListener)
             proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
