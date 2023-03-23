@@ -32,7 +32,9 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     }
 
 
+    init {
 
+    }
 
     private val proximityManager: ProximityManager by lazy {
         val filterList = listOfNotNull(
