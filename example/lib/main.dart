@@ -114,7 +114,7 @@ class _MyAppState extends State<MyApp> {
                     "Stop Scanning",
                     style: TextStyle(color: Colors.red),
                   )),
-              if()
+             
             ],
           ),
         ),
