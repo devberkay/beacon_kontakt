@@ -47,7 +47,7 @@ android {
         applicationId "devberkay.kontakt.beacon_kontakt_example"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -67,7 +67,6 @@ flutter {
 }
 
 dependencies {
-
     implementation("io.kontakt.mvn:sdk:7.1.0")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
