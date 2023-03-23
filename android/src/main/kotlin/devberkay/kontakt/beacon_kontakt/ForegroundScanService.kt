@@ -105,16 +105,12 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         fun startScanning() {
 
 
-            proximityManager.connect(object : OnServiceReadyListener {
-                override fun onServiceReady() {
-                    proximityManager.setIBeaconListener(iBeaconListener)
-                    proximityManager.setSecureProfileListener(secureProfileListener)
-                    proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
-                    proximityManager.startScanning()
-                }
-            })
-
-
+            proximityManager.connect {
+                proximityManager.setIBeaconListener(iBeaconListener)
+                proximityManager.setSecureProfileListener(secureProfileListener)
+                proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
+                proximityManager.startScanning()
+            }
 
 
         }
