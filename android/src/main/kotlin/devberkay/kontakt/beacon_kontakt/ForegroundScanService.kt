@@ -21,7 +21,20 @@ import java.util.concurrent.TimeUnit
 
 class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String,private val proximityUUID:String,private val major:Int?, private val minor:Int? ) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
-    private lateinit var proximityManager: ProximityManager
+    private  var proximityManager: ProximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
+        configuration()
+            .scanMode(ScanMode.BALANCED)
+            .scanPeriod(scanPeriod)
+            .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
+            .forceScanConfiguration(ForceScanConfiguration.DISABLED)
+            .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
+            .rssiCalculator(RssiCalculators.DEFAULT)
+            .cacheFileName("BLE_CACHE")
+            .resolveShuffledInterval(3)
+            .monitoringEnabled(true)
+            .monitoringSyncInterval(10)
+            .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
+    }
 
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
@@ -69,6 +82,12 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         .minor(minor!!)
         .build()
 
+    private val filterList = listOfNotNull(
+        IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
+        major?.let { IBeaconFilters.newMajorFilter(it) },
+        minor?.let { IBeaconFilters.newMinorFilter(it) }
+    )
+
 
 
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
@@ -84,26 +103,9 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
     init {
-        val filterList = listOfNotNull(
-            IBeaconFilters.newProximityUUIDFilter(UUID.fromString(proximityUUID)),
-            major?.let { IBeaconFilters.newMajorFilter(it) },
-            minor?.let { IBeaconFilters.newMinorFilter(it) }
-        )
+        
         Log.d(TAG, "proximityManager filterList: $filterList")
-        ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
-            configuration()
-                .scanMode(ScanMode.BALANCED)
-                .scanPeriod(scanPeriod)
-                .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
-                .forceScanConfiguration(ForceScanConfiguration.DISABLED)
-                .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
-                .rssiCalculator(RssiCalculators.DEFAULT)
-                .cacheFileName("BLE_CACHE")
-                .resolveShuffledInterval(3)
-                .monitoringEnabled(true)
-                .monitoringSyncInterval(10)
-                .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
-        }
+
         when (listenerType) {
             "iBeaconListener" -> proximityManager.setIBeaconListener(iBeaconListener)
             "secureProfileListener" -> proximityManager.setSecureProfileListener(secureProfileListener)
