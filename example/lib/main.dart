@@ -6,19 +6,26 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:beacon_kontakt/beacon_kontakt.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+final isScanningProvider = StateProvider<bool>((ref) {
+  return false;
+});
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(
+    child: MyApp(),
+  ));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatefulHookConsumerWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> {
   String _platformVersion = 'Unknown';
   final _beaconKontaktPlugin = BeaconKontakt();
   late final StreamSubscription permissionStatusStreamSubscription;
@@ -71,10 +78,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final isScanning = ref.watch(isScanningProvider);
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.search), 
+            child: const Icon(Icons.search),
             onPressed: () async {
               await checkPermissions();
             }),
@@ -101,20 +109,32 @@ class _MyAppState extends State<MyApp> {
                         'f2142874-611b-11ed-9b6a-0242ac120002',
                         1,
                         3674);
+                        ref.read(isScanningProvider.notifier).state = true;
                   },
-                  child: Text("Start Scanning")),
+                  child: const Text("Start Scanning")),
               TextButton(
                   onPressed: () async {
                     await _beaconKontaktPlugin.stopScanning();
+                    ref.read(isScanningProvider.notifier).state = false;
                     // _beaconKontaktPlugin.listenScanResults().listen((event) {
                     //   print(event);
                     // });
                   },
-                  child: Text(
+                  child: const Text(
                     "Stop Scanning",
                     style: TextStyle(color: Colors.red),
                   )),
-             
+              if (isScanning)
+                StreamBuilder<List<Map<String, dynamic>>>(
+                    stream: _beaconKontaktPlugin.listenScanResults(),
+                    builder: (context, snapshot) {
+                      final scanResults = snapshot.data ?? [];
+                      return Column(
+                        children: [
+                          Text("Scan Results : $scanResults"),
+                        ],
+                      );
+                    })
             ],
           ),
         ),
