@@ -3,6 +3,7 @@ package devberkay.kontakt.beacon_kontakt
 import android.content.Context
 import android.util.Log
 import com.kontakt.sdk.android.ble.configuration.*
+import com.kontakt.sdk.android.ble.connection.OnServiceReadyListener
 import com.kontakt.sdk.android.ble.device.BeaconRegion
 import com.kontakt.sdk.android.ble.filter.ibeacon.IBeaconFilters
 import com.kontakt.sdk.android.ble.manager.ProximityManager
@@ -102,7 +103,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
         fun startScanning() {
-            proximityManager.connect()
+            
             proximityManager.setIBeaconListener(iBeaconListener)
             proximityManager.setSecureProfileListener(secureProfileListener)
             proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
