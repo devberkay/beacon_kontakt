@@ -38,6 +38,19 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
     }
 
+    val serviceReadyListener = object : OnServiceReadyListener {
+        override fun onServiceReady() {
+            val connectMap = Arguments.createMap()
+            try {
+
+
+            } catch (e: Exception) {
+
+            }
+        }
+    }
+
+
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
             Log.d("onIBeaconsDiscovered", "onIBeaconsDiscovered ${iBeacon?.proximityUUID.toString()} + ${iBeacon?.major} + ${iBeacon?.minor} + ${iBeacon?.rssi}")
