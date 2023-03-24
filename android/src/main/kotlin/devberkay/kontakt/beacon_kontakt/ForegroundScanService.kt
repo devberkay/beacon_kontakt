@@ -114,6 +114,10 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
                 proximityManager.startScanning()
             }
+
+            override fun onServiceBindError(message: String?) {
+                super.onServiceBindError(message)
+            }
         })
     }
 
