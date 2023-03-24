@@ -110,7 +110,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             override fun onServiceReady() {
                 // Bluetooth adapter is ready, start scanning
                 proximityManager.setIBeaconListener(iBeaconListener)
-                proximityManager.setSecureProfileListener(secureProfileListener)
+//                proximityManager.setSecureProfileListener(secureProfileListener)
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
                 proximityManager.startScanning()
             }
