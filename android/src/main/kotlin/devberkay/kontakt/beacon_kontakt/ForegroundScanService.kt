@@ -38,17 +38,6 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
     }
 
-    val serviceReadyListener = object : OnServiceReadyListener {
-        override fun onServiceReady() {
-            val connectMap = Arguments.createMap()
-            try {
-
-
-            } catch (e: Exception) {
-
-            }
-        }
-    }
 
 
     private val iBeaconListener = object : IBeaconListener {
@@ -115,19 +104,21 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     }
 
 
+
+
         fun startScanning() {
 
 
             proximityManager.connect {
 
-                proximityManager.setIBeaconListener(iBeaconListener)
-                proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
-                proximityManager.startScanning()
+
 
             }
 
             Log.d("isConnected", "isConnected :  ${proximityManager.isConnected}")
-
+            proximityManager.setIBeaconListener(iBeaconListener)
+            proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
+            proximityManager.startScanning()
 
         }
 
