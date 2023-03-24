@@ -105,22 +105,22 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
 
+    fun startScanning() {
+        proximityManager.connect(object : OnServiceReadyListener {
+            override fun onServiceReady() {
+                try {
+                    proximityManager.setIBeaconListener(iBeaconListener)
+                    proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
+                    proximityManager.startScanning()
 
-        fun startScanning() {
-
-
-            proximityManager.connect {
-
-
-
+                } catch (e: Exception) {
+                    Log.d("StartScanning", "Failed to start scanning: ${e.message}")
+                    // Handle the exception here, e.g. show a toast
+                }
             }
-
-            Log.d("isConnected", "isConnected :  ${proximityManager.isConnected}")
-            proximityManager.setIBeaconListener(iBeaconListener)
-            proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
-            proximityManager.startScanning()
-
-        }
+        })
+        Log.d("isConnected", "isConnected :  ${proximityManager.isConnected}")
+    }
 
     fun stopScanning() {
         if (proximityManager.isScanning) {
