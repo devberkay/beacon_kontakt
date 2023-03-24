@@ -119,6 +119,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
 
+
     fun stopScanning() {
         if (proximityManager.isScanning) {
             proximityManager.stopScanning()
