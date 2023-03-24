@@ -108,25 +108,16 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     fun startScanning() {
         proximityManager.connect(object : OnServiceReadyListener {
             override fun onServiceReady() {
-                try {
-                    proximityManager.setIBeaconListener(iBeaconListener)
-                    proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
-                    proximityManager.startScanning()
-
-                } catch (e: Exception) {
-                    Log.d("StartScanning", "Failed to start scanning: ${e.message}")
-                    // Handle the exception here, e.g. show a toast
-                }
-            }
-
-            override fun onServiceBindError(message: String?) {
-                Log.d("onServiceBindError", "onServiceBindError: $message")
-                super.onServiceBindError(message)
+                // Bluetooth adapter is ready, start scanning
+                proximityManager.setIBeaconListener(iBeaconListener)
+                proximityManager.setSecureProfileListener(secureProfileListener)
+                proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
+                proximityManager.startScanning()
             }
         })
-        Log.d("isConnected", "isConnected :  ${proximityManager.isConnected}")
-
     }
+
+
 
     fun stopScanning() {
         if (proximityManager.isScanning) {
