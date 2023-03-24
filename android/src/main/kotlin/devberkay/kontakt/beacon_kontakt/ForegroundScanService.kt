@@ -22,22 +22,7 @@ import java.util.concurrent.TimeUnit
 
 class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String,private val proximityUUID:String,private val major:Int?, private val minor:Int? ) : EventChannel.StreamHandler  {
     private var eventSink: EventChannel.EventSink? = null
-    private  var proximityManager: ProximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
-        configuration()
-            .scanMode(ScanMode.BALANCED)
-            .scanPeriod(scanPeriod)
-            .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
-            .forceScanConfiguration(ForceScanConfiguration.DISABLED)
-            .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
-            .rssiCalculator(RssiCalculators.DEFAULT)
-            .cacheFileName("BLE_CACHE")
-            .resolveShuffledInterval(3)
-            .monitoringEnabled(true)
-            .monitoringSyncInterval(10)
-            .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
-
-    }
-
+    private  var proximityManager: ProximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey))
 
 
     private val iBeaconListener = object : IBeaconListener {
@@ -109,6 +94,18 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         proximityManager.connect(object : OnServiceReadyListener {
             override fun onServiceReady() {
                 // Bluetooth adapter is ready, start scanning
+                proximityManager.configuration()
+                    .scanMode(ScanMode.BALANCED)
+                    .scanPeriod(scanPeriod)
+                    .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
+                    .forceScanConfiguration(ForceScanConfiguration.DISABLED)
+                    .deviceUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(5))
+                    .rssiCalculator(RssiCalculators.DEFAULT)
+                    .cacheFileName("BLE_CACHE")
+                    .resolveShuffledInterval(3)
+                    .monitoringEnabled(true)
+                    .monitoringSyncInterval(10)
+                    .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
                 proximityManager.setIBeaconListener(iBeaconListener)
                 proximityManager.setSecureProfileListener(secureProfileListener)
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
@@ -116,9 +113,11 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             }
 
             override fun onServiceBindError(message: String?) {
+                Log.d(TAG, "onServiceBindError: $message")
                 super.onServiceBindError(message)
             }
         })
+        Log.d(TAG, "proximityManager.isConnected : ${proximityManager.isConnected}")
     }
 
 
