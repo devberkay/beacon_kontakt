@@ -112,7 +112,6 @@ import io.flutter.plugin.common.MethodChannel.Result
     activity = binding.activity
     permissionService = PermissionService(activity,applicationContext)
     permissionEventChannel.setStreamHandler(PermissionStreamHandler(binding,permissionService))
-
   }
 
 
