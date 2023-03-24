@@ -51,7 +51,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             region: IBeaconRegion?
         ) {
             val iBeacon = iBeacons?.first()
-            Log.d("onIBeaconsUpdated", "onIBeaconsUpdated ${iBeacon?.proximityUUID.toString()} + ${iBeacon?.major} + ${iBeacon?.minor} + ${iBeacon?.rssi}")
+            Log.d("onIBeaconsUpdated", "onIBeaconsUpdated ${iBeacons.toString()}")
             eventSink?.success(iBeacons?.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
         }
 
