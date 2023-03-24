@@ -110,6 +110,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 proximityManager.setSecureProfileListener(secureProfileListener)
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
                 proximityManager.startScanning()
+                Log.d(TAG, "proximityManager.isConnected inside block : ${proximityManager.isConnected}")
             }
 
             override fun onServiceBindError(message: String?) {
