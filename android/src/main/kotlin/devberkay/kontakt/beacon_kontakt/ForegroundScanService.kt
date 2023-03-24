@@ -118,6 +118,11 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                     // Handle the exception here, e.g. show a toast
                 }
             }
+
+            override fun onServiceBindError(message: String?) {
+                Log.d("onServiceBindError", "onServiceBindError: $message")
+                super.onServiceBindError(message)
+            }
         })
         Log.d("isConnected", "isConnected :  ${proximityManager.isConnected}")
 
