@@ -113,6 +113,8 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
             }
 
+            Log.d("isConnected", "isConnected :  ${proximityManager.isConnected}")
+
 
         }
 
