@@ -20,8 +20,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String,private val proximityUUID:String,private val major:Int?, private val minor:Int? ) : EventChannel.StreamHandler  {
-    private var eventSink: EventChannel.EventSink? = null
+class ForegroundScanService(private val context: Context, private val apiKey : String, private val scanPeriod: ScanPeriod, private val listenerType: String,private val proximityUUID:String,private val major:Int?, private val minor:Int? )  {
+//    private var eventSink: EventChannel.EventSink? = null
     private  var proximityManager: ProximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey)).apply {
         configuration()
             .scanMode(ScanMode.BALANCED)
@@ -41,7 +41,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
             Log.d("onIBeaconsDiscovered", "onIBeaconsDiscovered ${iBeacon?.proximityUUID.toString()} + ${iBeacon?.major} + ${iBeacon?.minor} + ${iBeacon?.rssi}")
-            eventSink?.success(iBeacon?.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
+//            eventSink?.success(iBeacon?.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
         }
 
         override fun onIBeaconsUpdated(
@@ -50,7 +50,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         ) {
             val iBeacon = iBeacons?.first()
             Log.d("onIBeaconsUpdated", "onIBeaconsUpdated ${iBeacon?.proximityUUID.toString()} + ${iBeacon?.major} + ${iBeacon?.minor} + ${iBeacon?.rssi}")
-            eventSink?.success(iBeacons?.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
+//            eventSink?.success(iBeacons?.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "minor" to it.minor, "major" to it.major, "proximityUUID" to it.proximityUUID,"uniqueUUID" to it.uniqueId ,"proximity" to it.proximity )  })
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
@@ -66,7 +66,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
 
-            eventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
+//            eventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
 
         }
 
@@ -91,15 +91,15 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     )
 
 
-
-    override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
-        eventSink = events
-    }
-
-    override fun onCancel(arguments: Any?) {
-        eventSink = null
-        proximityManager.disconnect()
-    }
+//
+//    override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+//        eventSink = events
+//    }
+//
+//    override fun onCancel(arguments: Any?) {
+//        eventSink = null
+//        proximityManager.disconnect()
+//    }
 
 
         fun startScanning() {
