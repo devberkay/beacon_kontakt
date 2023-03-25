@@ -97,6 +97,8 @@ import io.flutter.plugin.common.MethodChannel.Result
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
+    permissionEventChannel.setStreamHandler(null)
+    foregroundScanEventChannel.setStreamHandler(null)
   }
 
     override fun onDetachedFromActivity() {
