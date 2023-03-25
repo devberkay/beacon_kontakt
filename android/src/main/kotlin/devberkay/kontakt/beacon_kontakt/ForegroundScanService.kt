@@ -116,6 +116,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             }
 
             override fun onServiceBindError(message: String?) {
+                Log.d(TAG, "onServiceBindError: $message")
                 super.onServiceBindError(message)
             }
         })
