@@ -35,7 +35,6 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             .monitoringEnabled(true)
             .monitoringSyncInterval(10)
             .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
-
     }
 
 
