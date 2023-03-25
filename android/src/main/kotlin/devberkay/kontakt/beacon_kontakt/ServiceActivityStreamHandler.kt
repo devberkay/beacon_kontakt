@@ -1,4 +1,7 @@
 package devberkay.kontakt.beacon_kontakt
 
-class ServiceActivityStreamHandler {
+import io.flutter.plugin.common.EventChannel
+
+class ServiceActivityStreamHandler : EventChannel.StreamHandler {
+
 }
