@@ -7,10 +7,41 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.EventChannel
 
-class PermissionService(private val activity: Activity,private val context: Context) {
+class PermissionService(private val activity: Activity,private val binding: ActivityPluginBinding,private val context: Context) : EventChannel.StreamHandler {
+    private var eventSink: EventChannel.EventSink? = null
+    init {
+        binding.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
+            onRequestPermissionsResult(requestCode, permissions, grantResults)
+            true
+        }
+    }
 
+
+    override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
+        eventSink = sink
+
+        eventSink?.success(checkPermissions(true))
+    }
+
+    override fun onCancel(arguments: Any?) {
+        eventSink = null
+        // Stop sending events to the Flutter side
+    }
+
+
+    private fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PermissionService.REQUEST_CODE_PERMISSIONS) {
+            val granted = grantResults.isNotEmpty()  &&  grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+            if (granted) {
+                eventSink?.success(true)
+            } else {
+                eventSink?.success(false)
+            }
+        }
+    }
 
     fun checkPermissions(onlyCheck:Boolean) : Boolean {
         val requiredPermissions = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
@@ -30,18 +61,6 @@ class PermissionService(private val activity: Activity,private val context: Cont
             return true
         }
     }
-
-//    private fun isAnyOfPermissionsNotGranted(requiredPermissions: Array<String>): Boolean {
-//        for (permission in requiredPermissions) {
-//            val checkSelfPermissionResult = ContextCompat.checkSelfPermission(context, permission)
-//            if (PackageManager.PERMISSION_GRANTED != checkSelfPermissionResult) {
-//                return true
-//            }
-//        }
-//        return false
-//    }
-
-
 
     companion object {
         const val REQUEST_CODE_PERMISSIONS = 315

@@ -3,6 +3,7 @@ import 'package:beacon_kontakt/permission_enum.dart';
 import 'package:flutter/services.dart';
 
 import 'beacon_kontakt_platform_interface.dart';
+import 'ibeacon_device.dart';
 import 'listener_type_enum.dart';
 import 'scan_period_enum.dart';
 
@@ -17,6 +18,10 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.checkPermissions();
   }
 
+  Future<String?> emitPermissionStatusString() async {
+    return BeaconKontaktPlatform.instance.emitPermissionStatusString();
+  }
+
   Stream<BLEPermissionStatus> listenPermissionStatus() {
     return BeaconKontaktPlatform.instance.listenPermissionStatus();
   }
@@ -25,7 +30,7 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.initKontaktSDK(apiKey);
   }
 
-  Future<void> startScanning(ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID, [int? major, int? minor]) {
+  Future<void> startScanning(ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID, [int? major, int? minor]) { 
     return BeaconKontaktPlatform.instance.startScanning(scanPeriod,listenerType,proximityUUID,major,minor);
   }
 
@@ -33,12 +38,36 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.stopScanning();
   }
 
-  Stream<List<Map<String, dynamic>>>  listenScanResults() {
-    return BeaconKontaktPlatform.instance.listenScanResults();
+  Stream<List<IBeaconDevice>>  listenIBeaconsUpdated() {
+    return BeaconKontaktPlatform.instance.listenIBeaconsUpdated();
   }
 
+  Stream<IBeaconDevice> listenIBeaconLost() {
+    return BeaconKontaktPlatform.instance.listenIBeaconLost();
+  }
 
+  Stream<IBeaconDevice> listenIBeaconDiscovered() {
+    return BeaconKontaktPlatform.instance.listenIBeaconDiscovered();
+  } 
 
-  
-  
-}
+  Future<void> openBluetoothSettings() async {
+    return BeaconKontaktPlatform.instance.openBluetoothSettings();
+  }
+
+  Future<void> openLocationSettings() async {
+   return BeaconKontaktPlatform.instance.openLocationSettings();
+  }
+
+  Stream<bool> listenBluetoothServiceStatus() {
+    return BeaconKontaktPlatform.instance.listenBluetoothServiceStatus();
+  }
+
+  Stream<bool> listenLocationServiceStatus() {
+    return BeaconKontaktPlatform.instance.listenLocationServiceStatus();
+  }
+
+  Stream<bool> listenScanStatus() {
+    return BeaconKontaktPlatform.instance.listenScanStatus();
+  }
+ 
+ }

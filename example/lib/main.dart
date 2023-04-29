@@ -1,3 +1,4 @@
+import 'package:beacon_kontakt/ibeacon_device.dart';
 import 'package:beacon_kontakt/listener_type_enum.dart';
 import 'package:beacon_kontakt/permission_enum.dart';
 import 'package:beacon_kontakt/scan_period_enum.dart';
@@ -8,9 +9,24 @@ import 'package:flutter/services.dart';
 import 'package:beacon_kontakt/beacon_kontakt.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final isScanningProvider = StateProvider<bool>((ref) {
-  return false;
+final beaconKontaktApiProvider = Provider<BeaconKontakt>((ref) {
+  return BeaconKontakt();
 });
+
+final isScanningProvider = StreamProvider.autoDispose<bool>((ref) async* {
+  final beaconKontaktApi = ref.watch(beaconKontaktApiProvider);
+  await for (bool currentStatus in beaconKontaktApi.listenScanStatus()) {
+    yield currentStatus;
+  }
+});
+
+// final isBluetoothOpenProvider = StreamProvider<bool>((ref) async* {
+//   final beaconKontaktApi = ref.watch(beaconKontaktApiProvider);
+//   await for (bool currentStatus
+//       in beaconKontaktApi.listenBluetoothServiceStatus()) {
+//     yield currentStatus;
+//   }
+// });
 
 void main() {
   runApp(const ProviderScope(
@@ -27,11 +43,12 @@ class MyApp extends StatefulHookConsumerWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   String _platformVersion = 'Unknown';
-  final _beaconKontaktPlugin = BeaconKontakt();
+  late final BeaconKontakt _beaconKontaktPlugin;
   late final StreamSubscription permissionStatusStreamSubscription;
 
   @override
   void initState() {
+    _beaconKontaktPlugin = ref.read(beaconKontaktApiProvider);
     super.initState();
     initPlatformState();
     initKontaktSDK();
@@ -78,7 +95,17 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final isScanning = ref.watch(isScanningProvider);
+    final isScanning = ref.watch(isScanningProvider).when(data: (value) {
+      print("isScanning : $value");
+      return value;
+    }, error: (e, st) {
+      print("Funcking error : $e");
+      return false;
+    }, loading: () {
+      print("isScanning : Loading");
+      return false;
+    });
+
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -106,16 +133,27 @@ class _MyAppState extends ConsumerState<MyApp> {
                     await _beaconKontaktPlugin.startScanning(
                         ScanPeriod.monitoring,
                         ListenerType.iBeacon,
-                        'f2142874-611b-11ed-9b6a-0242ac120002',
-                        1,
-                        3674);
-                        ref.read(isScanningProvider.notifier).state = true;
+                        'F2142874-611B-11ED-9B6A-0242AC120002',
+                       -1,
+                        -1);
                   },
                   child: const Text("Start Scanning")),
               TextButton(
                   onPressed: () async {
+                    await _beaconKontaktPlugin.openLocationSettings();
+                  },
+                  style: TextButton.styleFrom(foregroundColor: Colors.black),
+                  child: const Text("Open Location Service settings")),
+              TextButton(
+                  onPressed: () async {
+                    await _beaconKontaktPlugin.openBluetoothSettings();
+                  },
+                  style: TextButton.styleFrom(foregroundColor: Colors.black),
+                  child: const Text("Open Bluetooth settings")),
+              TextButton(
+                  onPressed: () async {
                     await _beaconKontaktPlugin.stopScanning();
-                    ref.read(isScanningProvider.notifier).state = false;
+
                     // _beaconKontaktPlugin.listenScanResults().listen((event) {
                     //   print(event);
                     // });
@@ -125,16 +163,92 @@ class _MyAppState extends ConsumerState<MyApp> {
                     style: TextStyle(color: Colors.red),
                   )),
               if (isScanning)
-                StreamBuilder<List<Map<String, dynamic>>>(
-                    stream: _beaconKontaktPlugin.listenScanResults(),
+                StreamBuilder<IBeaconDevice>(
+                    stream: _beaconKontaktPlugin.listenIBeaconDiscovered(),
+                    builder: (context, snapshot) {
+                      final discoveredDevice = snapshot.data;
+
+                      return SizedBox(
+                        height: 100,
+                        child: ListView(
+                          children: [
+                            const Text(
+                              "IBeaconsDiscovered Device List : ",
+                              textAlign: TextAlign.center,
+                            ),
+                            if (discoveredDevice != null)
+                              Card(child: Text(discoveredDevice.toString()))
+                          ],
+                        ),
+                      );
+                    }),
+              const SizedBox(
+                height: 20,
+              ),
+              if (isScanning)
+                StreamBuilder<List<IBeaconDevice>>(
+                    stream: _beaconKontaktPlugin.listenIBeaconsUpdated(),
                     builder: (context, snapshot) {
                       final scanResults = snapshot.data ?? [];
-                      return Column(
-                        children: [
-                          Text("Scan Results : $scanResults"),
-                        ],
+                      debugPrint("scanResults : $scanResults");
+                      return SizedBox(
+                        height: 200,
+                        child: ListView(
+                          children: [
+                            const Text(
+                              "IBeaconsUpdated Device List : ",
+                              textAlign: TextAlign.center,
+                            ),
+                            ...List.generate(
+                                scanResults.length,
+                                (index) => Card(
+                                    child: Text(scanResults[index].toString())))
+                          ],
+                        ),
                       );
-                    })
+                    }),
+              const SizedBox(
+                height: 20,
+              ),
+              if (isScanning)
+                StreamBuilder<IBeaconDevice>(
+                    stream: _beaconKontaktPlugin.listenIBeaconLost(),
+                    builder: (context, snapshot) {
+                      final lostDevice = snapshot.data;
+                      debugPrint("lostDevice : $lostDevice");
+                      return SizedBox(
+                        height: 100,
+                        child: ListView(
+                          children: [
+                            const Text(
+                              "IBeaconLost Device : ",
+                              textAlign: TextAlign.center,
+                            ),
+                            if (lostDevice != null)
+                              Card(child: Text(lostDevice.toString()))
+                          ],
+                        ),
+                      );
+                    }),
+              const SizedBox(
+                height: 20,
+              ),
+              // StreamBuilder<bool>(
+              //   builder: (context, snapshot) {
+              //     final isBluetoothActive = snapshot.data ?? false;
+              //     final status = isBluetoothActive ? "Active" : "Inactive";
+              //     return Text("Bluetooth is $status");
+              //   },
+              //   stream: _beaconKontaktPlugin.listenBluetoothServiceStatus(),
+              // ),
+              StreamBuilder<bool>(
+                builder: (context, snapshot) {
+                  final isBluetoothActive = snapshot.data ?? false;
+                  final status = isBluetoothActive ? "Active" : "Inactive";
+                  return Text("Location Service is $status");
+                },
+                stream: _beaconKontaktPlugin.listenLocationServiceStatus(),
+              )
             ],
           ),
         ),

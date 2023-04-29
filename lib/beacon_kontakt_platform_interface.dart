@@ -1,6 +1,7 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'beacon_kontakt_method_channel.dart';
+import 'ibeacon_device.dart';
 import 'listener_type_enum.dart';
 import 'permission_enum.dart';
 import 'scan_period_enum.dart';
@@ -33,6 +34,11 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
   Future<void> checkPermissions() {
     throw UnimplementedError('checkPermissions() has not been implemented.');
   }
+
+  Future<String?> emitPermissionStatusString() {
+    throw UnimplementedError('emitPermissionStatusString() has not been implemented.');
+  }
+
   Stream<BLEPermissionStatus> listenPermissionStatus() {
     throw UnimplementedError('onPermissionChanged() has not been implemented.');
   }
@@ -49,7 +55,32 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
     throw UnimplementedError('stopScanning() has not been implemented.');
   }
 
-  Stream<List<Map<String, dynamic>>>  listenScanResults() {
+  Stream<List<IBeaconDevice>>  listenIBeaconsUpdated() {
     throw UnimplementedError('listenScanResults() has not been implemented.');
+  }
+
+  Stream<IBeaconDevice> listenIBeaconLost() {
+    throw UnimplementedError('listenScanResults() has not been implemented.');
+  }
+
+  Stream<IBeaconDevice> listenIBeaconDiscovered() {
+    throw UnimplementedError('listenScanResults() has not been implemented.');
+  }
+
+  Stream<bool> listenLocationServiceStatus() {
+    throw UnimplementedError('listenLocationServiceStatus() has not been implemented.');
+  }
+  Stream<bool> listenBluetoothServiceStatus() {
+    throw UnimplementedError('listenBluetoothServiceStatus() has not been implemented.');
+  }
+  Future<void> openLocationSettings() {
+    throw UnimplementedError('openLocationSettings() has not been implemented.');
+  }
+  Future<void> openBluetoothSettings() {
+    throw UnimplementedError('openBluetoothSettings() has not been implemented.');
+  }
+
+  Stream<bool> listenScanStatus() {
+    throw UnimplementedError('isScanning() has not been implemented.');
   }
 }

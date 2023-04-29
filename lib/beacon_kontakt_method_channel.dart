@@ -1,3 +1,8 @@
+import 'dart:collection';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:beacon_kontakt/ibeacon_device.dart';
 import 'package:beacon_kontakt/scan_period_enum.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -11,10 +16,24 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('beacon_kontakt');
 
+  final activityLocationEventChannel =
+      const EventChannel('beacon_kontakt_activity_location_event');
   final permissionEventChannel =
       const EventChannel('beacon_kontakt_permission_event');
-  final foregroundScanEventChannel =
-      const EventChannel("beacon_kontakt_foreground_scan_event");
+  final foregroundScanStatusEventChannel =
+      const EventChannel("beacon_kontakt_foreground_scan_status_event");
+  final foregroundScanIBeaconsUpdatedEventChannel = const EventChannel(
+      "beacon_kontakt_foreground_scan_ibeacons_updated_event");
+  final foregroundScanIBeaconDiscoveredEventChannel = const EventChannel(
+      "beacon_kontakt_foreground_scan_ibeacon_discovered_event");
+  final foregroundScanIBeaconLostEventChannel =
+      const EventChannel("beacon_kontakt_foreground_scan_ibeacon_lost_event");
+  final foregroundScanSecureProfilesUpdatedEventChannel = const EventChannel(
+      "beacon_kontakt_foreground_scan_secure_profiles_updated_event");
+  final foregroundScanSecureProfileDiscoveredEventChannel = const EventChannel(
+      "beacon_kontakt_foreground_scan_secure_profile_discovered_event");
+  final foregroundScanSecureProfileLostEventChannel = const EventChannel(
+      "beacon_kontakt_foreground_scan_secure_profile_lost_event");
 
   @override
   Future<String?> getPlatformVersion() async {
@@ -29,11 +48,20 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
+  Future<String?> emitPermissionStatusString() async {
+    //ios-only
+    if (Platform.isIOS) {
+      return methodChannel.invokeMethod<String>('emitPermissionStatusString');
+    }
+    return null;
+  }
+
+  @override
   Stream<BLEPermissionStatus> listenPermissionStatus() async* {
     try {
       await for (final status in permissionEventChannel
           .receiveBroadcastStream()
-          .map((status) => status == "PERMISSION_GRANTED"
+          .map((status) => status as bool
               ? BLEPermissionStatus.granted
               : BLEPermissionStatus.denied)) {
         yield status;
@@ -52,14 +80,15 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
 
   @override
   Future<void> startScanning(
-      ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID, [int? major, int? minor]) async {
+      ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID,
+      [int? major, int? minor]) async {
     await methodChannel.invokeMethod<void>('startScanning', {
       "scanPeriod":
           scanPeriod == ScanPeriod.monitoring ? "Monitoring" : "Ranging",
       "listenerType": listenerType == ListenerType.secureProfile
           ? "secureProfileListener"
           : "iBeaconListener",
-      "proximityUUID": proximityUUID,
+      "proximityUUID": proximityUUID.toUpperCase(),
       "major": major,
       "minor": minor
     });
@@ -71,15 +100,104 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Stream<List<Map<String, dynamic>>> listenScanResults() async* {
+  Stream<List<IBeaconDevice>> listenIBeaconsUpdated() async* {
     try {
-      await for (final listOfDevices
-          in foregroundScanEventChannel.receiveBroadcastStream()) {
-       
-        yield listOfDevices as List<Map<String, dynamic>>;
+      await for (final List<Object?> listOfDevices
+          in foregroundScanIBeaconsUpdatedEventChannel
+              .receiveBroadcastStream("iBeaconsUpdatedEventSink")) {
+        debugPrint("updatedList : $listOfDevices");
+        final listOfIBeaconsAsMap = listOfDevices
+            .map((e) => jsonDecode(jsonEncode(e)) as Map<String, dynamic>)
+            .toList();
+
+        yield listOfIBeaconsAsMap.map((e) => IBeaconDevice.fromMap(e)).toList();
       }
     } on PlatformException catch (e) {
-      debugPrint("Shitty : ${e.message}");
+      debugPrint("listenIBeaconsUpdated Error : ${e.message}");
+    }
+  }
+
+  @override
+  Stream<IBeaconDevice> listenIBeaconLost() async* {
+    try {
+      await for (final Object? device in foregroundScanIBeaconLostEventChannel
+          .receiveBroadcastStream("iBeaconLostEventSink")) {
+        debugPrint("lost : $device");
+        final iBeaconAsMap =
+            jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
+        debugPrint("lost : $device");
+        yield IBeaconDevice.fromMap(iBeaconAsMap);
+      }
+    } on PlatformException catch (e) {
+      debugPrint("listenIBeaconLost Error : ${e.message}");
+    }
+  }
+
+  @override
+  Stream<IBeaconDevice> listenIBeaconDiscovered() async* {
+    try {
+      await for (final Object? device
+          in foregroundScanIBeaconDiscoveredEventChannel
+              .receiveBroadcastStream("iBeaconDiscoveredEventSink")) {
+        debugPrint("discovered : $device");
+        final iBeaconAsMap =
+            jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
+
+        yield IBeaconDevice.fromMap(iBeaconAsMap);
+      }
+    } on PlatformException catch (e) {
+      debugPrint("listenIBeaconLost Error : ${e.message}");
+    }
+  }
+
+  @override
+  Stream<bool> listenLocationServiceStatus() async* {
+    if (Platform.isAndroid) {
+      while (true) {
+        yield await methodChannel.invokeMethod<bool>("emitLocationStatus") ??
+            false;
+        // await Future.delayed(const Duration(milliseconds: 500));
+      }
+    } else if (Platform.isIOS) {
+      try {
+        await for (final currentStatus
+            in activityLocationEventChannel.receiveBroadcastStream()) {
+          yield currentStatus as bool? ?? false;
+        }
+      } on PlatformException catch (e) {
+        debugPrint("listenScanStatus : ${e.message}");
+      }
+    }
+  }
+
+  @override
+  Stream<bool> listenBluetoothServiceStatus() async* {
+    while (true) {
+      yield await methodChannel.invokeMethod<bool>("emitBluetoothStatus") ??
+          false;
+      // await Future.delayed(const Duration(milliseconds: 500));
+    }
+  }
+
+  @override
+  Future<void> openBluetoothSettings() async {
+    await methodChannel.invokeMethod("openBluetoothSettings");
+  }
+
+  @override
+  Future<void> openLocationSettings() async {
+    await methodChannel.invokeMethod("openLocationSettings");
+  }
+
+  @override
+  Stream<bool> listenScanStatus() async* {
+    try {
+      await for (final currentStatus in foregroundScanStatusEventChannel
+          .receiveBroadcastStream("statusEventSink")) {
+        yield currentStatus as bool;
+      }
+    } on PlatformException catch (e) {
+      debugPrint("listenScanStatus : ${e.message}");
     }
   }
 }
