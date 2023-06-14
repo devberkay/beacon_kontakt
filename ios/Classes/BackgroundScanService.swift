@@ -9,9 +9,6 @@ import KontaktSDK
     private var iBeaconDiscoveredEventSink : FlutterEventSink? = nil
     private var iBeaconsUpdatedEventSink : FlutterEventSink? = nil
     private var iBeaconLostEventSink : FlutterEventSink? = nil
-    private var secureProfileDiscoveredEventSink : FlutterEventSink? = nil
-    private var secureProfilesUpdatedEventSink : FlutterEventSink? = nil
-    private var secureProfileLostEvenSink : FlutterEventSink? = nil
     private var beaconManager: KTKBeaconManager!
     
     
@@ -42,7 +39,7 @@ import KontaktSDK
                     "batteryLevel": nil,
                     "name" : nil,
                     "uniqueID" : nil
-                ]
+               ] as [String : Any?]
             } else {
                return  [
                     "timestamp": nil,
@@ -72,7 +69,7 @@ import KontaktSDK
                 "batteryLevel": nil,
                 "name": nil,
                 "timestamp": nil
-                              ])
+        ] as [String : Any?])
     }
     
     
@@ -88,7 +85,7 @@ import KontaktSDK
             "batteryLevel": nil,
             "name": nil,
             "timestamp": nil
-                              ])
+        ] as [String : Any?])
     }
     
     
@@ -118,12 +115,12 @@ import KontaktSDK
             iBeaconsUpdatedEventSink = events
         case "iBeaconLostEventSink":
             iBeaconLostEventSink = events
-        case "secureProfileDiscoveredEventSink":
-            secureProfileDiscoveredEventSink = events
-        case "secureProfilesUpdatedEventSink":
-            secureProfilesUpdatedEventSink = events
-        case "secureProfileLostEvenSink":
-            secureProfileLostEvenSink = events
+//        case "secureProfileDiscoveredEventSink":
+//            secureProfileDiscoveredEventSink = events
+//        case "secureProfilesUpdatedEventSink":
+//            secureProfilesUpdatedEventSink = events
+//        case "secureProfileLostEvenSink":
+//            secureProfileLostEvenSink = events
         default:
             return FlutterError(code: "unknown_channel", message: "Unknown event channel", details: argument)
         }
@@ -176,12 +173,12 @@ import KontaktSDK
             iBeaconsUpdatedEventSink = nil
         case "iBeaconLostEventSink":
             iBeaconLostEventSink = nil
-        case "secureProfileDiscoveredEventSink":
-            secureProfileDiscoveredEventSink = nil
-        case "secureProfilesUpdatedEventSink":
-            secureProfilesUpdatedEventSink = nil
-        case "secureProfileLostEvenSink":
-            secureProfileLostEvenSink = nil
+//        case "secureProfileDiscoveredEventSink":
+//            secureProfileDiscoveredEventSink = nil
+//        case "secureProfilesUpdatedEventSink":
+//            secureProfilesUpdatedEventSink = nil
+//        case "secureProfileLostEvenSink":
+//            secureProfileLostEvenSink = nil
         case nil :
             return nil
         default:

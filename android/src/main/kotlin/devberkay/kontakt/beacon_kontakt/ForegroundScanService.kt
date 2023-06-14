@@ -176,6 +176,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
     fun startScanning(scanPeriod: ScanPeriod?, listenerType: String?, proximityUUID:String?, major:Int?,  minor:Int?) {
 
+
          val primaryRegion : IBeaconRegion = BeaconRegion.Builder()
             .identifier("primaryRegion")
             .proximity(UUID.fromString(proximityUUID))
