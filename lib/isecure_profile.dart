@@ -15,7 +15,6 @@ class ISecureProfile with _$ISecureProfile {
   const factory ISecureProfile({
     required String name,
     required String uid,
-    required int minor,
     required String rssi,
     required String txPower
   }) = _ISecureProfile;
