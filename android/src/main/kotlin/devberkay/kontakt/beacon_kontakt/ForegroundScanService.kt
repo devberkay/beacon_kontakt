@@ -60,6 +60,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
     private val secureProfileListener = object : SecureProfileListener {
         override fun onProfileDiscovered(iSecureProfile: ISecureProfile) {
+
             statusEventSink?.success(true)
             Log.i(TAG, "onProfileDiscovered: " + iSecureProfile.toString())
             secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
