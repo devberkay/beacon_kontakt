@@ -7,17 +7,17 @@ import 'package:flutter/foundation.dart';
 part 'isecure_profile.freezed.dart';
 // optional: Since our ISecureProfile class is serializable, we must add this line.
 // But if ISecureProfile was not serializable, we could skip it.
-part 'ibeacon_profile.g.dart';
+part 'isecure_profile.g.dart';
 
 
 @freezed
 class ISecureProfile with _$ISecureProfile {
   const factory ISecureProfile({
-    required String proximityUUID,
-    required String major,
+    required String name,
+    required String uid,
     required int minor,
-    String? rssi,
-    String? txPower
+    required String rssi,
+    required String txPower
   }) = _ISecureProfile;
 
   factory ISecureProfile.fromJson(Map<String, Object?> json)
