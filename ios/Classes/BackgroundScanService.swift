@@ -24,37 +24,37 @@ import KontaktSDK
         
         statusEventSink?(true)
     }
-    
-    func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
-        statusEventSink?(true)
-        iBeaconsUpdatedEventSink?(beacons.map { beacon in
-            if #available(iOS 13.0, *) {
-               return  [
-                    "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
-                    "rssi": beacon.rssi,
-                    "proximityUUID": beacon.ktk_proximityUUID.uuidString,
-                    "minor": beacon.minor,
-                    "major": beacon.major,
-                    "txPower": nil,
-                    "batteryLevel": nil,
-                    "name" : nil,
-                    "uniqueID" : nil
-               ] as [String : Any?]
-            } else {
-               return  [
-                    "timestamp": nil,
-                    "rssi": beacon.rssi,
-                    "proximityUUID": beacon.ktk_proximityUUID.uuidString,
-                    "minor": beacon.minor,
-                    "major": beacon.major,
-                    "txPower": nil,
-                    "batteryLevel": nil,
-                    "name" : nil,
-                    "uniqueID" : nil
-                ]
-            }
-            })
-    }
+//
+//    func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
+//        statusEventSink?(true)
+//        iBeaconsUpdatedEventSink?(beacons.map { beacon in
+//            if #available(iOS 13.0, *) {
+//               return  [
+//                    "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
+//                    "rssi": beacon.rssi,
+//                    "proximityUUID": beacon.ktk_proximityUUID.uuidString,
+//                    "minor": beacon.minor,
+//                    "major": beacon.major,
+//                    "txPower": nil,
+//                    "batteryLevel": nil,
+//                    "name" : nil,
+//                    "uniqueID" : nil
+//               ] as [String : Any?]
+//            } else {
+//               return  [
+//                    "timestamp": nil,
+//                    "rssi": beacon.rssi,
+//                    "proximityUUID": beacon.ktk_proximityUUID.uuidString,
+//                    "minor": beacon.minor,
+//                    "major": beacon.major,
+//                    "txPower": nil,
+//                    "batteryLevel": nil,
+//                    "name" : nil,
+//                    "uniqueID" : nil
+//                ]
+//            }
+//            })
+//    }
     
     
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
