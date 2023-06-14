@@ -30,7 +30,7 @@ class SecureScanService: NSObject,FlutterStreamHandler,KTKDevicesManagerDelegate
     }
     
     func devicesManager(_ manager: KTKDevicesManager, didDiscover devices: [KTKNearbyDevice]) {
-        
+        devices.first.
     }
     
     
