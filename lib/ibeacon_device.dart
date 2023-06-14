@@ -16,6 +16,7 @@ class IBeaconDevice with _$IBeaconDevice {
     required String proximityUUID,
     required String major,
     required int minor,
+    required int updatedAt, // msSinceEpoch
     String? rssi,
     String? txPower
   }) = _IBeaconDevice;

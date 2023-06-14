@@ -24,6 +24,7 @@ mixin _$ISecureProfile {
   String get uid => throw _privateConstructorUsedError;
   String get rssi => throw _privateConstructorUsedError;
   String get txPower => throw _privateConstructorUsedError;
+  int get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,8 @@ abstract class $ISecureProfileCopyWith<$Res> {
           ISecureProfile value, $Res Function(ISecureProfile) then) =
       _$ISecureProfileCopyWithImpl<$Res, ISecureProfile>;
   @useResult
-  $Res call({String name, String uid, String rssi, String txPower});
+  $Res call(
+      {String name, String uid, String rssi, String txPower, int updatedAt});
 }
 
 /// @nodoc
@@ -57,6 +59,7 @@ class _$ISecureProfileCopyWithImpl<$Res, $Val extends ISecureProfile>
     Object? uid = null,
     Object? rssi = null,
     Object? txPower = null,
+    Object? updatedAt = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -75,6 +78,10 @@ class _$ISecureProfileCopyWithImpl<$Res, $Val extends ISecureProfile>
           ? _value.txPower
           : txPower // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -87,7 +94,8 @@ abstract class _$$_ISecureProfileCopyWith<$Res>
       __$$_ISecureProfileCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String uid, String rssi, String txPower});
+  $Res call(
+      {String name, String uid, String rssi, String txPower, int updatedAt});
 }
 
 /// @nodoc
@@ -105,6 +113,7 @@ class __$$_ISecureProfileCopyWithImpl<$Res>
     Object? uid = null,
     Object? rssi = null,
     Object? txPower = null,
+    Object? updatedAt = null,
   }) {
     return _then(_$_ISecureProfile(
       name: null == name
@@ -123,6 +132,10 @@ class __$$_ISecureProfileCopyWithImpl<$Res>
           ? _value.txPower
           : txPower // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -136,7 +149,8 @@ class _$_ISecureProfile
       {required this.name,
       required this.uid,
       required this.rssi,
-      required this.txPower});
+      required this.txPower,
+      required this.updatedAt});
 
   factory _$_ISecureProfile.fromJson(Map<String, dynamic> json) =>
       _$$_ISecureProfileFromJson(json);
@@ -149,10 +163,12 @@ class _$_ISecureProfile
   final String rssi;
   @override
   final String txPower;
+  @override
+  final int updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ISecureProfile(name: $name, uid: $uid, rssi: $rssi, txPower: $txPower)';
+    return 'ISecureProfile(name: $name, uid: $uid, rssi: $rssi, txPower: $txPower, updatedAt: $updatedAt)';
   }
 
   @override
@@ -163,7 +179,8 @@ class _$_ISecureProfile
       ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('rssi', rssi))
-      ..add(DiagnosticsProperty('txPower', txPower));
+      ..add(DiagnosticsProperty('txPower', txPower))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -174,12 +191,15 @@ class _$_ISecureProfile
             (identical(other.name, name) || other.name == name) &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.rssi, rssi) || other.rssi == rssi) &&
-            (identical(other.txPower, txPower) || other.txPower == txPower));
+            (identical(other.txPower, txPower) || other.txPower == txPower) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, uid, rssi, txPower);
+  int get hashCode =>
+      Object.hash(runtimeType, name, uid, rssi, txPower, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +220,8 @@ abstract class _ISecureProfile implements ISecureProfile {
       {required final String name,
       required final String uid,
       required final String rssi,
-      required final String txPower}) = _$_ISecureProfile;
+      required final String txPower,
+      required final int updatedAt}) = _$_ISecureProfile;
 
   factory _ISecureProfile.fromJson(Map<String, dynamic> json) =
       _$_ISecureProfile.fromJson;
@@ -213,6 +234,8 @@ abstract class _ISecureProfile implements ISecureProfile {
   String get rssi;
   @override
   String get txPower;
+  @override
+  int get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$_ISecureProfileCopyWith<_$_ISecureProfile> get copyWith =>

@@ -16,7 +16,8 @@ class ISecureProfile with _$ISecureProfile {
     required String name,
     required String uid,
     required String rssi,
-    required String txPower
+    required String txPower,
+    required int updatedAt // msSinceEpoch
   }) = _ISecureProfile;
 
   factory ISecureProfile.fromJson(Map<String, Object?> json)

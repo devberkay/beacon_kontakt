@@ -12,6 +12,7 @@ _$_ISecureProfile _$$_ISecureProfileFromJson(Map<String, dynamic> json) =>
       uid: json['uid'] as String,
       rssi: json['rssi'] as String,
       txPower: json['txPower'] as String,
+      updatedAt: json['updatedAt'] as int,
     );
 
 Map<String, dynamic> _$$_ISecureProfileToJson(_$_ISecureProfile instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$_ISecureProfileToJson(_$_ISecureProfile instance) =>
       'uid': instance.uid,
       'rssi': instance.rssi,
       'txPower': instance.txPower,
+      'updatedAt': instance.updatedAt,
     };
