@@ -133,8 +133,8 @@ class _MyAppState extends ConsumerState<MyApp> {
                     await _beaconKontaktPlugin.startScanning(
                         ScanPeriod.monitoring,
                         ListenerType.iBeacon,
-                        'F2142874-611B-11ED-9B6A-0242AC120002',
-                       -1,
+                        'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
+                        -1,
                         -1);
                   },
                   child: const Text("Start Scanning")),
