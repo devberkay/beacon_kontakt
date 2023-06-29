@@ -110,7 +110,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
             .map((e) => jsonDecode(jsonEncode(e)) as Map<String, dynamic>)
             .toList();
 
-        yield listOfIBeaconsAsMap.map((e) => IBeaconDevice.fromMap(e)).toList();
+        yield listOfIBeaconsAsMap.map((e) => IBeaconDevice.fromJson(e)).toList();
       }
     } on PlatformException catch (e) {
       debugPrint("listenIBeaconsUpdated Error : ${e.message}");
@@ -126,7 +126,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
         debugPrint("lost : $device");
-        yield IBeaconDevice.fromMap(iBeaconAsMap);
+        yield IBeaconDevice.fromJson(iBeaconAsMap);
       }
     } on PlatformException catch (e) {
       debugPrint("listenIBeaconLost Error : ${e.message}");
@@ -143,7 +143,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
 
-        yield IBeaconDevice.fromMap(iBeaconAsMap);
+        yield IBeaconDevice.fromJson(iBeaconAsMap);
       }
     } on PlatformException catch (e) {
       debugPrint("listenIBeaconLost Error : ${e.message}");
