@@ -21,7 +21,6 @@ import KontaktSDK
     
     
     func beaconManager(_ manager: KTKBeaconManager, didStartMonitoringFor region: KTKBeaconRegion) {
-        
         statusEventSink?(true)
     }
 

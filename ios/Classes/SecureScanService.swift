@@ -22,15 +22,15 @@ class SecureScanService: NSObject,FlutterStreamHandler,KTKDevicesManagerDelegate
     
     
     func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        <#code#>
+        
     }
     
     func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        <#code#>
+      
     }
     
     func devicesManager(_ manager: KTKDevicesManager, didDiscover devices: [KTKNearbyDevice]) {
-        <#code#>
+       
     }
     
     
