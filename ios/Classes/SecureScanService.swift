@@ -27,7 +27,7 @@ class SecureScanService: NSObject,FlutterStreamHandler,KTKDevicesManagerDelegate
     
 
 //    private var secureProfileDiscoveredEventSink : FlutterEventSink? = nil
-    private var secureProfilesUpdatedEventSink : FlutterEventSink? = nil
+    private var KTKDevicesUpdatedEventSink : FlutterEventSink? = nil
 //    private var secureProfileLostEvenSink : FlutterEventSink? = nil
 
     
