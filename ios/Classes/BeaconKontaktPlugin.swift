@@ -93,26 +93,26 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
                 result(FlutterError(code: "startScanning", message: "Invalid arguments", details: nil))
                 return
             }
-            print("Scan Period: \(scanPeriod)")
-            print("Listener Type: \(listenerType)")
-            print("Minor: \(minor)")
-            print("Major: \(major)")
-            print("Proximity UUID: \(proximityUUID)")
+            print("Scan Period: \(scanPeriod) -SWIFT")
+            print("Listener Type: \(listenerType) -SWIFT")
+            print("Minor: \(minor) -SWIFT")
+            print("Major: \(major) -SWIFT")
+            print("Proximity UUID: \(proximityUUID) -SWIFT")
             do {
                 try instance!.foregroundScanService!.startScanning(scanPeriod : scanPeriod, listenerType: listenerType, proximityUUID: proximityUUID, major: major, minor: minor)
-                print("Scanning started")
+                print("Scanning started -SWIFT")
                 result(nil)
             } catch {
-                print("Error starting scanning: \(error)")
+                print("Error starting scanning: \(error) -SWIFT")
                 result(FlutterError(code: "startScanning", message: "Error starting scanning", details: "\(error)"))
             }
         case "stopScanning":
             do {
                 try instance!.foregroundScanService!.stopScanning()
-                print("Scanning stopped")
+                print("Scanning stopped -SWIFT")
                 result(nil)
             } catch {
-                print("Error stopping scanning: \(error)")
+                print("Error stopping scanning: \(error) -SWIFT")
                 result(FlutterError(code: "stopScanning", message: "Error stopping scanning", details: "\(error)"))
             }
         
