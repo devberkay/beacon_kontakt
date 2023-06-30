@@ -138,7 +138,7 @@ import KontaktSDK
             scanningRegion =   KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID!)!, major: CLBeaconMajorValue(major!), minor: CLBeaconMinorValue(minor!), identifier: "ABB")
         }
         if(scanPeriod == "Ranging") {
-            beaconManager.startRangingBeacons(in: scanningRegion)
+            beaconManager.startRangingBeacons(in: scanningRegion) /
         }
         else {
             beaconManager.startMonitoring(for: scanningRegion)
