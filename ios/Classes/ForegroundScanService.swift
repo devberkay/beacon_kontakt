@@ -30,6 +30,7 @@ import KontaktSDK
         print("SWIFT: didRangeBeacons-1")
         iBeaconsUpdatedEventSink?(beacons.map { beacon in
             if #available(iOS 13.0, *) {
+                
                return  [
                     "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
                     "rssi": beacon.rssi,
@@ -79,6 +80,7 @@ import KontaktSDK
         statusEventSink?(true)
         print("SWIFT: didEnter-1")
         iBeaconDiscoveredEventSink?([
+            
             "proximityUUID" : region.proximityUUID.uuidString,
             "major":region.major,
             "minor": region.minor,
