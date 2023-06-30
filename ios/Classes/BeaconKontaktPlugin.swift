@@ -12,9 +12,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
      var foregroundScanIBeaconsUpdatedEventChannel : FlutterEventChannel? = nil
      var foregroundScanIBeaconDiscoveredEventChannel : FlutterEventChannel? = nil
      var foregroundScanIBeaconLostEventChannel : FlutterEventChannel? = nil
-     var foregroundScanSecureProfilesUpdatedEventChannel : FlutterEventChannel? = nil
-     var foregroundScanSecureProfileDiscoveredEventChannel : FlutterEventChannel? = nil
-     var foregroundScanSecureProfileLostEventChannel : FlutterEventChannel? = nil
+
      
      var permissionService : PermissionService? = nil
      var activityService : ActivityService? = nil
@@ -44,11 +42,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
         
         instance.foregroundScanIBeaconLostEventChannel = FlutterEventChannel(name: "beacon_kontakt_foreground_scan_ibeacon_lost_event", binaryMessenger: registrar.messenger())
         
-        instance.foregroundScanSecureProfilesUpdatedEventChannel = FlutterEventChannel(name: "beacon_kontakt_foreground_scan_secure_profiles_updated_event", binaryMessenger: registrar.messenger())
         
-        instance.foregroundScanSecureProfileDiscoveredEventChannel = FlutterEventChannel(name: "beacon_kontakt_foreground_scan_secure_profile_discovered_event", binaryMessenger: registrar.messenger())
-        
-        instance.foregroundScanSecureProfileLostEventChannel = FlutterEventChannel(name: "beacon_kontakt_foreground_scan_secure_profile_lost_event", binaryMessenger: registrar.messenger())
         
         instance.activityLocationEventChannel?.setStreamHandler(instance.activityService)
         instance.permissionEventChannel?.setStreamHandler(instance.permissionService)
@@ -56,9 +50,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
         instance.foregroundScanIBeaconsUpdatedEventChannel?.setStreamHandler(instance.foregroundScanService)
         instance.foregroundScanIBeaconDiscoveredEventChannel?.setStreamHandler(instance.foregroundScanService)
         instance.foregroundScanIBeaconLostEventChannel?.setStreamHandler(instance.foregroundScanService)
-        instance.foregroundScanSecureProfilesUpdatedEventChannel?.setStreamHandler(instance.foregroundScanService)
-        instance.foregroundScanSecureProfileDiscoveredEventChannel?.setStreamHandler(instance.foregroundScanService)
-        instance.foregroundScanSecureProfileLostEventChannel?.setStreamHandler(instance.foregroundScanService)
+
         
         
         
