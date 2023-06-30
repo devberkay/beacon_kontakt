@@ -88,7 +88,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       "listenerType": listenerType == ListenerType.secureProfile
           ? "secureProfileListener"
           : "iBeaconListener",
-      "proximityUUID": proximityUUID.toUpperCase(),
+      "proximityUUID": proximityUUID,
       "major": major,
       "minor": minor
     });
