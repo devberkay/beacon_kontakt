@@ -78,6 +78,7 @@ import KontaktSDK
     
     
     func beaconManager(_ manager: KTKBeaconManager, didEnter region: KTKBeaconRegion) {
+        
         statusEventSink?(true)
         print("SWIFT: didEnter-1")
         iBeaconDiscoveredEventSink?([
