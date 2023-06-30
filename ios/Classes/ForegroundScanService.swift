@@ -57,25 +57,17 @@ import KontaktSDK
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
         statusEventSink?(true)
         print("SWIFT: didExitRegion-1")
-        iBeaconLostEventSink?( if #available(iOS 13.0, *) {
-            return  [
-                 "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
-                 "rssi": beacon.rssi,
-                 "proximityUUID": beacon.ktk_proximityUUID.uuidString,
-                 "minor": beacon.minor,
-                 "major": beacon.major,
-              
-            ] as [String : Any?]
-         } else {
-            return  [
-                 "timestamp": nil,
-                 "rssi": beacon.rssi,
-                 "proximityUUID": beacon.ktk_proximityUUID.uuidString,
-                 "minor": beacon.minor,
-                 "major": beacon.major,
-                
-             ]
-         }
+        iBeaconLostEventSink?( [
+            "proximityUUID" : region.proximityUUID.uuidString,
+                "major":region.major,
+                "minor": region.minor,
+                "uniqueID" : nil,
+                "rssi" : nil,
+                "txPower": nil,
+                "batteryLevel": nil,
+                "name": nil,
+                "timestamp": nil
+        ] as [String : Any?])
         print("SWIFT: didExitRegion-2")
     }
     
