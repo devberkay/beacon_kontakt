@@ -39,7 +39,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
             statusEventSink?.success(true)
             Log.d("onIBeaconDiscovered", "onIBeaconDiscovered ${iBeacon.toString()}")
-            iBeaconDiscoveredEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "proximityUUID" to it.proximityUUID.toString(),"uniqueID" to it.uniqueId, "minor" to it.minor, "major" to it.major )  })
+            iBeaconDiscoveredEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString(),"minor" to it.minor, "major" to it.major )  })
         }
 
         override fun onIBeaconsUpdated(
@@ -48,13 +48,13 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         ) {
             statusEventSink?.success(true)
             Log.d("onIBeaconsUpdated", "onIBeaconsUpdated ${iBeacons.toString()}")
-            iBeaconsUpdatedEventSink?.success(iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "proximityUUID" to it.proximityUUID.toString(),"uniqueID" to it.uniqueId, "minor" to it.minor, "major" to it.major  )  })
+            iBeaconsUpdatedEventSink?.success(iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString(), "minor" to it.minor, "major" to it.major  )  })
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
             statusEventSink?.success(true)
            Log.d("onIBeaconLost", "onIBeaconLost ${iBeacon.toString()}")
-            iBeaconLostEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "txPower" to it.txPower , "batteryLevel" to it.batteryPower, "name" to it.name, "proximityUUID" to it.proximityUUID.toString(),"uniqueID" to it.uniqueId, "minor" to it.minor, "major" to it.major )  })
+            iBeaconLostEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi,  "proximityUUID" to it.proximityUUID.toString(),"uniqueID" to it.uniqueId, "minor" to it.minor, "major" to it.major )  })
         }
     }
 
@@ -63,18 +63,18 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
             statusEventSink?.success(true)
             Log.i(TAG, "onSecureProfileDiscovered: " + iSecureProfile.toString())
-            secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
+            secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "macAdress" to it.macAddress  ) })
         }
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
             statusEventSink?.success(true)
-            secureProfilesUpdatedEventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
+            secureProfilesUpdatedEventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "macAdress" to it.macAddress  ) })
         }
 
         override fun onProfileLost(iSecureProfile: ISecureProfile) {
             statusEventSink?.success(true)
             Log.e(TAG, "onSecureProfileLost: " + iSecureProfile.toString())
-            secureProfileLostEvenSink?.success( iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
+            secureProfileLostEvenSink?.success( iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "macAdress" to it.macAddress  ) })
         }
     }
 
