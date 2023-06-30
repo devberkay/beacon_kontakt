@@ -132,7 +132,7 @@ import KontaktSDK
         
         var scanningRegion : KTKBeaconRegion
         if(major! < 0 || minor! < 0) {
-            scanningRegion = KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID!)!,identifier: "" )
+            scanningRegion = KTKBeaconRegion.init(proximityUUID: UUID.init(uuidString: <#T##String#>), identifier: <#T##String#>)
         }
         else {
             scanningRegion =   KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID!)!, major: CLBeaconMajorValue(major!), minor: CLBeaconMinorValue(minor!),identifier: "")
