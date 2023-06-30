@@ -131,7 +131,7 @@ class _MyAppState extends ConsumerState<MyApp> {
               TextButton(
                   onPressed: () async {
                     await _beaconKontaktPlugin.startScanning(
-                        ScanPeriod.monitoring,
+                        ScanPeriod.ranging,
                         ListenerType.iBeacon,
                         'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
                         -1,
