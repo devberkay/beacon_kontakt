@@ -63,7 +63,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
             statusEventSink?.success(true)
             Log.i(TAG, "onSecureProfileDiscovered: " + iSecureProfile.toString())
-            secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "macAdress" to it.macAddress  ) })
+            secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "macAdress" to it.macAddress ) })
         }
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
