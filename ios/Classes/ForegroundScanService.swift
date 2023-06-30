@@ -26,6 +26,7 @@ import KontaktSDK
 
     func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
         statusEventSink?(true)
+        
         print("SWIFT: didRangeBeacons-1")
         iBeaconsUpdatedEventSink?(beacons.map { beacon in
             if #available(iOS 13.0, *) {
@@ -35,10 +36,7 @@ import KontaktSDK
                     "proximityUUID": beacon.ktk_proximityUUID.uuidString,
                     "minor": beacon.minor,
                     "major": beacon.major,
-                    "txPower": nil,
-                    "batteryLevel": nil,
-                    "name" : nil,
-                    "uniqueID" : nil
+                 
                ] as [String : Any?]
             } else {
                return  [
@@ -47,10 +45,7 @@ import KontaktSDK
                     "proximityUUID": beacon.ktk_proximityUUID.uuidString,
                     "minor": beacon.minor,
                     "major": beacon.major,
-                    "txPower": nil,
-                    "batteryLevel": nil,
-                    "name" : nil,
-                    "uniqueID" : nil
+                   
                 ]
             }
             })
