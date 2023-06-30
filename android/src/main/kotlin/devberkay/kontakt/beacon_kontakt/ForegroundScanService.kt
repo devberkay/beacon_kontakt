@@ -62,7 +62,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         override fun onProfileDiscovered(iSecureProfile: ISecureProfile) {
 
             statusEventSink?.success(true)
-            Log.i(TAG, "onProfileDiscovered: " + iSecureProfile.toString())
+            Log.i(TAG, "onSecureProfileDiscovered: " + iSecureProfile.toString())
             secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
         }
 
@@ -73,7 +73,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
         override fun onProfileLost(iSecureProfile: ISecureProfile) {
             statusEventSink?.success(true)
-            Log.e(TAG, "onProfileLost: " + iSecureProfile.toString())
+            Log.e(TAG, "onSecureProfileLost: " + iSecureProfile.toString())
             secureProfileLostEvenSink?.success( iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "batteryLevel" to it.batteryLevel, "name" to it.name, "instanceId" to it.instanceId, "macAdress" to it.macAddress  ) })
         }
     }
