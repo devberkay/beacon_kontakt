@@ -49,6 +49,7 @@ import KontaktSDK
                 ]
             }
             })
+        
         print("SWIFT: didRangeBeacons-2")
         
     }
@@ -68,6 +69,7 @@ import KontaktSDK
                 "name": nil,
                 "timestamp": nil
         ] as [String : Any?])
+        print("SWIFT: didExitRegion-2 identifier: \(region.identifier)")
         print("SWIFT: didExitRegion-2")
     }
     
@@ -87,6 +89,7 @@ import KontaktSDK
             "name": nil,
             "timestamp": nil
         ] as [String : Any?])
+        print("SWIFT: didEnter-2 identifier: \(region.identifier)")
         print("SWIFT: didEnter-2")
     }
     
