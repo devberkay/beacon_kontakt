@@ -29,9 +29,10 @@ import KontaktSDK
         // new code
         for beacon in beacons {
             print("SWIFT: beacon in beacons, beacon: \(beacon)")
-            let uuid = beacon.ktk_proximityUUID
+            let uuid = beacon.ktk_proximityUUID.uuidString
             let major = beacon.ktk_major
             let minor = beacon.ktk_minor
+            let parameters: [String: AnyObject] = ["proximity":uuid, "major" : major, "minor": minor]
             
         }
         
