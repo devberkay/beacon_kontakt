@@ -34,7 +34,9 @@ import KontaktSDK
             let minor = beacon.ktk_minor
             let parameters: [String: Any] = ["proximity":uuid, "major" : major, "minor": minor]
             
-            KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters, completion: <#T##KTKKontaktResponseCompletionBlock##KTKKontaktResponseCompletionBlock##(KTKKontaktResponse?, Error?) -> Void#>)
+            KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { <#KTKKontaktResponse?#>, <#Error?#> in
+                <#code#>
+            }
         }
         
         
