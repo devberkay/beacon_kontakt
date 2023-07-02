@@ -77,7 +77,7 @@ import KontaktSDK
              
          }
          // new code
-         iBeaconsUpdatedEventSink!(beaconModels)
+         iBeaconsUpdatedEventSink?(beaconModels)
          
      }
     
@@ -105,7 +105,7 @@ import KontaktSDK
         
         statusEventSink?(true)
         print("SWIFT: didEnter-1")
-        iBeaconDiscoveredEventSink!([
+        iBeaconDiscoveredEventSink?([
             
             "proximityUUID" : region.proximityUUID.uuidString,
             "major":region.major,
