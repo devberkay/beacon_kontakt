@@ -39,7 +39,6 @@ import KontaktSDK
              let minor = beacon.ktk_minor
              let parameters: [String: Any] = ["proximity":proximityUUID, "major" : major, "minor": minor]
              
-             
              KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
                  if let ktkError = KTKCloudErrorFromError(error) {
                      print("SWIFT-didRangeBeacons ERROR: \(ktkError.debugDescription)")
