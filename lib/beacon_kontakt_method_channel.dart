@@ -7,7 +7,7 @@ import 'package:beacon_kontakt/scan_period_enum.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'beacon_kontakt_platform_interface.dart';
-import 'listener_type_enum.dart';
+
 import 'permission_enum.dart';
 
 /// An implementation of [BeaconKontaktPlatform] that uses method channels.
@@ -80,17 +80,16 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
 
   @override
   Future<void> startScanning(
-      ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID,
-      [int? major, int? minor]) async {
+      ScanPeriod scanPeriod, String proximityUUID,
+      [int? major, int? minor,List<Map<String,dynamic>>? monitoringRegions]) async {
     await methodChannel.invokeMethod<void>('startScanning', {
       "scanPeriod":
           scanPeriod == ScanPeriod.monitoring ? "Monitoring" : "Ranging",
-      "listenerType": listenerType == ListenerType.secureProfile
-          ? "secureProfileListener"
-          : "iBeaconListener",
+      
       "proximityUUID": proximityUUID,
       "major": major,
-      "minor": minor
+      "minor": minor,
+      "monitoringRegions" : monitoringRegions
     });
   }
 

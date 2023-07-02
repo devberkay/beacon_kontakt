@@ -1,4 +1,0 @@
-enum ListenerType {
-  iBeacon,
-  secureProfile
-}

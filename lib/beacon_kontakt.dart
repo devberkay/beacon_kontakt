@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'beacon_kontakt_platform_interface.dart';
 import 'ibeacon_device.dart';
-import 'listener_type_enum.dart';
+
 import 'scan_period_enum.dart';
 
 class BeaconKontakt {
@@ -30,8 +30,8 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.initKontaktSDK(apiKey);
   }
 
-  Future<void> startScanning(ScanPeriod scanPeriod, ListenerType listenerType, String proximityUUID, [int? major, int? minor]) { 
-    return BeaconKontaktPlatform.instance.startScanning(scanPeriod,listenerType,proximityUUID,major,minor);
+  Future<void> startScanning(ScanPeriod scanPeriod,  String proximityUUID, [int? major, int? minor,List<Map<String,dynamic>>? monitoringRegions]) { 
+    return BeaconKontaktPlatform.instance.startScanning(scanPeriod,proximityUUID,major,minor,monitoringRegions);
   }
 
   Future<void> stopScanning() {
