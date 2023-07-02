@@ -74,12 +74,7 @@ import KontaktSDK
             "proximityUUID" : region.proximityUUID.uuidString,
                 "major":region.major,
                 "minor": region.minor,
-                "uniqueID" : nil,
-                "rssi" : nil,
-                "txPower": nil,
-                "batteryLevel": nil,
-                "name": nil,
-                "timestamp": nil
+                
         ] as [String : Any?])
         print("SWIFT: didExitRegion-2 identifier: \(region.identifier)")
         print("SWIFT: didExitRegion-2")
@@ -87,7 +82,6 @@ import KontaktSDK
     
     
     func beaconManager(_ manager: KTKBeaconManager, didEnter region: KTKBeaconRegion) {
-        
         statusEventSink?(true)
         print("SWIFT: didEnter-1")
         iBeaconDiscoveredEventSink?([
@@ -95,12 +89,7 @@ import KontaktSDK
             "proximityUUID" : region.proximityUUID.uuidString,
             "major":region.major,
             "minor": region.minor,
-            "uniqueID" : nil,
-            "rssi" : nil,
-            "txPower": nil,
-            "batteryLevel": nil,
-            "name": nil,
-            "timestamp": nil
+          
         ] as [String : Any?])
         print("SWIFT: didEnter-2 identifier: \(region.identifier)")
         print("SWIFT: didEnter-2")

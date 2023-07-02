@@ -23,7 +23,7 @@ mixin _$IBeaconDevice {
   String get proximityUUID => throw _privateConstructorUsedError;
   String get major => throw _privateConstructorUsedError;
   int get minor => throw _privateConstructorUsedError;
-  int get proximity => throw _privateConstructorUsedError;
+  int? get proximity => throw _privateConstructorUsedError;
   String? get userId =>
       throw _privateConstructorUsedError; // this is later to be fetched from firestore
   int? get updatedAt => throw _privateConstructorUsedError; // msSinceEpoch
@@ -46,7 +46,7 @@ abstract class $IBeaconDeviceCopyWith<$Res> {
       {String proximityUUID,
       String major,
       int minor,
-      int proximity,
+      int? proximity,
       String? userId,
       int? updatedAt,
       String? rssi,
@@ -69,7 +69,7 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
     Object? proximityUUID = null,
     Object? major = null,
     Object? minor = null,
-    Object? proximity = null,
+    Object? proximity = freezed,
     Object? userId = freezed,
     Object? updatedAt = freezed,
     Object? rssi = freezed,
@@ -88,10 +88,10 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
               as int,
-      proximity: null == proximity
+      proximity: freezed == proximity
           ? _value.proximity
           : proximity // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -124,7 +124,7 @@ abstract class _$$_IBeaconDeviceCopyWith<$Res>
       {String proximityUUID,
       String major,
       int minor,
-      int proximity,
+      int? proximity,
       String? userId,
       int? updatedAt,
       String? rssi,
@@ -145,7 +145,7 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
     Object? proximityUUID = null,
     Object? major = null,
     Object? minor = null,
-    Object? proximity = null,
+    Object? proximity = freezed,
     Object? userId = freezed,
     Object? updatedAt = freezed,
     Object? rssi = freezed,
@@ -164,10 +164,10 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
               as int,
-      proximity: null == proximity
+      proximity: freezed == proximity
           ? _value.proximity
           : proximity // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -195,7 +195,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       {required this.proximityUUID,
       required this.major,
       required this.minor,
-      required this.proximity,
+      this.proximity,
       this.userId,
       this.updatedAt,
       this.rssi,
@@ -211,7 +211,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   @override
   final int minor;
   @override
-  final int proximity;
+  final int? proximity;
   @override
   final String? userId;
 // this is later to be fetched from firestore
@@ -285,7 +285,7 @@ abstract class _IBeaconDevice implements IBeaconDevice {
       {required final String proximityUUID,
       required final String major,
       required final int minor,
-      required final int proximity,
+      final int? proximity,
       final String? userId,
       final int? updatedAt,
       final String? rssi,
@@ -301,7 +301,7 @@ abstract class _IBeaconDevice implements IBeaconDevice {
   @override
   int get minor;
   @override
-  int get proximity;
+  int? get proximity;
   @override
   String? get userId;
   @override // this is later to be fetched from firestore
