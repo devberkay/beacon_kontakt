@@ -53,10 +53,10 @@ import KontaktSDK
                  ] as [String : Any?]
              } else {
                  beaconModel =  [
-                    "userId": ktkDevice.alias,
+                   
                     "timestamp": nil,
                     "rssi": beacon.rssi,
-                    "proximity": proximity,
+                  
                     "proximityUUID": beacon.ktk_proximityUUID.uuidString,
                     "minor": beacon.minor,
                     "major": beacon.major,
