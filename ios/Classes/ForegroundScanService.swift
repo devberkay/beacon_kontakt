@@ -36,10 +36,10 @@ import KontaktSDK
             
             KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
                 if let ktkError = KTKCloudErrorFromError(error) {
-                    print(ktkError.debugDescription)
-                } else if let configs = response?.objects as? [KTKDeviceConfiguration] {
-                    for config in configs {
-                        // Do something with a config
+                    print("SWIFT: \(ktkError.debugDescription)")
+                } else if let ktkDevices = response?.objects as? [KTKDevice] {
+                    for ktkDevice in ktkDevices {
+                        
                     }
                 }
             }
