@@ -36,7 +36,7 @@ import KontaktSDK
              let proximityUUID = beacon.ktk_proximityUUID.uuidString
              let major = beacon.ktk_major
              let minor = beacon.ktk_minor
-             let parameters: [String: Any] = ["proximityUUID":proximityUUID, "major" : major, "minor": minor]
+             let parameters: [String: Any] = ["proximity":proximityUUID, "major" : major, "minor": minor]
              
              
              KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
