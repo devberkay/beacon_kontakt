@@ -66,6 +66,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
         case "initKontaktSDK":
             if let args = call.arguments as? [String: Any], let apiKey = args["apiKey"] as? String {
                 Kontakt.setAPIKey(apiKey)
+                Kontakt.setMonitoringOptions(KTKMonitoringOptions())
                 result(nil)
             } else {
                 result(FlutterError(code: "initKontaktSDK", message: "initKontaktSDK Invalid arguments", details: nil))
