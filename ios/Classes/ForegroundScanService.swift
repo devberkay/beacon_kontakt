@@ -72,8 +72,6 @@ import KontaktSDK
                          
                      }
                      beaconModels.append(beaconModel)
-                     
-                     
                  }
              }
              
