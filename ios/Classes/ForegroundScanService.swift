@@ -39,40 +39,29 @@ import KontaktSDK
              let minor = beacon.ktk_minor
              let parameters: [String: Any] = ["proximity":proximityUUID, "major" : major, "minor": minor]
              
-             KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
-                 if let ktkError = KTKCloudErrorFromError(error) {
-                     print("SWIFT-didRangeBeacons ERROR: \(ktkError.debugDescription)")
-                 } else if let ktkDevices = response?.objects as? [KTKDevice] {
-                     print("SWIFT- didRangeCompletionHandler OK")
-                     for ktkDevice in ktkDevices {
-                         if #available(iOS 13.0, *) {
-                             
-                             beaconModel = [
-                                "userId": ktkDevice.alias,
-                                "proximity": proximity,
-                                "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
-                                "rssi": beacon.rssi,
-                                "proximityUUID": beacon.ktk_proximityUUID.uuidString,
-                                "minor": minor,
-                                "major": major,
-                                
-                             ] as [String : Any?]
-                         } else {
-                             beaconModel =  [
-                                "userId": ktkDevice.alias,
-                                "timestamp": nil,
-                                "rssi": beacon.rssi,
-                                "proximity": proximity,
-                                "proximityUUID": beacon.ktk_proximityUUID.uuidString,
-                                "minor": beacon.minor,
-                                "major": beacon.major,
-                                
-                             ]
-                         }
-                         
-                     }
-                     beaconModels.append(beaconModel)
-                 }
+             if #available(iOS 13.0, *) {
+                 
+                 beaconModel = [
+                   
+                    "proximity": proximity,
+                    "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
+                    "rssi": beacon.rssi,
+                    "proximityUUID": beacon.ktk_proximityUUID.uuidString,
+                    "minor": minor,
+                    "major": major,
+                    
+                 ] as [String : Any?]
+             } else {
+                 beaconModel =  [
+                    "userId": ktkDevice.alias,
+                    "timestamp": nil,
+                    "rssi": beacon.rssi,
+                    "proximity": proximity,
+                    "proximityUUID": beacon.ktk_proximityUUID.uuidString,
+                    "minor": beacon.minor,
+                    "major": beacon.major,
+                    
+                 ]
              }
              
          }
