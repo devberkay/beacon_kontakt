@@ -53,15 +53,13 @@ import KontaktSDK
                  ] as [String : Any])
              } else {
                  beaconModels.append([
-                   
                     "proximity": proximity,
                     "timestamp": nil,
                     "rssi": beacon.rssi,
                     "proximityUUID": beacon.ktk_proximityUUID.uuidString,
                     "minor": minor,
                     "major": major,
-                    
-                 ] as [String : Any?])
+                 ] as [String : Any?] as [String : Any])
              }
              
          }
