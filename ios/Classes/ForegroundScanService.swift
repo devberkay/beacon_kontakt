@@ -41,7 +41,7 @@ import KontaktSDK
                 if let ktkError = KTKCloudErrorFromError(error) {
                     print("SWIFT-didRangeBeacons ERROR: \(ktkError.debugDescription)")
                 } else if let ktkDevices = response?.objects as? [KTKDevice] {
-                    
+                    print("SWIFT- didRangeCompletionHandler OK")
                     for ktkDevice in ktkDevices {
                         if #available(iOS 13.0, *) {
                             
