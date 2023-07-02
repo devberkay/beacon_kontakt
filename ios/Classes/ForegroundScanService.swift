@@ -37,16 +37,14 @@ import KontaktSDK
              let proximityUUID = beacon.ktk_proximityUUID.uuidString
              let major = beacon.ktk_major
              let minor = beacon.ktk_minor
-             
-             
              if #available(iOS 13.0, *) {
                  
                  beaconModels.append([
                    
                     "proximity": proximity,
                     "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
-                    "rssi": beacon.rssi,
-                    "proximityUUID": beacon.ktk_proximityUUID.uuidString,
+                    "rssi": rssi,
+                    "proximityUUID": proximityUUID,
                     "minor": minor,
                     "major": major,
                     
@@ -55,8 +53,8 @@ import KontaktSDK
                  beaconModels.append([
                     "proximity": proximity,
                     "timestamp": nil,
-                    "rssi": beacon.rssi,
-                    "proximityUUID": beacon.ktk_proximityUUID.uuidString,
+                    "rssi": rssi,
+                    "proximityUUID": proximityUUID,
                     "minor": minor,
                     "major": major,
                  ] as [String : Any?] as [String : Any])
