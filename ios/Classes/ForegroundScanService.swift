@@ -26,10 +26,11 @@ import KontaktSDK
 
     func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
         statusEventSink?(true)
+        let beaconModels: [[String : Any?]]
         // new code
         for beacon in beacons {
             print("SWIFT: beacon in beacons, beacon: \(beacon)")
-            let beaconModel: [String : Any]
+            
             let uuid = beacon.ktk_proximityUUID.uuidString
             let major = beacon.ktk_major
             let minor = beacon.ktk_minor
@@ -41,7 +42,7 @@ import KontaktSDK
                     print("SWIFT-didRangeBeacons ERROR: \(ktkError.debugDescription)")
                 } else if let ktkDevices = response?.objects as? [KTKDevice] {
                     for ktkDevice in ktkDevices {
-                        let alias = ktkDevice.alias // e.g. firebase user id
+                       
                     }
                 }
             }
