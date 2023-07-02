@@ -24,65 +24,66 @@ import KontaktSDK
         statusEventSink?(true)
     }
 
-    func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
-        statusEventSink?(true)
-        var beaconModels: [[String : Any?]?] = []
-        // new code
-        for beacon in beacons {
-            print("SWIFT: beacon in beacons, beacon: \(beacon)")
-            var beaconModel : [String : Any?]?
-            let uuid = beacon.ktk_proximityUUID.uuidString
-            let major = beacon.ktk_major
-            let minor = beacon.ktk_minor
-            let parameters: [String: Any] = ["proximity":uuid, "major" : major, "minor": minor]
-            
-            
-            KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
-                if let ktkError = KTKCloudErrorFromError(error) {
-                    print("SWIFT-didRangeBeacons ERROR: \(ktkError.debugDescription)")
-                } else if let ktkDevices = response?.objects as? [KTKDevice] {
-                    print("SWIFT- didRangeCompletionHandler OK")
-                    for ktkDevice in ktkDevices {
-                        if #available(iOS 13.0, *) {
-                            
-                           beaconModel = [
+     func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
+         statusEventSink?(true)
+         var beaconModels: [[String : Any?]?] = []
+         // new code
+         for beacon in beacons {
+             print("SWIFT: beacon in beacons, beacon: \(beacon)")
+             var beaconModel : [String : Any?]?
+             let uuid = beacon.ktk_proximityUUID.uuidString
+             let major = beacon.ktk_major
+             let minor = beacon.ktk_minor
+             let parameters: [String: Any] = ["proximity":uuid, "major" : major, "minor": minor]
+             
+             
+             KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
+                 if let ktkError = KTKCloudErrorFromError(error) {
+                     print("SWIFT-didRangeBeacons ERROR: \(ktkError.debugDescription)")
+                 } else if let ktkDevices = response?.objects as? [KTKDevice] {
+                     print("SWIFT- didRangeCompletionHandler OK")
+                     for ktkDevice in ktkDevices {
+                         if #available(iOS 13.0, *) {
+                             
+                             beaconModel = [
                                 "userId": ktkDevice.alias,
                                 "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
                                 "rssi": beacon.rssi,
                                 "proximityUUID": beacon.ktk_proximityUUID.uuidString,
                                 "minor": beacon.minor,
                                 "major": beacon.major,
-                             
-                           ] as [String : Any?]
-                        } else {
-                           beaconModel =  [
+                                
+                             ] as [String : Any?]
+                         } else {
+                             beaconModel =  [
                                 "userId": ktkDevice.alias,
                                 "timestamp": nil,
                                 "rssi": beacon.rssi,
                                 "proximityUUID": beacon.ktk_proximityUUID.uuidString,
                                 "minor": beacon.minor,
                                 "major": beacon.major,
-                               
-                            ]
-                        }
-
-                    }
-                    beaconModels.append(beaconModel)
-                    
-
-                }
-            }
-            
-        }
-        // new code
-        iBeaconsUpdatedEventSink(beaconModels)
-            }
+                                
+                             ]
+                         }
+                         
+                     }
+                     beaconModels.append(beaconModel)
+                     
+                     
+                 }
+             }
+             
+         }
+         // new code
+         iBeaconsUpdatedEventSink!(beaconModels)
+         
+     }
     
     
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
         statusEventSink?(true)
         print("SWIFT: didExitRegion-1")
-        iBeaconLostEventSink?( [
+        iBeaconLostEventSink!( [
             "proximityUUID" : region.proximityUUID.uuidString,
                 "major":region.major,
                 "minor": region.minor,
@@ -102,7 +103,7 @@ import KontaktSDK
         
         statusEventSink?(true)
         print("SWIFT: didEnter-1")
-        iBeaconDiscoveredEventSink?([
+        iBeaconDiscoveredEventSink!([
             
             "proximityUUID" : region.proximityUUID.uuidString,
             "major":region.major,
@@ -128,35 +129,6 @@ import KontaktSDK
         print("SWIFT: Monitoring failed with error: \(error?.localizedDescription ?? "unknown error")")
     }
        
-    
-    
-    func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        guard let argument = arguments as? String else {
-            return FlutterError(code: "invalid_argument", message: "Invalid argument type", details: nil)
-        }
-        
-        switch argument {
-        case "statusEventSink":
-            statusEventSink = events
-            statusEventSink?(false)
-        case "iBeaconDiscoveredEventSink":
-            iBeaconDiscoveredEventSink = events
-        case "iBeaconsUpdatedEventSink":
-            iBeaconsUpdatedEventSink = events
-        case "iBeaconLostEventSink":
-            iBeaconLostEventSink = events
-//        case "secureProfileDiscoveredEventSink":
-//            secureProfileDiscoveredEventSink = events
-//        case "secureProfilesUpdatedEventSink":
-//            secureProfilesUpdatedEventSink = events
-//        case "secureProfileLostEvenSink":
-//            secureProfileLostEvenSink = events
-        default:
-            return FlutterError(code: "unknown_channel", message: "Unknown event channel", details: argument)
-        }
-        
-        return nil
-    }
     
     
     func startScanning(scanPeriod: String?, listenerType: String?, proximityUUID: String?, major: Int?, minor: Int?) {
@@ -188,6 +160,37 @@ import KontaktSDK
         beaconManager.stopMonitoringForAllRegions()
     }
     
+     
+     
+     func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
+         guard let argument = arguments as? String else {
+             return FlutterError(code: "invalid_argument", message: "Invalid argument type", details: nil)
+         }
+         
+         switch argument {
+         case "statusEventSink":
+             statusEventSink = events
+             statusEventSink?(false)
+         case "iBeaconDiscoveredEventSink":
+             iBeaconDiscoveredEventSink = events
+         case "iBeaconsUpdatedEventSink":
+             iBeaconsUpdatedEventSink = events
+         case "iBeaconLostEventSink":
+             iBeaconLostEventSink = events
+ //        case "secureProfileDiscoveredEventSink":
+ //            secureProfileDiscoveredEventSink = events
+ //        case "secureProfilesUpdatedEventSink":
+ //            secureProfilesUpdatedEventSink = events
+ //        case "secureProfileLostEvenSink":
+ //            secureProfileLostEvenSink = events
+         default:
+             return FlutterError(code: "unknown_channel", message: "Unknown event channel", details: argument)
+         }
+         
+         return nil
+     }
+     
+     
     
     
 
