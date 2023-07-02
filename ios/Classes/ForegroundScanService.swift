@@ -68,14 +68,15 @@ import KontaktSDK
 
                     }
                     beaconModels.append(beaconModel)
+                    
+
                 }
             }
             
         }
         // new code
         
-        iBeaconsUpdatedEventSink(beaconModels)
-    }
+            }
     
     
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
