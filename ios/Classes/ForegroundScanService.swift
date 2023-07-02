@@ -26,11 +26,11 @@ import KontaktSDK
 
      func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
          statusEventSink?(true)
-         var beaconModels: [[String : Any?]] = []
+         var beaconModels: [[String : Any?]?] = []
          // new code
          for beacon in beacons {
              print("SWIFT: beacon in beacons, beacon: \(beacon)")
-             var beaconModel : [String : Any?]?
+             var beaconModel : [String : Any?]? = nil
              let uuid = beacon.ktk_proximityUUID.uuidString
              let major = beacon.ktk_major
              let minor = beacon.ktk_minor
