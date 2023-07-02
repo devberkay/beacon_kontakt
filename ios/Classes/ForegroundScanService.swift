@@ -67,9 +67,10 @@ import KontaktSDK
                         }
 
                     }
+                    beaconModels.append(beaconModel)
                 }
             }
-            beaconModels.append(beaconModel)
+            
         }
         // new code
         
