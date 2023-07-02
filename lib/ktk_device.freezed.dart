@@ -24,7 +24,7 @@ mixin _$KTKDevice {
   String get major => throw _privateConstructorUsedError;
   String get macAdress => throw _privateConstructorUsedError;
   int get minor => throw _privateConstructorUsedError;
-  int get updatedAt => throw _privateConstructorUsedError; // msSinceEpoch
+  int? get updatedAt => throw _privateConstructorUsedError; // msSinceEpoch
   String? get rssi => throw _privateConstructorUsedError;
   String? get txPower => throw _privateConstructorUsedError;
 
@@ -44,7 +44,7 @@ abstract class $KTKDeviceCopyWith<$Res> {
       String major,
       String macAdress,
       int minor,
-      int updatedAt,
+      int? updatedAt,
       String? rssi,
       String? txPower});
 }
@@ -66,7 +66,7 @@ class _$KTKDeviceCopyWithImpl<$Res, $Val extends KTKDevice>
     Object? major = null,
     Object? macAdress = null,
     Object? minor = null,
-    Object? updatedAt = null,
+    Object? updatedAt = freezed,
     Object? rssi = freezed,
     Object? txPower = freezed,
   }) {
@@ -87,10 +87,10 @@ class _$KTKDeviceCopyWithImpl<$Res, $Val extends KTKDevice>
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
               as int,
-      updatedAt: null == updatedAt
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       rssi: freezed == rssi
           ? _value.rssi
           : rssi // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$_KTKDeviceCopyWith<$Res> implements $KTKDeviceCopyWith<$Res> {
       String major,
       String macAdress,
       int minor,
-      int updatedAt,
+      int? updatedAt,
       String? rssi,
       String? txPower});
 }
@@ -135,7 +135,7 @@ class __$$_KTKDeviceCopyWithImpl<$Res>
     Object? major = null,
     Object? macAdress = null,
     Object? minor = null,
-    Object? updatedAt = null,
+    Object? updatedAt = freezed,
     Object? rssi = freezed,
     Object? txPower = freezed,
   }) {
@@ -156,10 +156,10 @@ class __$$_KTKDeviceCopyWithImpl<$Res>
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
               as int,
-      updatedAt: null == updatedAt
+      updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       rssi: freezed == rssi
           ? _value.rssi
           : rssi // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$_KTKDevice with DiagnosticableTreeMixin implements _KTKDevice {
       required this.major,
       required this.macAdress,
       required this.minor,
-      required this.updatedAt,
+      this.updatedAt,
       this.rssi,
       this.txPower});
 
@@ -196,7 +196,7 @@ class _$_KTKDevice with DiagnosticableTreeMixin implements _KTKDevice {
   @override
   final int minor;
   @override
-  final int updatedAt;
+  final int? updatedAt;
 // msSinceEpoch
   @override
   final String? rssi;
@@ -264,7 +264,7 @@ abstract class _KTKDevice implements KTKDevice {
       required final String major,
       required final String macAdress,
       required final int minor,
-      required final int updatedAt,
+      final int? updatedAt,
       final String? rssi,
       final String? txPower}) = _$_KTKDevice;
 
@@ -280,7 +280,7 @@ abstract class _KTKDevice implements KTKDevice {
   @override
   int get minor;
   @override
-  int get updatedAt;
+  int? get updatedAt;
   @override // msSinceEpoch
   String? get rssi;
   @override

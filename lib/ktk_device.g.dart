@@ -11,7 +11,7 @@ _$_KTKDevice _$$_KTKDeviceFromJson(Map<String, dynamic> json) => _$_KTKDevice(
       major: json['major'] as String,
       macAdress: json['macAdress'] as String,
       minor: json['minor'] as int,
-      updatedAt: json['updatedAt'] as int,
+      updatedAt: json['updatedAt'] as int?,
       rssi: json['rssi'] as String?,
       txPower: json['txPower'] as String?,
     );

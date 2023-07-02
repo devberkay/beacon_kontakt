@@ -9,18 +9,19 @@ part 'ibeacon_device.freezed.dart';
 // But if IBeaconDevice was not serializable, we could skip it.
 part 'ibeacon_device.g.dart';
 
-
 @freezed
 class IBeaconDevice with _$IBeaconDevice {
-  const factory IBeaconDevice({
-    required String proximityUUID,
-    required String major,
-    required int minor,
-    required int updatedAt, // msSinceEpoch
-    String? rssi,
-    String? txPower // only android
-  }) = _IBeaconDevice;
+  const factory IBeaconDevice(
+      {
+      required String userId,
+      required String proximityUUID,
+      required String major,
+      required int minor,
+      int? updatedAt, // msSinceEpoch
+      String? rssi,
+      String? txPower // only android
+      }) = _IBeaconDevice;
 
-  factory IBeaconDevice.fromJson(Map<String, Object?> json)
-      => _$IBeaconDeviceFromJson(json);
+  factory IBeaconDevice.fromJson(Map<String, Object?> json) =>
+      _$IBeaconDeviceFromJson(json);
 }

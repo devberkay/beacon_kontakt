@@ -17,7 +17,7 @@ class KTKDevice with _$KTKDevice {
     required String major,
     required String macAdress,
     required int minor,
-    required int updatedAt, // msSinceEpoch
+    int? updatedAt, // msSinceEpoch
     String? rssi,
     String? txPower // only android
   }) = _KTKDevice;
