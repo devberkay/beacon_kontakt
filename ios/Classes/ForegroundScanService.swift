@@ -107,7 +107,7 @@ import KontaktSDK
        
     
     
-     func startScanning(scanPeriod: String?, proximityUUID: String?, major: Int?, minor: Int?,monitoringRegions: [String:Any]?) {
+     func startScanning(scanPeriod: String?, proximityUUID: String?, major: Int?, minor: Int?,monitoringRegions: [[String:Any]]?) {
         
         var scanningRegion : KTKBeaconRegion
         if(major! < 0 || minor! < 0) {
