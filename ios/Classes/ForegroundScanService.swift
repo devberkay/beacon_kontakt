@@ -126,11 +126,11 @@ import KontaktSDK
                  
                  let beaconRegions = monitoringRegions.map { regionData -> KTKBeaconRegion in
                      // Unwrap the values without optional chaining
-                     let proximityUUIDString = regionData["proximityUUID"] as! String
-                     let majorValue = regionData["major"] as! Int
-                     let minorValue = regionData["minor"] as! Int
+                     let proximityUUID = regionData["proximityUUID"] as! String
+                     let major = regionData["major"] as! Int
+                     let minor = regionData["minor"] as! Int
                      
-                     return KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUIDString)!, major: CLBeaconMajorValue(majorValue), minor: CLBeaconMinorValue(minorValue), identifier: "")
+                     return KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID)!, major: CLBeaconMajorValue(major), minor: CLBeaconMinorValue(minor), identifier: "")
                  }
                  
                  for monitoringRegion in beaconRegions {
