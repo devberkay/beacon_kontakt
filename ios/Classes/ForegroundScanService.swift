@@ -30,7 +30,7 @@ import KontaktSDK
         // new code
         for beacon in beacons {
             print("SWIFT: beacon in beacons, beacon: \(beacon)")
-            
+            var beaconModel : [String : Any?]?
             let uuid = beacon.ktk_proximityUUID.uuidString
             let major = beacon.ktk_major
             let minor = beacon.ktk_minor
@@ -41,11 +41,35 @@ import KontaktSDK
                 if let ktkError = KTKCloudErrorFromError(error) {
                     print("SWIFT-didRangeBeacons ERROR: \(ktkError.debugDescription)")
                 } else if let ktkDevices = response?.objects as? [KTKDevice] {
+                    
                     for ktkDevice in ktkDevices {
-                       
+                        if #available(iOS 13.0, *) {
+                            
+                           beaconModel = [
+                                "userId": ktkDevice.alias,
+                                "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
+                                "rssi": beacon.rssi,
+                                "proximityUUID": beacon.ktk_proximityUUID.uuidString,
+                                "minor": beacon.minor,
+                                "major": beacon.major,
+                             
+                           ] as [String : Any?]
+                        } else {
+                           beaconModel =  [
+                                "userId": ktkDevice.alias,
+                                "timestamp": nil,
+                                "rssi": beacon.rssi,
+                                "proximityUUID": beacon.ktk_proximityUUID.uuidString,
+                                "minor": beacon.minor,
+                                "major": beacon.major,
+                               
+                            ]
+                        }
+
                     }
                 }
             }
+            beaconModels.append(beaconModel)
         }
         // new code
         
