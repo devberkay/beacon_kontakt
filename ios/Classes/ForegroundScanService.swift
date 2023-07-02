@@ -85,7 +85,7 @@ import KontaktSDK
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
         statusEventSink?(true)
         print("SWIFT: didExitRegion-1")
-        iBeaconLostEventSink!( [
+        iBeaconLostEventSink?( [
             "proximityUUID" : region.proximityUUID.uuidString,
                 "major":region.major,
                 "minor": region.minor,
