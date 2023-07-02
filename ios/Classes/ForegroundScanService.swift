@@ -11,7 +11,6 @@ import KontaktSDK
     private var iBeaconLostEventSink : FlutterEventSink? = nil
     private var beaconManager: KTKBeaconManager!
     
-    
      override init() {
         super.init()
         self.beaconManager = KTKBeaconManager(delegate: self)
