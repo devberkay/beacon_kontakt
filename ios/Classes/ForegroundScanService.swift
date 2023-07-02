@@ -74,7 +74,7 @@ import KontaktSDK
         }
         // new code
         
-        iBeaconsUpdatedEventSink()
+        iBeaconsUpdatedEventSink(beaconModels)
     }
     
     
