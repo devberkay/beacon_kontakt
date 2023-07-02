@@ -122,11 +122,13 @@ import KontaktSDK
             print("SWIFT: startRangingBeacons-2")
         }
         else {
-            print("SWIFT: startMonitoring-1")
-            for monitoringRegion in monitoringRegions {
-                beaconManager.startMonitoring(for: monitoringRegion) // background
+            if let monitoringRegions = monitoringRegions {
+                print("SWIFT: startMonitoring-1")
+                for monitoringRegion in monitoringRegions {
+                    beaconManager.startMonitoring(for: monitoringRegion) // background
+                }
+                print("SWIFT: startMonitoring-2")
             }
-            print("SWIFT: startMonitoring-2")
         }
     
     }
