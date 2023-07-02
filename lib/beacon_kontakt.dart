@@ -30,7 +30,7 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.initKontaktSDK(apiKey);
   }
 
-  Future<void> startScanning(ScanPeriod scanPeriod,  String proximityUUID, [int? major, int? minor,List<Map<String,dynamic>>? monitoringRegions]) { 
+  Future<void> startScanning(ScanPeriod scanPeriod,  String proximityUUID, [int? major, int? minor,List<Map<String,int>>? monitoringRegions]) { 
     return BeaconKontaktPlatform.instance.startScanning(scanPeriod,proximityUUID,major,minor,monitoringRegions);
   }
 

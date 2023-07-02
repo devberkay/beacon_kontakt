@@ -1,5 +1,5 @@
 import 'package:beacon_kontakt/ibeacon_device.dart';
-import 'package:beacon_kontakt/listener_type_enum.dart';
+
 import 'package:beacon_kontakt/permission_enum.dart';
 import 'package:beacon_kontakt/scan_period_enum.dart';
 import 'package:flutter/material.dart';
@@ -132,16 +132,23 @@ class _MyAppState extends ConsumerState<MyApp> {
                   onPressed: () async {
                     await _beaconKontaktPlugin.startScanning(
                         ScanPeriod.monitoring,
-                      
                         'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
                         -1,
-                        -1,
-                        [{
-                          "proximityUUID" : 
-                        }]
-                        
-                        
-                        );
+                        -1, 
+                        [
+                      {
+                        "major": 1931,
+                        "minor": 1109,
+                      },
+                      {
+                        "major": 6382,
+                        "minor": 6391,
+                      },
+                      {
+                        "major": 55928,
+                        "minor": 7922,
+                      }
+                    ]);
                   },
                   child: const Text("Start Scanning")),
               TextButton(

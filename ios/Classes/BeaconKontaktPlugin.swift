@@ -81,7 +81,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
                 let minor = args["minor"] as? Int,
                 let major = args["major"] as? Int,
                 let proximityUUID = args["proximityUUID"] as? String,
-                let monitoringRegions = args["monitoringRegions"] as? [[String : Any]]
+                let monitoringRegions = args["monitoringRegions"] as? [[String : Int]]
 
                             else {
                 result(FlutterError(code: "startScanning", message: "Invalid arguments", details: nil))

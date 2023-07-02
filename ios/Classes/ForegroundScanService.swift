@@ -106,7 +106,7 @@ import KontaktSDK
     }
        
     
-     func startScanning(scanPeriod: String, proximityUUID: String, major: Int?, minor: Int?, monitoringRegions: [[String: Any]]?) {
+     func startScanning(scanPeriod: String, proximityUUID: String, major: Int?, minor: Int?, monitoringRegions: [[String: Int]]?) {
          var rangingRegion: KTKBeaconRegion
          
          
@@ -126,11 +126,11 @@ import KontaktSDK
                  
                  let monitoringRegions = monitoringRegionsAsDictionary.map { regionData -> KTKBeaconRegion in
                      // Unwrap the values without optional chaining
-                     let proximityUUID = regionData["proximityUUID"] as! String
-                     let major = regionData["major"] as! Int
-                     let minor = regionData["minor"] as! Int
                      
-                     return KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID)!, major: CLBeaconMajorValue(major), minor: CLBeaconMinorValue(minor), identifier: "")
+                     let majorInt = regionData["major"]!
+                     let minorInt = regionData["minor"]!
+                     
+                     return KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID)!, major: CLBeaconMajorValue(majorInt), minor: CLBeaconMinorValue(minorInt), identifier: "")
                  }
                  
                  for monitoringRegion in monitoringRegions {
