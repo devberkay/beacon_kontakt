@@ -34,8 +34,14 @@ import KontaktSDK
             let minor = beacon.ktk_minor
             let parameters: [String: Any] = ["proximity":uuid, "major" : major, "minor": minor]
             
-            KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { <#KTKKontaktResponse?#>, <#Error?#> in
-                <#code#>
+            KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
+                if let ktkError = KTKCloudErrorFromError(error) {
+                    print(ktkError.debugDescription)
+                } else if let configs = response?.objects as? [KTKDeviceConfiguration] {
+                    for config in configs {
+                        // Do something with a config
+                    }
+                }
             }
         }
         // new code
