@@ -31,10 +31,12 @@ import KontaktSDK
          for beacon in beacons {
              print("SWIFT: beacon in beacons, beacon: \(beacon)")
              var beaconModel : [String : Any?]? = nil
-             let uuid = beacon.ktk_proximityUUID.uuidString
+             let rssi = beacon.rssi
+             let proximity = beacon.proximity.rawValue
+             let proximityUUID = beacon.ktk_proximityUUID.uuidString
              let major = beacon.ktk_major
              let minor = beacon.ktk_minor
-             let parameters: [String: Any] = ["proximity":uuid, "major" : major, "minor": minor]
+             let parameters: [String: Any] = ["secureProximity":proximityUUID, "major" : major, "minor": minor]
              
              
              KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
@@ -50,8 +52,8 @@ import KontaktSDK
                                 "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
                                 "rssi": beacon.rssi,
                                 "proximityUUID": beacon.ktk_proximityUUID.uuidString,
-                                "minor": beacon.minor,
-                                "major": beacon.major,
+                                "minor": minor,
+                                "major": major,
                                 
                              ] as [String : Any?]
                          } else {
