@@ -123,7 +123,9 @@ import KontaktSDK
         }
         else {
             print("SWIFT: startMonitoring-1")
-            beaconManager.startMonitoring(for: scanningRegion) // background
+            for monitoringRegion in monitoringRegions {
+                beaconManager.startMonitoring(for: monitoringRegion) // background
+            }
             print("SWIFT: startMonitoring-2")
         }
     
