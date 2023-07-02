@@ -35,12 +35,13 @@ import KontaktSDK
             let minor = beacon.ktk_minor
             let parameters: [String: Any] = ["proximity":uuid, "major" : major, "minor": minor]
             
+            
             KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { response, error in
                 if let ktkError = KTKCloudErrorFromError(error) {
-                    print("SWIFT: \(ktkError.debugDescription)")
+                    print("SWIFT-didRangeBeacons ERROR: \(ktkError.debugDescription)")
                 } else if let ktkDevices = response?.objects as? [KTKDevice] {
                     for ktkDevice in ktkDevices {
-                        
+                        let alias = ktkDevice.alias // e.g. firebase user id
                     }
                 }
             }
