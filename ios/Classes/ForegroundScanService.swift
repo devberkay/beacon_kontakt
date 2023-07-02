@@ -11,6 +11,7 @@ import KontaktSDK
     private var iBeaconLostEventSink : FlutterEventSink? = nil
     private var beaconManager: KTKBeaconManager!
     
+    
      override init() {
         super.init()
         self.beaconManager = KTKBeaconManager(delegate: self)
@@ -33,8 +34,8 @@ import KontaktSDK
             let minor = beacon.ktk_minor
             let parameters: [String: Any] = ["proximity":uuid, "major" : major, "minor": minor]
             
-            KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { KTKKontaktResponse?, Error? in
-                
+            KTKCloudClient.sharedInstance().getObjects(KTKDevice.self, parameters:parameters) { <#KTKKontaktResponse?#>, <#Error?#> in
+                <#code#>
             }
         }
         // new code
