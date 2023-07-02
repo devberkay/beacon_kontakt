@@ -38,13 +38,13 @@ import KontaktSDK
                 <#code#>
             }
         }
-        
-        
-        
-        
-        
-        
         // new code
+        
+        
+        
+        
+        
+    
         print("SWIFT: didRangeBeacons-1")
         iBeaconsUpdatedEventSink?(beacons.map { beacon in
             if #available(iOS 13.0, *) {
