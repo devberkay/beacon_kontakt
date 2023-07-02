@@ -49,6 +49,7 @@ import KontaktSDK
                              
                              beaconModel = [
                                 "userId": ktkDevice.alias,
+                                "proximity": proximity,
                                 "timestamp": Int(beacon.timestamp.timeIntervalSince1970 * 1000.0),
                                 "rssi": beacon.rssi,
                                 "proximityUUID": beacon.ktk_proximityUUID.uuidString,
@@ -61,6 +62,7 @@ import KontaktSDK
                                 "userId": ktkDevice.alias,
                                 "timestamp": nil,
                                 "rssi": beacon.rssi,
+                                "proximity": proximity,
                                 "proximityUUID": beacon.ktk_proximityUUID.uuidString,
                                 "minor": beacon.minor,
                                 "major": beacon.major,
