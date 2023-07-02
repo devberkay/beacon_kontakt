@@ -26,7 +26,7 @@ import KontaktSDK
 
      func beaconManager(_ manager: KTKBeaconManager, didRangeBeacons beacons: [CLBeacon], in region: KTKBeaconRegion) {
          statusEventSink?(true)
-         var beaconModels: [[String : Any?]?] = []
+         var beaconModels: [[String : Any?]] = []
          // new code
          for beacon in beacons {
              print("SWIFT: beacon in beacons, beacon: \(beacon)")
