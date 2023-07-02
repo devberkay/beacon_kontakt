@@ -121,10 +121,10 @@ import KontaktSDK
              beaconManager.startRangingBeacons(in: rangingRegion) // foreground
              print("SWIFT: startRangingBeacons-2")
          } else {
-             if let monitoringRegions = monitoringRegions {
+             if let monitoringRegionsAsDictionary = monitoringRegions {
                  print("SWIFT: startMonitoring-1")
                  
-                 let monitoringRegions = monitoringRegions.map { regionData -> KTKBeaconRegion in
+                 let monitoringRegions = monitoringRegionsAsDictionary.map { regionData -> KTKBeaconRegion in
                      // Unwrap the values without optional chaining
                      let proximityUUID = regionData["proximityUUID"] as! String
                      let major = regionData["major"] as! Int
