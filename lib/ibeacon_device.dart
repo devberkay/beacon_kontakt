@@ -12,11 +12,11 @@ part 'ibeacon_device.g.dart';
 @freezed
 class IBeaconDevice with _$IBeaconDevice {
   const factory IBeaconDevice(
-      {
-      required String userId,
+      {required String userId,
       required String proximityUUID,
       required String major,
       required int minor,
+      required int proximity,
       int? updatedAt, // msSinceEpoch
       String? rssi,
       String? txPower // only android
