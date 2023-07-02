@@ -136,7 +136,9 @@ class _MyAppState extends ConsumerState<MyApp> {
                         'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
                         -1,
                         -1,
-                        
+                        [{
+                          "proximityUUID" : 
+                        }]
                         
                         
                         );
