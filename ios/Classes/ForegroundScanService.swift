@@ -107,14 +107,14 @@ import KontaktSDK
        
     
     
-    func startScanning(scanPeriod: String?, listenerType: String?, proximityUUID: String?, major: Int?, minor: Int?) {
+    func startScanning(scanPeriod: String, proximityUUID: String, major: Int?, minor: Int?) {
         
         var scanningRegion : KTKBeaconRegion
         if(major! < 0 || minor! < 0) {
-            scanningRegion = KTKBeaconRegion.init(proximityUUID: UUID.init(uuidString: proximityUUID!)!, identifier:"")
+            scanningRegion = KTKBeaconRegion.init(proximityUUID: UUID.init(uuidString: proximityUUID)!, identifier:"")
         }
         else {
-            scanningRegion =   KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID!)!, major: CLBeaconMajorValue(major!), minor: CLBeaconMinorValue(minor!),identifier: "")
+            scanningRegion =   KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID)!, major: CLBeaconMajorValue(major!), minor: CLBeaconMinorValue(minor!),identifier: "")
         }
         if(scanPeriod == "Ranging") {
             print("SWIFT: startRangingBeacons-1")
