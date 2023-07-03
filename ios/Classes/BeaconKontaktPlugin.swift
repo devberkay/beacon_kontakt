@@ -80,9 +80,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
                 let listenerType = args["listenerType"] as? String,
                 let minor = args["minor"] as? Int,
                 let major = args["major"] as? Int,
-                let proximityUUID = args["proximityUUID"] as? String,
-              
-
+                let proximityUUID = args["proximityUUID"] as? String
                             else {
                 result(FlutterError(code: "startScanning", message: "Invalid arguments", details: nil))
                 return
@@ -93,7 +91,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
             print("SWIFT: Major: \(major)")
             print("SWIFT: Proximity UUID: \(proximityUUID) ")
             do {
-                try instance!.foregroundScanService!.startScanning(scanPeriod : scanPeriod, proximityUUID: proximityUUID, major: major, minor: minor,monitoringRegions: monitoringRegions)
+                try instance!.foregroundScanService!.startScanning(scanPeriod : scanPeriod, proximityUUID: proximityUUID, major: major, minor: minor)
                 print("SWIFT: Scanning started -SWIFT")
                 result(nil)
             } catch {
