@@ -81,7 +81,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   @override
   Future<void> startScanning(
       ScanPeriod scanPeriod, String proximityUUID,
-      [int? major, int? minor,List<Map<String,int>>? monitoringRegions]) async {
+      [int? major, int? minor]) async {
     await methodChannel.invokeMethod<void>('startScanning', {
       "scanPeriod":
           scanPeriod == ScanPeriod.monitoring ? "Monitoring" : "Ranging",
@@ -89,7 +89,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       "proximityUUID": proximityUUID,
       "major": major,
       "minor": minor,
-      "monitoringRegions" : monitoringRegions
+      
     });
   }
 

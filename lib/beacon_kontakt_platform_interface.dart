@@ -48,7 +48,7 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
     throw UnimplementedError('initKontaktSDK() has not been implemented.');
   }
 
-  Future<void> startScanning(ScanPeriod scanPeriod,  String proximityUUID, [int? major, int? minor,List<Map<String,int>>? monitoringRegions]) {
+  Future<void> startScanning(ScanPeriod scanPeriod,  String proximityUUID, [int? major, int? minor]) {
     throw UnimplementedError('startScanning() has not been implemented.');
   }
   Future<void> stopScanning() {
