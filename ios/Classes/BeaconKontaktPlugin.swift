@@ -77,7 +77,6 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
         case "startScanning":
             guard let args = call.arguments as? [String: Any],
                 let scanPeriod = args["scanPeriod"] as? String,
-                let listenerType = args["listenerType"] as? String,
                 let minor = args["minor"] as? Int,
                 let major = args["major"] as? Int,
                 let proximityUUID = args["proximityUUID"] as? String
@@ -86,7 +85,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
                 return
             }
             print("SWIFT: Scan Period: \(scanPeriod)")
-            print("SWIFT: Listener Type: \(listenerType)")
+       
             print("SWIFT: Minor: \(minor) ")
             print("SWIFT: Major: \(major)")
             print("SWIFT: Proximity UUID: \(proximityUUID) ")
