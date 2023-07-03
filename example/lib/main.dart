@@ -134,14 +134,20 @@ class _MyAppState extends ConsumerState<MyApp> {
                       _beaconKontaktPlugin.startScanning(
                         ScanPeriod.monitoring,
                         'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
-                        -1,
-                        -1, 
+                        55928,
+                        7922, 
                         ),
                         _beaconKontaktPlugin.startScanning(
                         ScanPeriod.monitoring,
                         'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
-                        -1,
-                        -1, 
+                        6382,
+                        6391, 
+                        ),
+                        _beaconKontaktPlugin.startScanning(
+                        ScanPeriod.monitoring,
+                        'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
+                        1931,
+                        1109, 
                         ),
                     ]);
                   },
