@@ -132,8 +132,10 @@ import KontaktSDK
     
     
     func stopScanning() {
+       
         beaconManager.stopRangingBeaconsInAllRegions()
         beaconManager.stopMonitoringForAllRegions()
+        statusEventSink?(false)
     }
     
      
@@ -179,6 +181,7 @@ import KontaktSDK
         
         switch argument {
         case "statusEventSink":
+            statusEventSink?(false)
             statusEventSink = nil
         case "iBeaconDiscoveredEventSink":
             iBeaconDiscoveredEventSink = nil
