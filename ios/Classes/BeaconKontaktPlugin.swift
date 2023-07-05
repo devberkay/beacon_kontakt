@@ -90,7 +90,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
             print("SWIFT: Proximity UUID: \(proximityUUID) ")
             do {
                 try instance!.foregroundScanService!.startScanning(scanPeriod : scanPeriod, proximityUUID: proximityUUID, major: major, minor: minor)
-                print("SWIFT: Scanning started -SWIFT")
+                print("SWIFT: Scanning started")
                 result(nil)
             } catch {
                 print("SWIFT: Error starting scanning: \(error)")
