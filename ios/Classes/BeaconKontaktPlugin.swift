@@ -85,7 +85,6 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
                 return
             }
             print("SWIFT: Scan Period: \(scanPeriod)")
-       
             print("SWIFT: Minor: \(minor) ")
             print("SWIFT: Major: \(major)")
             print("SWIFT: Proximity UUID: \(proximityUUID) ")
