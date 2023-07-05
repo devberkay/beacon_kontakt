@@ -145,7 +145,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
         yield IBeaconDevice.fromJson(iBeaconAsMap);
       }
     } on PlatformException catch (e) {
-      debugPrint("listenIBeaconLost Error : ${e.message}");
+      debugPrint("listenIBeaconDiscovered Error : ${e.message}");
     }
   }
 
