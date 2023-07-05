@@ -76,7 +76,7 @@ import KontaktSDK
                 "minor": region.minor,
                 
         ] as [String : Any?])
-        print("SWIFT: didExitRegion-2 identifier: \(region.identifier)")
+        print("SWIFT: didExitRegion-2 identifier: \(region)")
         print("SWIFT: didExitRegion-2")
     }
     
@@ -91,7 +91,7 @@ import KontaktSDK
             "minor": region.minor,
           
         ] as [String : Any?])
-        print("SWIFT: didEnter-2 identifier: \(region.identifier)")
+        print("SWIFT: didEnter-2 identifier: \(region)")
         print("SWIFT: didEnter-2")
     }
     
