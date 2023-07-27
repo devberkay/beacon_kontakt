@@ -2,6 +2,7 @@ import Flutter
 import KontaktSDK
 
 class ActivityService: NSObject,FlutterStreamHandler, CLLocationManagerDelegate, CBCentralManagerDelegate {
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         
     }
