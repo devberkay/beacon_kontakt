@@ -105,10 +105,10 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
                 print("SWIFT: Error stopping scanning: \(error)")
                 result(FlutterError(code: "stopScanning", message: "Error stopping scanning", details: "\(error)"))
             }
-        
+            return
         case "emitBluetoothStatus":
-            result(instance?.activityService?.emitBluetoothStatus()
-)
+            result(instance?.activityService?.emitBluetoothStatus())
+            return
         case "openLocationSettings":
             instance?.activityService?.openLocationSettings()
             result(nil)
