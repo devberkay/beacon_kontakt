@@ -150,7 +150,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Stream<bool> listenLocationServiceStatus() async* {
+  Stream<bool> listenLocationServiceStatus() async* { // android-only
     if (Platform.isAndroid) {
       while (true) {
         yield await methodChannel.invokeMethod<bool>("emitLocationStatus") ??

@@ -62,7 +62,7 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.listenBluetoothServiceStatus();
   }
 
-  Stream<bool> listenLocationServiceStatus() {
+  Stream<bool> listenLocationServiceStatus() { // android-only
     return BeaconKontaktPlatform.instance.listenLocationServiceStatus();
   }
 
