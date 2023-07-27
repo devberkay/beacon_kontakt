@@ -1,7 +1,7 @@
 import Flutter
 import KontaktSDK
 
-class ActivityService: NSObject,FlutterStreamHandler, CLLocationManagerDelegate {
+class ActivityService: NSObject,FlutterStreamHandler, CLLocationManagerDelegate, CBCentralManagerDelegate {
     
     private var locationEventSink: FlutterEventSink? = nil
     private let locationManager = CLLocationManager()
