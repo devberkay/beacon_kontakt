@@ -4,6 +4,8 @@ import KontaktSDK
 class ActivityService: NSObject,FlutterStreamHandler, CLLocationManagerDelegate, CBCentralManagerDelegate {
     
     private var locationEventSink: FlutterEventSink? = nil
+    
+    private var centralManager: CBCentralManager!
     private let locationManager = CLLocationManager()
     private var authorizationStatus: CLAuthorizationStatus?
     private var completion: ((Bool) -> Void)?
@@ -11,6 +13,7 @@ class ActivityService: NSObject,FlutterStreamHandler, CLLocationManagerDelegate,
     
     override init() {
         super.init()
+        centralManager = CBCentralManager(delegate: self, queue: nil)
         locationManager.delegate = self
     }
     
@@ -50,8 +53,13 @@ class ActivityService: NSObject,FlutterStreamHandler, CLLocationManagerDelegate,
 //    }
     
     func emitBluetoothStatus() -> Bool {
-        return CBCentralManager().state == .poweredOn
+        return centralManager.state == .poweredOn
     }
+    
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        <#code#>
+    }
+    
     
     
     
