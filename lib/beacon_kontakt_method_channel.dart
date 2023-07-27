@@ -174,7 +174,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
     while (true) {
       yield await methodChannel.invokeMethod<bool>("emitBluetoothStatus") ??
           false;
-      // await Future.delayed(const Duration(milliseconds: 500));
+      await Future.delayed(const Duration(seconds: 5));
     }
   }
 
