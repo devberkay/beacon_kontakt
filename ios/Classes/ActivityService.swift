@@ -56,9 +56,10 @@ class ActivityService: NSObject,FlutterStreamHandler, CLLocationManagerDelegate,
         return centralManager.state == .poweredOn
     }
     
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        <#code#>
-    }
+//
+//    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+//        <#code#>
+//    }
     
     
     
