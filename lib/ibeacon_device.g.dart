@@ -9,11 +9,11 @@ part of 'ibeacon_device.dart';
 _$_IBeaconDevice _$$_IBeaconDeviceFromJson(Map<String, dynamic> json) =>
     _$_IBeaconDevice(
       proximityUUID: json['proximityUUID'] as String,
-      major: json['major'] as String,
+      major: json['major'] as int,
       minor: json['minor'] as int,
       proximity: json['proximity'] as int?,
       userId: json['userId'] as String?,
-      updatedAt: json['updatedAt'] as int?,
+      timestamp: json['timestamp'] as int?,
       rssi: json['rssi'] as String?,
       txPower: json['txPower'] as String?,
     );
@@ -25,7 +25,7 @@ Map<String, dynamic> _$$_IBeaconDeviceToJson(_$_IBeaconDevice instance) =>
       'minor': instance.minor,
       'proximity': instance.proximity,
       'userId': instance.userId,
-      'updatedAt': instance.updatedAt,
+      'timestamp': instance.timestamp,
       'rssi': instance.rssi,
       'txPower': instance.txPower,
     };

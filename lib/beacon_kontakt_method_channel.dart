@@ -43,12 +43,12 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Future<void> checkPermissions() {
-    return methodChannel.invokeMethod('checkPermissions');
+  Future<bool?> checkPermissions() {
+    return methodChannel.invokeMethod<bool>('checkPermissions');
   }
 
   @override
-  Future<String?> emitPermissionStatusString() async {
+  Future<String?> emitPermissionStatusString() async { //ios-only
     //ios-only
     if (Platform.isIOS) {
       return methodChannel.invokeMethod<String>('emitPermissionStatusString');
@@ -121,7 +121,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
     try {
       await for (final Object? device in foregroundScanIBeaconLostEventChannel
           .receiveBroadcastStream("iBeaconLostEventSink")) {
-        debugPrint("lost : $device");
+        
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
         debugPrint("lost : $device");

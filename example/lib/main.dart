@@ -20,6 +20,23 @@ final isScanningProvider = StreamProvider.autoDispose<bool>((ref) async* {
   }
 });
 
+final didEnterStreamProvider =
+    StreamProvider.autoDispose<IBeaconDevice>((ref) async* {
+  final beaconKontaktApi = ref.watch(beaconKontaktApiProvider);
+  await for (final iBeaconDevice
+      in beaconKontaktApi.listenIBeaconDiscovered()) {
+    yield iBeaconDevice;
+  }
+});
+
+final didExitStreamProvider =
+    StreamProvider.autoDispose<IBeaconDevice>((ref) async* {
+  final beaconKontaktApi = ref.watch(beaconKontaktApiProvider);
+  await for (final iBeaconDevice in beaconKontaktApi.listenIBeaconLost()) {
+    yield iBeaconDevice;
+  }
+});
+
 // final isBluetoothOpenProvider = StreamProvider<bool>((ref) async* {
 //   final beaconKontaktApi = ref.watch(beaconKontaktApiProvider);
 //   await for (bool currentStatus
@@ -62,7 +79,7 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   Future<void> initKontaktSDK() async {
     await _beaconKontaktPlugin
-        .initKontaktSDK("dgSRGSjPdKlgymeNiratRYxucDqGOCtj");
+        .initKontaktSDK("YOUR_OWN_KONTAKT_API_KEY"); // CAN BE FOUND ON KONTAKT DASHBOARD
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -106,6 +123,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       return false;
     });
 
+
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -130,26 +148,7 @@ class _MyAppState extends ConsumerState<MyApp> {
                   }),
               TextButton(
                   onPressed: () async {
-                    await Future.wait([
-                      _beaconKontaktPlugin.startScanning(
-                        ScanPeriod.monitoring,
-                        'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
-                        55928,
-                        7922, 
-                        ),
-                        _beaconKontaktPlugin.startScanning(
-                        ScanPeriod.monitoring,
-                        'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
-                        6382,
-                        6391, 
-                        ),
-                        _beaconKontaktPlugin.startScanning(
-                        ScanPeriod.monitoring,
-                        'F7826DA6-4FA2-4E98-8024-BC5B71E0893E',
-                        1931,
-                        1109, 
-                        ),
-                    ]);
+                    
                   },
                   child: const Text("Start Scanning")),
               TextButton(
@@ -181,7 +180,7 @@ class _MyAppState extends ConsumerState<MyApp> {
                     stream: _beaconKontaktPlugin.listenIBeaconDiscovered(),
                     builder: (context, snapshot) {
                       final discoveredDevice = snapshot.data;
-
+                      debugPrint("discoveredDevice : $discoveredDevice");
                       return SizedBox(
                         height: 100,
                         child: ListView(

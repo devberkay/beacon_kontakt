@@ -14,7 +14,7 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.getPlatformVersion();
   }
 
-  Future<void> checkPermissions() {
+  Future<bool?> checkPermissions() {
     return BeaconKontaktPlatform.instance.checkPermissions();
   }
 

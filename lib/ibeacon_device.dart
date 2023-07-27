@@ -14,11 +14,11 @@ class IBeaconDevice with _$IBeaconDevice {
   const factory IBeaconDevice(
       {
       required String proximityUUID,
-      required String major,
+      required int major,
       required int minor,
       int? proximity,
       String? userId, // this is later to be fetched from firestore
-      int? updatedAt, // msSinceEpoch
+      int? timestamp, // msSinceEpoch
       String? rssi,
       String? txPower // only android
       }) = _IBeaconDevice;
