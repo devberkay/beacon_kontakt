@@ -48,7 +48,8 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Future<String?> emitPermissionStatusString() async { //ios-only
+  Future<String?> emitPermissionStatusString() async {
+    //ios-only
     //ios-only
     if (Platform.isIOS) {
       return methodChannel.invokeMethod<String>('emitPermissionStatusString');
@@ -79,17 +80,14 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Future<void> startScanning(
-      ScanPeriod scanPeriod, String proximityUUID,
+  Future<void> startScanning(ScanPeriod scanPeriod, String proximityUUID,
       [int? major, int? minor]) async {
     await methodChannel.invokeMethod<void>('startScanning', {
       "scanPeriod":
           scanPeriod == ScanPeriod.monitoring ? "Monitoring" : "Ranging",
-      
       "proximityUUID": proximityUUID,
       "major": major,
       "minor": minor,
-      
     });
   }
 
@@ -109,7 +107,9 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
             .map((e) => jsonDecode(jsonEncode(e)) as Map<String, dynamic>)
             .toList();
 
-        yield listOfIBeaconsAsMap.map((e) => IBeaconDevice.fromJson(e)).toList();
+        yield listOfIBeaconsAsMap
+            .map((e) => IBeaconDevice.fromJson(e))
+            .toList();
       }
     } on PlatformException catch (e) {
       debugPrint("listenIBeaconsUpdated Error : ${e.message}");
@@ -121,7 +121,6 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
     try {
       await for (final Object? device in foregroundScanIBeaconLostEventChannel
           .receiveBroadcastStream("iBeaconLostEventSink")) {
-        
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
         debugPrint("lost : $device");
@@ -150,7 +149,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Stream<bool> listenLocationServiceStatus() async* { 
+  Stream<bool> listenLocationServiceStatus() async* {
     if (Platform.isAndroid) {
       while (true) {
         yield await methodChannel.invokeMethod<bool>("emitLocationStatus") ??
@@ -174,7 +173,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
     while (true) {
       yield await methodChannel.invokeMethod<bool>("emitBluetoothStatus") ??
           false;
-      await Future.delayed(const Duration(seconds: 8));
+      await Future.delayed(const Duration(seconds: 1));
     }
   }
 
