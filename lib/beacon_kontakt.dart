@@ -22,7 +22,7 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.emitPermissionStatusString();
   }
 
-  Stream<BLEPermissionStatus> listenPermissionStatus() {
+  Stream<bool?> listenPermissionStatus() {
     return BeaconKontaktPlatform.instance.listenPermissionStatus();
   }
 

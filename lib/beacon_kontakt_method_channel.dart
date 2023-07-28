@@ -58,18 +58,16 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Stream<BLEPermissionStatus> listenPermissionStatus() async* {
+  Stream<bool?> listenPermissionStatus() async* {
     try {
       await for (final status in permissionEventChannel
           .receiveBroadcastStream()
-          .map((status) => status as bool
-              ? BLEPermissionStatus.granted
-              : BLEPermissionStatus.denied)) {
+          .map((status) => status as bool)) {
         yield status;
       }
     } on PlatformException catch (e) {
       debugPrint(e.message);
-      yield BLEPermissionStatus.denied;
+      yield false;
     }
   }
 

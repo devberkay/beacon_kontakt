@@ -39,7 +39,7 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
     throw UnimplementedError('emitPermissionStatusString() has not been implemented.');
   }
 
-  Stream<BLEPermissionStatus> listenPermissionStatus() {
+  Stream<bool?> listenPermissionStatus() {
     throw UnimplementedError('onPermissionChanged() has not been implemented.');
   }
 
