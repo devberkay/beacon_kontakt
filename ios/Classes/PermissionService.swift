@@ -49,16 +49,18 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
             
             return true
         case .authorizedWhenInUse:
-            beaconManager?.requestLocationAlwaysAuthorization()
+            
             return true
         case .notDetermined:
-            beaconManager?.requestLocationAlwaysAuthorization()
+            if(onlyCheck) {
+                beaconManager?.requestLocationAlwaysAuthorization()
+            }
             return false
         case .restricted:
-            beaconManager?.requestLocationAlwaysAuthorization()
+            
             return false
         case .denied:
-            beaconManager?.requestLocationAlwaysAuthorization()
+            
             return false
             
         default:
