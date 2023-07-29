@@ -14,7 +14,7 @@ _$_IBeaconDevice _$$_IBeaconDeviceFromJson(Map<String, dynamic> json) =>
       proximity: json['proximity'] as int?,
       userId: json['userId'] as String?,
       timestamp: json['timestamp'] as int?,
-      rssi: json['rssi'] as String?,
+      rssi: json['rssi'] as int?,
       txPower: json['txPower'] as String?,
     );
 

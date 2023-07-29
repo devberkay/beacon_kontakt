@@ -27,7 +27,7 @@ mixin _$IBeaconDevice {
   String? get userId =>
       throw _privateConstructorUsedError; // this is later to be fetched from firestore
   int? get timestamp => throw _privateConstructorUsedError; // msSinceEpoch
-  String? get rssi => throw _privateConstructorUsedError;
+  int? get rssi => throw _privateConstructorUsedError;
   String? get txPower => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $IBeaconDeviceCopyWith<$Res> {
       int? proximity,
       String? userId,
       int? timestamp,
-      String? rssi,
+      int? rssi,
       String? txPower});
 }
 
@@ -103,7 +103,7 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
       rssi: freezed == rssi
           ? _value.rssi
           : rssi // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       txPower: freezed == txPower
           ? _value.txPower
           : txPower // ignore: cast_nullable_to_non_nullable
@@ -127,7 +127,7 @@ abstract class _$$_IBeaconDeviceCopyWith<$Res>
       int? proximity,
       String? userId,
       int? timestamp,
-      String? rssi,
+      int? rssi,
       String? txPower});
 }
 
@@ -179,7 +179,7 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
       rssi: freezed == rssi
           ? _value.rssi
           : rssi // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       txPower: freezed == txPower
           ? _value.txPower
           : txPower // ignore: cast_nullable_to_non_nullable
@@ -219,7 +219,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   final int? timestamp;
 // msSinceEpoch
   @override
-  final String? rssi;
+  final int? rssi;
   @override
   final String? txPower;
 
@@ -288,7 +288,7 @@ abstract class _IBeaconDevice implements IBeaconDevice {
       final int? proximity,
       final String? userId,
       final int? timestamp,
-      final String? rssi,
+      final int? rssi,
       final String? txPower}) = _$_IBeaconDevice;
 
   factory _IBeaconDevice.fromJson(Map<String, dynamic> json) =
@@ -307,7 +307,7 @@ abstract class _IBeaconDevice implements IBeaconDevice {
   @override // this is later to be fetched from firestore
   int? get timestamp;
   @override // msSinceEpoch
-  String? get rssi;
+  int? get rssi;
   @override
   String? get txPower;
   @override
