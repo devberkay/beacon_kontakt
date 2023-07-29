@@ -43,7 +43,8 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
-  Future<bool?> checkPermissions() { // request permission
+  Future<bool?> checkPermissions() {
+    // request permission
     return methodChannel.invokeMethod<bool>('checkPermissions');
   }
 
