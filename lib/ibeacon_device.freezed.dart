@@ -23,6 +23,8 @@ mixin _$IBeaconDevice {
   String get proximityUUID => throw _privateConstructorUsedError;
   int get major => throw _privateConstructorUsedError;
   int get minor => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
+  String? get uniqueId => throw _privateConstructorUsedError;
   int? get proximity => throw _privateConstructorUsedError;
   int? get timestamp => throw _privateConstructorUsedError; // msSinceEpoch
   int? get rssi => throw _privateConstructorUsedError;
@@ -44,6 +46,8 @@ abstract class $IBeaconDeviceCopyWith<$Res> {
       {String proximityUUID,
       int major,
       int minor,
+      String? userId,
+      String? uniqueId,
       int? proximity,
       int? timestamp,
       int? rssi,
@@ -66,6 +70,8 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
     Object? proximityUUID = null,
     Object? major = null,
     Object? minor = null,
+    Object? userId = freezed,
+    Object? uniqueId = freezed,
     Object? proximity = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
@@ -84,6 +90,14 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
               as int,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      uniqueId: freezed == uniqueId
+          ? _value.uniqueId
+          : uniqueId // ignore: cast_nullable_to_non_nullable
+              as String?,
       proximity: freezed == proximity
           ? _value.proximity
           : proximity // ignore: cast_nullable_to_non_nullable
@@ -116,6 +130,8 @@ abstract class _$$_IBeaconDeviceCopyWith<$Res>
       {String proximityUUID,
       int major,
       int minor,
+      String? userId,
+      String? uniqueId,
       int? proximity,
       int? timestamp,
       int? rssi,
@@ -136,6 +152,8 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
     Object? proximityUUID = null,
     Object? major = null,
     Object? minor = null,
+    Object? userId = freezed,
+    Object? uniqueId = freezed,
     Object? proximity = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
@@ -154,6 +172,14 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
               as int,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      uniqueId: freezed == uniqueId
+          ? _value.uniqueId
+          : uniqueId // ignore: cast_nullable_to_non_nullable
+              as String?,
       proximity: freezed == proximity
           ? _value.proximity
           : proximity // ignore: cast_nullable_to_non_nullable
@@ -181,6 +207,8 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       {required this.proximityUUID,
       required this.major,
       required this.minor,
+      this.userId,
+      this.uniqueId,
       this.proximity,
       this.timestamp,
       this.rssi,
@@ -196,6 +224,10 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   @override
   final int minor;
   @override
+  final String? userId;
+  @override
+  final String? uniqueId;
+  @override
   final int? proximity;
   @override
   final int? timestamp;
@@ -207,7 +239,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
+    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, userId: $userId, uniqueId: $uniqueId, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
   }
 
   @override
@@ -218,6 +250,8 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       ..add(DiagnosticsProperty('proximityUUID', proximityUUID))
       ..add(DiagnosticsProperty('major', major))
       ..add(DiagnosticsProperty('minor', minor))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('uniqueId', uniqueId))
       ..add(DiagnosticsProperty('proximity', proximity))
       ..add(DiagnosticsProperty('timestamp', timestamp))
       ..add(DiagnosticsProperty('rssi', rssi))
@@ -233,6 +267,9 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
                 other.proximityUUID == proximityUUID) &&
             (identical(other.major, major) || other.major == major) &&
             (identical(other.minor, minor) || other.minor == minor) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.uniqueId, uniqueId) ||
+                other.uniqueId == uniqueId) &&
             (identical(other.proximity, proximity) ||
                 other.proximity == proximity) &&
             (identical(other.timestamp, timestamp) ||
@@ -244,7 +281,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, proximityUUID, major, minor,
-      proximity, timestamp, rssi, txPower);
+      userId, uniqueId, proximity, timestamp, rssi, txPower);
 
   @JsonKey(ignore: true)
   @override
@@ -265,6 +302,8 @@ abstract class _IBeaconDevice implements IBeaconDevice {
       {required final String proximityUUID,
       required final int major,
       required final int minor,
+      final String? userId,
+      final String? uniqueId,
       final int? proximity,
       final int? timestamp,
       final int? rssi,
@@ -279,6 +318,10 @@ abstract class _IBeaconDevice implements IBeaconDevice {
   int get major;
   @override
   int get minor;
+  @override
+  String? get userId;
+  @override
+  String? get uniqueId;
   @override
   int? get proximity;
   @override

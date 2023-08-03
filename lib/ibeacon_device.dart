@@ -15,6 +15,8 @@ class IBeaconDevice with _$IBeaconDevice {
       {required String proximityUUID,
       required int major,
       required int minor,
+      String? userId,
+      String? uniqueId,
       int? proximity,
       int? timestamp, // msSinceEpoch
       int? rssi,
