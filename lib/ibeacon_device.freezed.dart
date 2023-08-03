@@ -24,8 +24,6 @@ mixin _$IBeaconDevice {
   int get major => throw _privateConstructorUsedError;
   int get minor => throw _privateConstructorUsedError;
   int? get proximity => throw _privateConstructorUsedError;
-  String? get userId =>
-      throw _privateConstructorUsedError; // this is later to be fetched from firestore
   int? get timestamp => throw _privateConstructorUsedError; // msSinceEpoch
   int? get rssi => throw _privateConstructorUsedError;
   String? get txPower => throw _privateConstructorUsedError;
@@ -47,7 +45,6 @@ abstract class $IBeaconDeviceCopyWith<$Res> {
       int major,
       int minor,
       int? proximity,
-      String? userId,
       int? timestamp,
       int? rssi,
       String? txPower});
@@ -70,7 +67,6 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
     Object? major = null,
     Object? minor = null,
     Object? proximity = freezed,
-    Object? userId = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
     Object? txPower = freezed,
@@ -92,10 +88,6 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
           ? _value.proximity
           : proximity // ignore: cast_nullable_to_non_nullable
               as int?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
       timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
@@ -125,7 +117,6 @@ abstract class _$$_IBeaconDeviceCopyWith<$Res>
       int major,
       int minor,
       int? proximity,
-      String? userId,
       int? timestamp,
       int? rssi,
       String? txPower});
@@ -146,7 +137,6 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
     Object? major = null,
     Object? minor = null,
     Object? proximity = freezed,
-    Object? userId = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
     Object? txPower = freezed,
@@ -168,10 +158,6 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
           ? _value.proximity
           : proximity // ignore: cast_nullable_to_non_nullable
               as int?,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
       timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
@@ -196,7 +182,6 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       required this.major,
       required this.minor,
       this.proximity,
-      this.userId,
       this.timestamp,
       this.rssi,
       this.txPower});
@@ -213,9 +198,6 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   @override
   final int? proximity;
   @override
-  final String? userId;
-// this is later to be fetched from firestore
-  @override
   final int? timestamp;
 // msSinceEpoch
   @override
@@ -225,7 +207,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, proximity: $proximity, userId: $userId, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
+    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
   }
 
   @override
@@ -237,7 +219,6 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       ..add(DiagnosticsProperty('major', major))
       ..add(DiagnosticsProperty('minor', minor))
       ..add(DiagnosticsProperty('proximity', proximity))
-      ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('timestamp', timestamp))
       ..add(DiagnosticsProperty('rssi', rssi))
       ..add(DiagnosticsProperty('txPower', txPower));
@@ -254,7 +235,6 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
             (identical(other.minor, minor) || other.minor == minor) &&
             (identical(other.proximity, proximity) ||
                 other.proximity == proximity) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.timestamp, timestamp) ||
                 other.timestamp == timestamp) &&
             (identical(other.rssi, rssi) || other.rssi == rssi) &&
@@ -264,7 +244,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, proximityUUID, major, minor,
-      proximity, userId, timestamp, rssi, txPower);
+      proximity, timestamp, rssi, txPower);
 
   @JsonKey(ignore: true)
   @override
@@ -286,7 +266,6 @@ abstract class _IBeaconDevice implements IBeaconDevice {
       required final int major,
       required final int minor,
       final int? proximity,
-      final String? userId,
       final int? timestamp,
       final int? rssi,
       final String? txPower}) = _$_IBeaconDevice;
@@ -303,8 +282,6 @@ abstract class _IBeaconDevice implements IBeaconDevice {
   @override
   int? get proximity;
   @override
-  String? get userId;
-  @override // this is later to be fetched from firestore
   int? get timestamp;
   @override // msSinceEpoch
   int? get rssi;

@@ -138,13 +138,13 @@ class _MyAppState extends ConsumerState<MyApp> {
           child: Column(
             children: [
               Text('Running on: $_platformVersion\n'),
-              StreamBuilder<BLEPermissionStatus>(
-                  initialData: BLEPermissionStatus.denied,
+              StreamBuilder<bool?>(
+                  initialData: false,
                   stream: _beaconKontaktPlugin.listenPermissionStatus(),
                   builder: (context, snapshot) {
                     final permissionStatus =
                         snapshot.data ?? BLEPermissionStatus.denied;
-                    return Text('Permissions are ${permissionStatus.name}');
+                    return Text('Permissions are ${permissionStatus}');
                   }),
               TextButton(
                   onPressed: () async {

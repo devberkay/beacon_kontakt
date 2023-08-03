@@ -16,7 +16,6 @@ class IBeaconDevice with _$IBeaconDevice {
       required int major,
       required int minor,
       int? proximity,
-      String? userId, // this is later to be fetched from firestore
       int? timestamp, // msSinceEpoch
       int? rssi,
       String? txPower // only android
