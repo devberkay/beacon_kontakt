@@ -30,7 +30,7 @@ import KontaktSDK
          var beaconModels : [[String:Any]] = []
          // new code
          for beacon in beacons {
-             print("SWIFT: beacon in beacons, beacon: \(beacon)")
+             // // print("SWIFT: beacon in beacons, beacon: \(beacon)")
              
              let rssi = beacon.rssi
              let proximity = beacon.proximity.rawValue
@@ -69,21 +69,21 @@ import KontaktSDK
     
     func beaconManager(_ manager: KTKBeaconManager, didExitRegion region: KTKBeaconRegion) {
         statusEventSink?(true)
-        print("SWIFT: didExitRegion-1")
+        // // print("SWIFT: didExitRegion-1")
         iBeaconLostEventSink?( [
             "proximityUUID" : region.proximityUUID.uuidString,
                 "major":region.major,
                 "minor": region.minor,
                 
         ] as [String : Any?])
-        print("SWIFT: didExitRegion-2 identifier: \(region)")
-        print("SWIFT: didExitRegion-2")
+        // // print("SWIFT: didExitRegion-2 identifier: \(region)")
+        // // print("SWIFT: didExitRegion-2")
     }
     
     
     func beaconManager(_ manager: KTKBeaconManager, didEnter region: KTKBeaconRegion) {
         statusEventSink?(true)
-        print("SWIFT: didEnter-1")
+        // // print("SWIFT: didEnter-1")
         iBeaconDiscoveredEventSink?([
             
             "proximityUUID" : region.proximityUUID.uuidString,
@@ -91,18 +91,18 @@ import KontaktSDK
             "minor": region.minor,
           
         ] as [String : Any?])
-        print("SWIFT: didEnter-2 identifier: \(region)")
-        print("SWIFT: didEnter-2")
+        // // print("SWIFT: didEnter-2 identifier: \(region)")
+        // // print("SWIFT: didEnter-2")
     }
     
     
     func beaconManager(_ manager: KTKBeaconManager, rangingBeaconsDidFailFor region: KTKBeaconRegion?, withError error: Error?) {
-        print("SWIFT: Ranging beacons failed with error: \(error?.localizedDescription ?? "unknown error")")
+        // // print("SWIFT: Ranging beacons failed with error: \(error?.localizedDescription ?? "unknown error")")
     }
     
     
     func beaconManager(_ manager: KTKBeaconManager, monitoringDidFailFor region: KTKBeaconRegion?, withError error: Error?) {
-        print("SWIFT: Monitoring failed with error: \(error?.localizedDescription ?? "unknown error")")
+        // // print("SWIFT: Monitoring failed with error: \(error?.localizedDescription ?? "unknown error")")
     }
        
     
@@ -117,14 +117,14 @@ import KontaktSDK
             scanningRegion =   KTKBeaconRegion(proximityUUID: UUID(uuidString: proximityUUID)!, major: CLBeaconMajorValue(major!), minor: CLBeaconMinorValue(minor!),identifier: "")
         }
         if(scanPeriod == "Ranging") {
-            print("SWIFT: startRangingBeacons-1")
+            // // print("SWIFT: startRangingBeacons-1")
             beaconManager.startRangingBeacons(in: scanningRegion) // foreground
-            print("SWIFT: startRangingBeacons-2")
+            // // print("SWIFT: startRangingBeacons-2")
         }
         else {
-            print("SWIFT: startMonitoring-1")
+            // // print("SWIFT: startMonitoring-1")
             beaconManager.startMonitoring(for: scanningRegion) // background
-            print("SWIFT: startMonitoring-2")
+            // // print("SWIFT: startMonitoring-2")
         }
     
     }
