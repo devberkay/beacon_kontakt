@@ -180,7 +180,7 @@ class _MyAppState extends ConsumerState<MyApp> {
                     stream: _beaconKontaktPlugin.listenIBeaconDiscovered(),
                     builder: (context, snapshot) {
                       final discoveredDevice = snapshot.data;
-                      debugPrint("discoveredDevice : $discoveredDevice");
+                      // debugPrint("discoveredDevice : $discoveredDevice");
                       return SizedBox(
                         height: 100,
                         child: ListView(
@@ -203,7 +203,7 @@ class _MyAppState extends ConsumerState<MyApp> {
                     stream: _beaconKontaktPlugin.listenIBeaconsUpdated(),
                     builder: (context, snapshot) {
                       final scanResults = snapshot.data ?? [];
-                      debugPrint("scanResults : $scanResults");
+                      // debugPrint("scanResults : $scanResults");
                       return SizedBox(
                         height: 200,
                         child: ListView(
@@ -228,7 +228,7 @@ class _MyAppState extends ConsumerState<MyApp> {
                     stream: _beaconKontaktPlugin.listenIBeaconLost(),
                     builder: (context, snapshot) {
                       final lostDevice = snapshot.data;
-                      debugPrint("lostDevice : $lostDevice");
+                      // debugPrint("lostDevice : $lostDevice");
                       return SizedBox(
                         height: 100,
                         child: ListView(

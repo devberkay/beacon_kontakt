@@ -67,7 +67,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
         yield status;
       }
     } on PlatformException catch (e) {
-      debugPrint(e.message);
+      // debugPrint(e.message);
       yield false;
     }
   }
@@ -101,7 +101,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       await for (final List<Object?> listOfDevices
           in foregroundScanIBeaconsUpdatedEventChannel
               .receiveBroadcastStream("iBeaconsUpdatedEventSink")) {
-        debugPrint("updatedList : $listOfDevices");
+        
         final listOfIBeaconsAsMap = listOfDevices
             .map((e) => jsonDecode(jsonEncode(e)) as Map<String, dynamic>)
             .toList();
@@ -111,7 +111,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
             .toList();
       }
     } on PlatformException catch (e) {
-      debugPrint("listenIBeaconsUpdated Error : ${e.message}");
+      // debugPrint("listenIBeaconsUpdated Error : ${e.message}");
     }
   }
 
@@ -122,11 +122,11 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
           .receiveBroadcastStream("iBeaconLostEventSink")) {
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
-        debugPrint("lost : $device");
+        // debugPrint("lost : $device");
         yield IBeaconDevice.fromJson(iBeaconAsMap);
       }
     } on PlatformException catch (e) {
-      debugPrint("listenIBeaconLost Error : ${e.message}");
+      // debugPrint("listenIBeaconLost Error : ${e.message}");
     }
   }
 
@@ -136,14 +136,14 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       await for (final Object? device
           in foregroundScanIBeaconDiscoveredEventChannel
               .receiveBroadcastStream("iBeaconDiscoveredEventSink")) {
-        debugPrint("discovered : $device");
+        // debugPrint("discovered : $device");
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
 
         yield IBeaconDevice.fromJson(iBeaconAsMap);
       }
     } on PlatformException catch (e) {
-      debugPrint("listenIBeaconDiscovered Error : ${e.message}");
+      // debugPrint("listenIBeaconDiscovered Error : ${e.message}");
     }
   }
 
@@ -162,7 +162,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
           yield currentStatus as bool? ?? false;
         }
       } on PlatformException catch (e) {
-        debugPrint("listenScanStatus : ${e.message}");
+        // debugPrint("listenScanStatus : ${e.message}");
       }
     }
   }
@@ -194,7 +194,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
         yield currentStatus as bool;
       }
     } on PlatformException catch (e) {
-      debugPrint("listenScanStatus : ${e.message}");
+      // debugPrint("listenScanStatus : ${e.message}");
     }
   }
 }
