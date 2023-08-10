@@ -8,6 +8,13 @@ import 'ibeacon_device.dart';
 import 'scan_period_enum.dart';
 
 class BeaconKontakt {
+
+  BeaconKontakt._();
+
+  static final BeaconKontakt _instance = BeaconKontakt._();
+
+  // Public static method to access the instance
+  static BeaconKontakt get instance => _instance;
   
 
   Future<String?> getPlatformVersion() {
