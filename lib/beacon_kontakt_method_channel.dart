@@ -122,11 +122,11 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
           .receiveBroadcastStream("iBeaconLostEventSink")) {
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
-        // debugPrint("lost : $device");
+        debugPrint("lost : $device");
         yield IBeaconDevice.fromJson(iBeaconAsMap);
       }
     } on PlatformException catch (e) {
-      // debugPrint("listenIBeaconLost Error : ${e.message}");
+      debugPrint("listenIBeaconLost Error : ${e.message}");
     }
   }
 
@@ -136,14 +136,14 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       await for (final Object? device
           in foregroundScanIBeaconDiscoveredEventChannel
               .receiveBroadcastStream("iBeaconDiscoveredEventSink")) {
-        // debugPrint("discovered : $device");
+        debugPrint("discovered : $device");
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
 
         yield IBeaconDevice.fromJson(iBeaconAsMap);
       }
     } on PlatformException catch (e) {
-      // debugPrint("listenIBeaconDiscovered Error : ${e.message}");
+      debugPrint("listenIBeaconDiscovered Error : ${e.message}");
     }
   }
 
