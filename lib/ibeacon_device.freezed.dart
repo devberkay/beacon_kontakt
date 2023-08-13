@@ -25,6 +25,7 @@ mixin _$IBeaconDevice {
   int get minor => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
   String? get uniqueId => throw _privateConstructorUsedError;
+  String? get userNick => throw _privateConstructorUsedError;
   int? get proximity => throw _privateConstructorUsedError;
   int? get timestamp => throw _privateConstructorUsedError; // msSinceEpoch
   int? get rssi => throw _privateConstructorUsedError;
@@ -48,6 +49,7 @@ abstract class $IBeaconDeviceCopyWith<$Res> {
       int minor,
       String? userId,
       String? uniqueId,
+      String? userNick,
       int? proximity,
       int? timestamp,
       int? rssi,
@@ -72,6 +74,7 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
     Object? minor = null,
     Object? userId = freezed,
     Object? uniqueId = freezed,
+    Object? userNick = freezed,
     Object? proximity = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
@@ -97,6 +100,10 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
       uniqueId: freezed == uniqueId
           ? _value.uniqueId
           : uniqueId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userNick: freezed == userNick
+          ? _value.userNick
+          : userNick // ignore: cast_nullable_to_non_nullable
               as String?,
       proximity: freezed == proximity
           ? _value.proximity
@@ -132,6 +139,7 @@ abstract class _$$_IBeaconDeviceCopyWith<$Res>
       int minor,
       String? userId,
       String? uniqueId,
+      String? userNick,
       int? proximity,
       int? timestamp,
       int? rssi,
@@ -154,6 +162,7 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
     Object? minor = null,
     Object? userId = freezed,
     Object? uniqueId = freezed,
+    Object? userNick = freezed,
     Object? proximity = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
@@ -179,6 +188,10 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
       uniqueId: freezed == uniqueId
           ? _value.uniqueId
           : uniqueId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userNick: freezed == userNick
+          ? _value.userNick
+          : userNick // ignore: cast_nullable_to_non_nullable
               as String?,
       proximity: freezed == proximity
           ? _value.proximity
@@ -209,6 +222,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       required this.minor,
       this.userId,
       this.uniqueId,
+      this.userNick,
       this.proximity,
       this.timestamp,
       this.rssi,
@@ -228,6 +242,8 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   @override
   final String? uniqueId;
   @override
+  final String? userNick;
+  @override
   final int? proximity;
   @override
   final int? timestamp;
@@ -239,7 +255,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, userId: $userId, uniqueId: $uniqueId, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
+    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, userId: $userId, uniqueId: $uniqueId, userNick: $userNick, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
   }
 
   @override
@@ -252,6 +268,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       ..add(DiagnosticsProperty('minor', minor))
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('uniqueId', uniqueId))
+      ..add(DiagnosticsProperty('userNick', userNick))
       ..add(DiagnosticsProperty('proximity', proximity))
       ..add(DiagnosticsProperty('timestamp', timestamp))
       ..add(DiagnosticsProperty('rssi', rssi))
@@ -270,6 +287,8 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.uniqueId, uniqueId) ||
                 other.uniqueId == uniqueId) &&
+            (identical(other.userNick, userNick) ||
+                other.userNick == userNick) &&
             (identical(other.proximity, proximity) ||
                 other.proximity == proximity) &&
             (identical(other.timestamp, timestamp) ||
@@ -281,7 +300,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, proximityUUID, major, minor,
-      userId, uniqueId, proximity, timestamp, rssi, txPower);
+      userId, uniqueId, userNick, proximity, timestamp, rssi, txPower);
 
   @JsonKey(ignore: true)
   @override
@@ -304,6 +323,7 @@ abstract class _IBeaconDevice implements IBeaconDevice {
       required final int minor,
       final String? userId,
       final String? uniqueId,
+      final String? userNick,
       final int? proximity,
       final int? timestamp,
       final int? rssi,
@@ -322,6 +342,8 @@ abstract class _IBeaconDevice implements IBeaconDevice {
   String? get userId;
   @override
   String? get uniqueId;
+  @override
+  String? get userNick;
   @override
   int? get proximity;
   @override
