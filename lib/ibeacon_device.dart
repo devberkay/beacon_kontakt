@@ -15,9 +15,9 @@ class IBeaconDevice with _$IBeaconDevice {
       {required String proximityUUID,
       required int major,
       required int minor,
+      Map<String,dynamic>? payload, // 'userNick' is inside the payload
       String? userId,
       String? uniqueId,
-      String? userNick,
       int? proximity,
       int? timestamp, // msSinceEpoch
       int? rssi,

@@ -23,9 +23,10 @@ mixin _$IBeaconDevice {
   String get proximityUUID => throw _privateConstructorUsedError;
   int get major => throw _privateConstructorUsedError;
   int get minor => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get payload =>
+      throw _privateConstructorUsedError; // 'userNick' is inside the payload
   String? get userId => throw _privateConstructorUsedError;
   String? get uniqueId => throw _privateConstructorUsedError;
-  String? get userNick => throw _privateConstructorUsedError;
   int? get proximity => throw _privateConstructorUsedError;
   int? get timestamp => throw _privateConstructorUsedError; // msSinceEpoch
   int? get rssi => throw _privateConstructorUsedError;
@@ -47,9 +48,9 @@ abstract class $IBeaconDeviceCopyWith<$Res> {
       {String proximityUUID,
       int major,
       int minor,
+      Map<String, dynamic>? payload,
       String? userId,
       String? uniqueId,
-      String? userNick,
       int? proximity,
       int? timestamp,
       int? rssi,
@@ -72,9 +73,9 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
     Object? proximityUUID = null,
     Object? major = null,
     Object? minor = null,
+    Object? payload = freezed,
     Object? userId = freezed,
     Object? uniqueId = freezed,
-    Object? userNick = freezed,
     Object? proximity = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
@@ -93,6 +94,10 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
               as int,
+      payload: freezed == payload
+          ? _value.payload
+          : payload // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -100,10 +105,6 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
       uniqueId: freezed == uniqueId
           ? _value.uniqueId
           : uniqueId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userNick: freezed == userNick
-          ? _value.userNick
-          : userNick // ignore: cast_nullable_to_non_nullable
               as String?,
       proximity: freezed == proximity
           ? _value.proximity
@@ -137,9 +138,9 @@ abstract class _$$_IBeaconDeviceCopyWith<$Res>
       {String proximityUUID,
       int major,
       int minor,
+      Map<String, dynamic>? payload,
       String? userId,
       String? uniqueId,
-      String? userNick,
       int? proximity,
       int? timestamp,
       int? rssi,
@@ -160,9 +161,9 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
     Object? proximityUUID = null,
     Object? major = null,
     Object? minor = null,
+    Object? payload = freezed,
     Object? userId = freezed,
     Object? uniqueId = freezed,
-    Object? userNick = freezed,
     Object? proximity = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
@@ -181,6 +182,10 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
               as int,
+      payload: freezed == payload
+          ? _value._payload
+          : payload // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -188,10 +193,6 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
       uniqueId: freezed == uniqueId
           ? _value.uniqueId
           : uniqueId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userNick: freezed == userNick
-          ? _value.userNick
-          : userNick // ignore: cast_nullable_to_non_nullable
               as String?,
       proximity: freezed == proximity
           ? _value.proximity
@@ -220,13 +221,14 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       {required this.proximityUUID,
       required this.major,
       required this.minor,
+      final Map<String, dynamic>? payload,
       this.userId,
       this.uniqueId,
-      this.userNick,
       this.proximity,
       this.timestamp,
       this.rssi,
-      this.txPower});
+      this.txPower})
+      : _payload = payload;
 
   factory _$_IBeaconDevice.fromJson(Map<String, dynamic> json) =>
       _$$_IBeaconDeviceFromJson(json);
@@ -237,12 +239,21 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   final int major;
   @override
   final int minor;
+  final Map<String, dynamic>? _payload;
+  @override
+  Map<String, dynamic>? get payload {
+    final value = _payload;
+    if (value == null) return null;
+    if (_payload is EqualUnmodifiableMapView) return _payload;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+// 'userNick' is inside the payload
   @override
   final String? userId;
   @override
   final String? uniqueId;
-  @override
-  final String? userNick;
   @override
   final int? proximity;
   @override
@@ -255,7 +266,7 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, userId: $userId, uniqueId: $uniqueId, userNick: $userNick, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
+    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, payload: $payload, userId: $userId, uniqueId: $uniqueId, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
   }
 
   @override
@@ -266,9 +277,9 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       ..add(DiagnosticsProperty('proximityUUID', proximityUUID))
       ..add(DiagnosticsProperty('major', major))
       ..add(DiagnosticsProperty('minor', minor))
+      ..add(DiagnosticsProperty('payload', payload))
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('uniqueId', uniqueId))
-      ..add(DiagnosticsProperty('userNick', userNick))
       ..add(DiagnosticsProperty('proximity', proximity))
       ..add(DiagnosticsProperty('timestamp', timestamp))
       ..add(DiagnosticsProperty('rssi', rssi))
@@ -284,11 +295,10 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
                 other.proximityUUID == proximityUUID) &&
             (identical(other.major, major) || other.major == major) &&
             (identical(other.minor, minor) || other.minor == minor) &&
+            const DeepCollectionEquality().equals(other._payload, _payload) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.uniqueId, uniqueId) ||
                 other.uniqueId == uniqueId) &&
-            (identical(other.userNick, userNick) ||
-                other.userNick == userNick) &&
             (identical(other.proximity, proximity) ||
                 other.proximity == proximity) &&
             (identical(other.timestamp, timestamp) ||
@@ -299,8 +309,18 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, proximityUUID, major, minor,
-      userId, uniqueId, userNick, proximity, timestamp, rssi, txPower);
+  int get hashCode => Object.hash(
+      runtimeType,
+      proximityUUID,
+      major,
+      minor,
+      const DeepCollectionEquality().hash(_payload),
+      userId,
+      uniqueId,
+      proximity,
+      timestamp,
+      rssi,
+      txPower);
 
   @JsonKey(ignore: true)
   @override
@@ -321,9 +341,9 @@ abstract class _IBeaconDevice implements IBeaconDevice {
       {required final String proximityUUID,
       required final int major,
       required final int minor,
+      final Map<String, dynamic>? payload,
       final String? userId,
       final String? uniqueId,
-      final String? userNick,
       final int? proximity,
       final int? timestamp,
       final int? rssi,
@@ -339,11 +359,11 @@ abstract class _IBeaconDevice implements IBeaconDevice {
   @override
   int get minor;
   @override
+  Map<String, dynamic>? get payload;
+  @override // 'userNick' is inside the payload
   String? get userId;
   @override
   String? get uniqueId;
-  @override
-  String? get userNick;
   @override
   int? get proximity;
   @override
