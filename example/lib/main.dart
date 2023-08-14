@@ -10,7 +10,7 @@ import 'package:beacon_kontakt/beacon_kontakt.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final beaconKontaktApiProvider = Provider<BeaconKontakt>((ref) {
-  return BeaconKontakt();
+  return BeaconKontakt.instance;
 });
 
 final isScanningProvider = StreamProvider.autoDispose<bool>((ref) async* {
