@@ -48,7 +48,8 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         ) {
             statusEventSink?.success(true)
             Log.d("onIBeaconsUpdated", "onIBeaconsUpdated ${iBeacons.toString()}")
-            iBeaconsUpdatedEventSink?.success(iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(), "minor" to it.minor, "major" to it.major  )  })
+            val iBeaconsList = iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(), "minor" to it.minor, "major" to it.major  )  }
+            iBeaconsUpdatedEventSink?.success(iBeaconsList)
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
