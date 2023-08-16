@@ -101,11 +101,11 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
       await for (final List<Object?> listOfDevices
           in foregroundScanIBeaconsUpdatedEventChannel
               .receiveBroadcastStream("iBeaconsUpdatedEventSink")) {
-        
         final listOfIBeaconsAsMap = listOfDevices
             .map((e) => jsonDecode(jsonEncode(e)) as Map<String, dynamic>)
             .toList();
 
+        debugPrint("updatedInside : $listOfIBeaconsAsMap");
         yield listOfIBeaconsAsMap
             .map((e) => IBeaconDevice.fromJson(e))
             .toList();
@@ -149,7 +149,8 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
 
   @override
   Stream<bool> listenLocationServiceStatus() async* {
-    if (Platform.isAndroid) { //x
+    if (Platform.isAndroid) {
+      //x
       while (true) {
         yield await methodChannel.invokeMethod<bool>("emitLocationStatus") ??
             false;
