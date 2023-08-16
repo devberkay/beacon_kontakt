@@ -87,7 +87,7 @@ import io.flutter.plugin.common.MethodChannel.Result
           val scanPeriod = call.argument("scanPeriod") as String? // Monitoring or Ranging
           Log.d("KontaktSDK", "Scan Period: $scanPeriod")
           val listenerType = call.argument("listenerType") as String? // iBeacon or SecureProfile
-            Log.d("KontaktSDK", "Listener Type: $listenerType")
+          Log.d("KontaktSDK", "Listener Type: $listenerType")
           val scanPeriodObj = if(scanPeriod=="Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
 
           val minor = call.argument("minor") as Int?
