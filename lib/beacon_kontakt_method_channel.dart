@@ -105,13 +105,13 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
             .map((e) => jsonDecode(jsonEncode(e)) as Map<String, dynamic>)
             .toList();
 
-        debugPrint("listenIBeaconsUpdated Error : $listOfIBeaconsAsMap");
+        debugPrint("listenIBeaconsUpdated: $listOfIBeaconsAsMap");
         yield listOfIBeaconsAsMap
             .map((e) => IBeaconDevice.fromJson(e))
             .toList();
       }
     } on PlatformException catch (e) {
-      debugPrint("listenIBeaconsUpdated Error : ${e.message}");
+      debugPrint("listenIBeaconsUpdated Error: ${e.message}");
     }
   }
 
