@@ -147,7 +147,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             }
             "iBeaconsUpdatedEventSink" -> {
                 iBeaconsUpdatedEventSink?.endOfStream()
-                iBeaconDiscoveredEventSink = null
+                iBeaconsUpdatedEventSink = null
             }
             "iBeaconLostEventSink" -> {
                 iBeaconLostEventSink?.endOfStream()
