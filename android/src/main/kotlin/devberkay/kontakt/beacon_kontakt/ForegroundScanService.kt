@@ -39,7 +39,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
             statusEventSink?.success(true)
             Log.d("onIBeaconDiscovered", "onIBeaconDiscovered ${iBeacon.toString()}")
-            iBeaconDiscoveredEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString(),"minor" to it.minor, "major" to it.major )  })
+            iBeaconDiscoveredEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(),"minor" to it.minor, "major" to it.major )  })
         }
 
         override fun onIBeaconsUpdated(
@@ -48,13 +48,13 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         ) {
             statusEventSink?.success(true)
             Log.d("onIBeaconsUpdated", "onIBeaconsUpdated ${iBeacons.toString()}")
-            iBeaconsUpdatedEventSink?.success(iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString(), "minor" to it.minor, "major" to it.major  )  })
+            iBeaconsUpdatedEventSink?.success(iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(), "minor" to it.minor, "major" to it.major  )  })
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
             statusEventSink?.success(true)
            Log.d("onIBeaconLost", "onIBeaconLost ${iBeacon.toString()}")
-            iBeaconLostEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi,  "proximityUUID" to it.proximityUUID.toString(),"uniqueID" to it.uniqueId, "minor" to it.minor, "major" to it.major )  })
+            iBeaconLostEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi,  "proximityUUID" to it.proximityUUID.toString().uppercase(),"uniqueID" to it.uniqueId, "minor" to it.minor, "major" to it.major )  })
         }
     }
 
