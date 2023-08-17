@@ -66,7 +66,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
           .map((status) => status as bool)) {
         yield status;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException catch (e) { // shut
       // debugPrints(e.message);
       yield false;
     }
