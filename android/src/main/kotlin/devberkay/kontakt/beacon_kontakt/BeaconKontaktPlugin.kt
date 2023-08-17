@@ -91,11 +91,11 @@ import io.flutter.plugin.common.MethodChannel.Result
           val scanPeriodObj = if(scanPeriod=="Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
 
           val minor = call.argument("minor") as Int?
-            Log.d("KontaktSDK", "Minor: $minor")
+          Log.d("KontaktSDK", "Minor: $minor")
           val major = call.argument("major") as Int?
-            Log.d("KontaktSDK", "Major: $major")
+          Log.d("KontaktSDK", "Major: $major")
           val proximityUUID = call.argument("proximityUUID") as String?
-            Log.d("KontaktSDK", "Proximity UUID: $proximityUUID")
+          Log.d("KontaktSDK", "Proximity UUID: $proximityUUID")
          if (kontaktSDK!=null) {
              foregroundScanService.startScanning(scanPeriodObj, listenerType, proximityUUID, major,minor)
              Log.d("KontaktSDK", "Scanning started")
