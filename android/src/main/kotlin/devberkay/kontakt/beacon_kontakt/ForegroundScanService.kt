@@ -129,12 +129,15 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             }
             "iBeaconDiscoveredEventSink" -> {
                 iBeaconDiscoveredEventSink = events
+                Log.d("onListen", "iBeaconDiscoveredEventSink-onListen")
             }
             "iBeaconsUpdatedEventSink" -> {
                 iBeaconsUpdatedEventSink = events
+                Log.d("onListen", "iBeaconsUpdatedEventSink-onListen")
             }
             "iBeaconLostEventSink" -> {
                 iBeaconLostEventSink = events
+                Log.d("onListen", "iBeaconLostEventSink-onListen")
             }
             "secureProfileDiscoveredEventSink" -> {
                 secureProfileDiscoveredEventSink = events
