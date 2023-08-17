@@ -210,7 +210,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             override fun onServiceReady() {
 
                 proximityManager.configuration()
-                    .scanMode(ScanMode.BALANCED)
+                    .scanMode(ScanMode.LOW_LATENCY)
                     .scanPeriod(scanPeriod)
                     .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
                     .forceScanConfiguration(ForceScanConfiguration.DISABLED)
