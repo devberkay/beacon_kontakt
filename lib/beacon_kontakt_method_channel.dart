@@ -98,6 +98,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   @override
   Stream<List<IBeaconDevice>> listenIBeaconsUpdated() async* {
     // heyx
+    debugPrint("aah i'm burnout");
     try {
       await for (final List<Object?> listOfDevices
           in foregroundScanIBeaconsUpdatedEventChannel
