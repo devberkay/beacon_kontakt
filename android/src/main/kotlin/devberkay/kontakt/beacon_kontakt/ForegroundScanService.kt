@@ -126,12 +126,24 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 statusEventSink = events
                 statusEventSink?.success(proximityManager.isScanning)
             }
-            "iBeaconDiscoveredEventSink" -> iBeaconDiscoveredEventSink = events
-            "iBeaconsUpdatedEventSink" -> iBeaconsUpdatedEventSink = events
-            "iBeaconLostEventSink" -> iBeaconLostEventSink = events
-            "secureProfileDiscoveredEventSink" -> secureProfileDiscoveredEventSink = events
-            "secureProfilesUpdatedEventSink" -> secureProfilesUpdatedEventSink = events
-            "secureProfileLostEvenSink" -> secureProfileLostEvenSink = events
+            "iBeaconDiscoveredEventSink" -> {
+                iBeaconDiscoveredEventSink = events
+            }
+            "iBeaconsUpdatedEventSink" -> {
+                iBeaconsUpdatedEventSink = events
+            }
+            "iBeaconLostEventSink" -> {
+                iBeaconLostEventSink = events
+            }
+            "secureProfileDiscoveredEventSink" -> {
+                secureProfileDiscoveredEventSink = events
+            }
+            "secureProfilesUpdatedEventSink" -> {
+                secureProfilesUpdatedEventSink = events
+            }
+            "secureProfileLostEvenSink" -> {
+                secureProfileLostEvenSink = events
+            }
             else -> throw IllegalArgumentException("Unknown event channel onListen: $arguments")
         }
     }
