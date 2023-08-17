@@ -46,6 +46,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             iBeacons: MutableList<IBeaconDevice>?,
             region: IBeaconRegion?
         ) {
+            Log.d("updatedEventSinks","${iBeaconsUpdatedEventSink.toString()} ve ${statusEventSink.toString()} ah size eventsink diyeni")
             statusEventSink?.success(true)
             Log.d("onIBeaconsUpdated", "onIBeaconsUpdated-0 ${iBeacons.toString()}")
             val iBeaconsList = iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(), "minor" to it.minor, "major" to it.major  )  }
