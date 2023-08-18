@@ -98,7 +98,7 @@ import io.flutter.plugin.common.MethodChannel.Result
          if (kontaktSDK!=null) {
              foregroundScanService.startScanning(scanPeriodObj, proximityUUID, major,minor)
              Log.d("KontaktSDK", "Scanning started")
-              result.success(null)
+             result.success(null)
          }
           else {
            result.error("KONTAKT_SDK_NOT_INITIALIZED", "Kontakt SDK is not initialized", null)
