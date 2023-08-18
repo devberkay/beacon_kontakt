@@ -235,7 +235,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 super.onServiceBindError(message)
             }
         })
-        Log.d("startScanning","Scanning started. ScanPeriod: ${scanPeriod.toString()}")
+        Log.d("startScanning","Scanning started. ScanPeriod: ${scanPeriod}")
     }
 
     fun stopScanning() {
