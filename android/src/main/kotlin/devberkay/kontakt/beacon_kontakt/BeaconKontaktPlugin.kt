@@ -97,7 +97,7 @@ import io.flutter.plugin.common.MethodChannel.Result
           Log.d("KontaktSDK", "Proximity UUID: $proximityUUID")
          if (kontaktSDK!=null) {
              foregroundScanService.startScanning(scanPeriodObj, proximityUUID, major,minor,result)
-             Log.d("KontaktSDK", "Scanning started")
+
 
          }
           else {

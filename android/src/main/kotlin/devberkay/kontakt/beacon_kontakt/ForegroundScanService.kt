@@ -229,6 +229,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
                 // Bluetooth adapter is ready, start scanning
                 proximityManager.startScanning()
+                Log.d("startScanning","Scanning started.")
                 resultObject.success(null)
             }
 
