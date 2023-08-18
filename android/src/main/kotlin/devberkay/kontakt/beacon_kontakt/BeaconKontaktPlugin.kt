@@ -152,11 +152,11 @@ import io.flutter.plugin.common.MethodChannel.Result
   }
 
     override fun onDetachedFromActivity() {
-      TODO("Not yet implemented")
+
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-      TODO("Not yet implemented")
+
     }
 
 
