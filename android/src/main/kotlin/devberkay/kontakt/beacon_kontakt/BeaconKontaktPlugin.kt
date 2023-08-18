@@ -58,10 +58,11 @@ import io.flutter.plugin.common.MethodChannel.Result
     }
 
       override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-        if (call.method == "getPlatformVersion") {
-          result.success("Android ${android.os.Build.VERSION.RELEASE}")
-        }
-        else if(call.method == "initKontaktSDK") {
+        try {
+          if (call.method == "getPlatformVersion") {
+            result.success("Android ${android.os.Build.VERSION.RELEASE}")
+          }
+          else if(call.method == "initKontaktSDK") {
             apiKey = call.argument("apiKey") as String?
             kontaktSDK = KontaktSDK.initialize(apiKey!!)
             foregroundScanService = ForegroundScanService(applicationContext,apiKey!!)
@@ -72,71 +73,74 @@ import io.flutter.plugin.common.MethodChannel.Result
             foregroundScanSecureProfilesUpdatedEventChannel.setStreamHandler(foregroundScanService)
             foregroundScanSecureProfileDiscoveredEventChannel.setStreamHandler(foregroundScanService)
             foregroundScanSecureProfileLostEventChannel.setStreamHandler(foregroundScanService)
-          result.success(null)
-        }
-        else if(call.method == "checkPermissions") {
-          if(kontaktSDK!=null) {
-            permissionService.checkPermissions(false,result)
+            result.success(null)
           }
+          else if(call.method == "checkPermissions") {
+            if(kontaktSDK!=null) {
+              permissionService.checkPermissions(false,result)
+            }
+            else {
+              result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
+            }
+          }
+          else if(call.method == "startScanning") {
+
+            val scanPeriod = call.argument("scanPeriod") as String? // Monitoring or Ranging
+            Log.d("KontaktSDK", "Scan Period: $scanPeriod")
+
+            val scanPeriodObj = if(scanPeriod=="Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
+
+            val minor = call.argument("minor") as Int?
+            Log.d("KontaktSDK", "Minor: $minor")
+            val major = call.argument("major") as Int?
+            Log.d("KontaktSDK", "Major: $major")
+            val proximityUUID = call.argument("proximityUUID") as String?
+            Log.d("KontaktSDK", "Proximity UUID: $proximityUUID")
+            if (kontaktSDK!=null) {
+              foregroundScanService.startScanning(scanPeriodObj, proximityUUID, major,minor,result)
+            }
+            else {
+              result.error("KONTAKT_SDK_NOT_INITIALIZED", "Kontakt SDK is not initialized", null)
+            }
+          }
+          else if(call.method == "stopScanning") {
+            if(kontaktSDK!=null) {
+              foregroundScanService.stopScanning(result)
+
+            }
+            else {
+              result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
+            }
+          }
+          else if(call.method == "restartScanning") {
+            foregroundScanService.restartScanning(result)
+
+          }
+          else if(call.method == "isScanning") {
+            val currentStatus = foregroundScanService.isScanning
+            Log.d("KontaktSDK", "Current Scanning Status: $currentStatus")
+            result.success(currentStatus)
+          }
+          else if(call.method == "emitLocationStatus") {
+            result.success(activityService.emitLocationStatus())
+          }
+          else if(call.method=="emitBluetoothStatus") {
+            result.success(activityService.emitBluetoothStatus())
+          }
+          else if (call.method == "openBluetoothSettings") {
+            result.success(activityService.openBluetoothSettings())
+          }
+          else if(call.method == "openLocationSettings") {
+            result.success(activityService.openLocationSettings())
+          }
+
+
           else {
-            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
+            result.notImplemented()
           }
+        } catch (e: Exception) {
+          result.error("PluginGeneralException", e.message, e.stackTrace)
         }
-        else if(call.method == "startScanning") {
-
-          val scanPeriod = call.argument("scanPeriod") as String? // Monitoring or Ranging
-          Log.d("KontaktSDK", "Scan Period: $scanPeriod")
-
-          val scanPeriodObj = if(scanPeriod=="Monitoring") ScanPeriod.MONITORING else ScanPeriod.RANGING
-
-          val minor = call.argument("minor") as Int?
-          Log.d("KontaktSDK", "Minor: $minor")
-          val major = call.argument("major") as Int?
-          Log.d("KontaktSDK", "Major: $major")
-          val proximityUUID = call.argument("proximityUUID") as String?
-          Log.d("KontaktSDK", "Proximity UUID: $proximityUUID")
-         if (kontaktSDK!=null) {
-             foregroundScanService.startScanning(scanPeriodObj, proximityUUID, major,minor,result)
-         }
-          else {
-           result.error("KONTAKT_SDK_NOT_INITIALIZED", "Kontakt SDK is not initialized", null)
-         }
-        }
-        else if(call.method == "stopScanning") {
-          if(kontaktSDK!=null) {
-            foregroundScanService.stopScanning(result)
-
-          }
-          else {
-            result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
-          }
-        }
-        else if(call.method == "restartScanning") {
-          foregroundScanService.restartScanning(result)
-
-        }
-        else if(call.method == "isScanning") {
-          val currentStatus = foregroundScanService.isScanning
-          Log.d("KontaktSDK", "Current Scanning Status: $currentStatus")
-          result.success(currentStatus)
-        }
-        else if(call.method == "emitLocationStatus") {
-          result.success(activityService.emitLocationStatus())
-        }
-        else if(call.method=="emitBluetoothStatus") {
-          result.success(activityService.emitBluetoothStatus())
-        }
-        else if (call.method == "openBluetoothSettings") {
-          result.success(activityService.openBluetoothSettings())
-        }
-        else if(call.method == "openLocationSettings") {
-          result.success(activityService.openLocationSettings())
-        }
-
-
-        else {
-          result.notImplemented()
-    }
   }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {

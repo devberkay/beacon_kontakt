@@ -45,7 +45,7 @@ class PermissionService(private val activity: Activity,private val binding: Acti
     }
 
     fun checkPermissions(onlyCheck:Boolean,resultObject:  MethodChannel.Result?) : Boolean {
-        try {
+
             val requiredPermissions = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
             } else {
@@ -57,16 +57,14 @@ class PermissionService(private val activity: Activity,private val binding: Acti
                     return false
                 }
                 ActivityCompat.requestPermissions(activity, requiredPermissions, REQUEST_CODE_PERMISSIONS)
-                resultObject.success(null)
+                resultObject?.success(null)
                 return false
             }
             else {
+                resultObject?.success(null)
                 return true
             }
-        }catch (e:Exception){
-            resultObject?.error("PERMISSION_ERROR",e.message,null)
-            return false
-        }
+
     }
 
     companion object {
