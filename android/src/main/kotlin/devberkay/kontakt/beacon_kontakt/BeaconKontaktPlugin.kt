@@ -144,6 +144,10 @@ import io.flutter.plugin.common.MethodChannel.Result
   }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+
+  }
+
+    override fun onDetachedFromActivity() {
       channel.setMethodCallHandler(null)
       permissionEventChannel.setStreamHandler(null)
       foregroundScanStatusEventChannel.setStreamHandler(null)
@@ -153,10 +157,6 @@ import io.flutter.plugin.common.MethodChannel.Result
       foregroundScanSecureProfileDiscoveredEventChannel.setStreamHandler(null)
       foregroundScanSecureProfilesUpdatedEventChannel.setStreamHandler(null)
       foregroundScanSecureProfileLostEventChannel.setStreamHandler(null)
-  }
-
-    override fun onDetachedFromActivity() {
-
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
