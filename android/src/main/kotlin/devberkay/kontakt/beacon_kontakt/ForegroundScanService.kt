@@ -211,7 +211,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             override fun onServiceReady() {
 
                 proximityManager.configuration()
-                    .scanMode(ScanMode.LOW_LATENCY)
+                    .scanMode(ScanMode.BALANCED)
                     .scanPeriod(scanPeriod)
 //                    .activityCheckConfiguration(ActivityCheckConfiguration.DISABLED)
 //                    .forceScanConfiguration(ForceScanConfiguration.DISABLED)
@@ -219,7 +219,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                     .rssiCalculator(RssiCalculators.DEFAULT)
                     .cacheFileName("BLE_CACHE")
                     .resolveShuffledInterval(3)
-                    .monitoringEnabled(false)
+                    .monitoringEnabled(true)
                     .monitoringSyncInterval(10)
                     .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
 
