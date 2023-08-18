@@ -19,6 +19,7 @@ import com.kontakt.sdk.android.common.profile.IBeaconDevice
 import com.kontakt.sdk.android.common.profile.IBeaconRegion
 import com.kontakt.sdk.android.common.profile.ISecureProfile
 import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodChannel
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -196,7 +197,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
 
-    fun startScanning(scanPeriod: ScanPeriod?, proximityUUID:String?, major:Int?,  minor:Int?) {
+    fun startScanning(scanPeriod: ScanPeriod?, proximityUUID:String?, major:Int?,  minor:Int?, resultObject:  MethodChannel.Result) {
 
 
          val primaryRegion : IBeaconRegion = BeaconRegion.Builder()
@@ -228,11 +229,13 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
                 // Bluetooth adapter is ready, start scanning
                 proximityManager.startScanning()
+                resultObject.success(null)
             }
 
             override fun onServiceBindError(message: String?) {
-                Log.d(TAG, "onServiceBindError: $message")
+
                 super.onServiceBindError(message)
+                resultObject.error("onServiceBindError", message, null)
             }
         })
         Log.d("startScanning","Scanning started. ScanPeriod: ${scanPeriod}")
