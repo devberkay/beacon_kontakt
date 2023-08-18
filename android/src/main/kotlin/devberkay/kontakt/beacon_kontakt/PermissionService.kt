@@ -24,7 +24,7 @@ class PermissionService(private val activity: Activity,private val binding: Acti
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
         eventSink = sink
 
-        eventSink?.success(checkPermissions(true))
+        eventSink?.success(checkPermissions(true,null))
     }
 
     override fun onCancel(arguments: Any?) {
@@ -45,21 +45,27 @@ class PermissionService(private val activity: Activity,private val binding: Acti
     }
 
     fun checkPermissions(onlyCheck:Boolean,resultObject:  MethodChannel.Result?) : Boolean {
-        val requiredPermissions = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-        } else {
-            arrayOf(Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.ACCESS_FINE_LOCATION)
-        }
+        try {
+            val requiredPermissions = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+            } else {
+                arrayOf(Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.ACCESS_FINE_LOCATION)
+            }
 
-        if (requiredPermissions.any { ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED }) {
-            if(onlyCheck) {
+            if (requiredPermissions.any { ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED }) {
+                if(onlyCheck) {
+                    return false
+                }
+                ActivityCompat.requestPermissions(activity, requiredPermissions, REQUEST_CODE_PERMISSIONS)
+                resultObject.success(null)
                 return false
             }
-            ActivityCompat.requestPermissions(activity, requiredPermissions, REQUEST_CODE_PERMISSIONS)
+            else {
+                return true
+            }
+        }catch (e:Exception){
+            resultObject?.error("PERMISSION_ERROR",e.message,null)
             return false
-        }
-        else {
-            return true
         }
     }
 
