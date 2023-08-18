@@ -242,15 +242,23 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         Log.d("startScanning","Scanning started. ScanPeriod: ${scanPeriod}")
     }
 
-    fun stopScanning() {
+    fun stopScanning(resultObject:  MethodChannel.Result) {
         if (proximityManager.isScanning) {
             proximityManager.stopScanning()
+            resultObject.success(null)
+        }
+        else {
+            resultObject.error("stopScanning", "Scanning is not running", null)
         }
     }
 
-    fun restartScanning() {
+    fun restartScanning(resultObject:  MethodChannel.Result) {
         if (proximityManager.isScanning) {
             proximityManager.restartScanning()
+            resultObject.success(null)
+        }
+        else {
+            resultObject.error("restartScanning", "Scanning is not running", null)
         }
     }
 
