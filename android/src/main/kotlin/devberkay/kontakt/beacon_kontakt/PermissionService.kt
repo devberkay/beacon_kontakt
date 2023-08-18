@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.EventChannel
+import io.flutter.plugin.common.MethodChannel
 
 class PermissionService(private val activity: Activity,private val binding: ActivityPluginBinding,private val context: Context) : EventChannel.StreamHandler {
     private var eventSink: EventChannel.EventSink? = null
@@ -43,7 +44,7 @@ class PermissionService(private val activity: Activity,private val binding: Acti
         }
     }
 
-    fun checkPermissions(onlyCheck:Boolean) : Boolean {
+    fun checkPermissions(onlyCheck:Boolean,resultObject:  MethodChannel.Result?) : Boolean {
         val requiredPermissions = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
         } else {

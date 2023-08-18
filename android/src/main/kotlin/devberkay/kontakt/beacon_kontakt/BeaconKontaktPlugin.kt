@@ -76,7 +76,7 @@ import io.flutter.plugin.common.MethodChannel.Result
         }
         else if(call.method == "checkPermissions") {
           if(kontaktSDK!=null) {
-            permissionService.checkPermissions(false)
+            permissionService.checkPermissions(false,result)
           }
           else {
             result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
@@ -97,8 +97,6 @@ import io.flutter.plugin.common.MethodChannel.Result
           Log.d("KontaktSDK", "Proximity UUID: $proximityUUID")
          if (kontaktSDK!=null) {
              foregroundScanService.startScanning(scanPeriodObj, proximityUUID, major,minor,result)
-
-
          }
           else {
            result.error("KONTAKT_SDK_NOT_INITIALIZED", "Kontakt SDK is not initialized", null)
@@ -115,7 +113,7 @@ import io.flutter.plugin.common.MethodChannel.Result
         }
         else if(call.method == "restartScanning") {
           foregroundScanService.restartScanning(result)
-         
+
         }
         else if(call.method == "isScanning") {
           val currentStatus = foregroundScanService.isScanning
