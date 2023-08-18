@@ -106,15 +106,16 @@ import io.flutter.plugin.common.MethodChannel.Result
         }
         else if(call.method == "stopScanning") {
           if(kontaktSDK!=null) {
-            foregroundScanService.stopScanning()
-            result.success(null)
+            foregroundScanService.stopScanning(result)
+
           }
           else {
             result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
           }
         }
         else if(call.method == "restartScanning") {
-          result.success(foregroundScanService.restartScanning())
+          foregroundScanService.restartScanning(result)
+         
         }
         else if(call.method == "isScanning") {
           val currentStatus = foregroundScanService.isScanning
