@@ -243,23 +243,13 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     }
 
     fun stopScanning(resultObject:  MethodChannel.Result) {
-        if (proximityManager.isScanning) {
-            proximityManager.stopScanning()
-            resultObject.success(null)
-        }
-        else {
-            resultObject.error("stopScanning", "Scanning is not running", null)
-        }
+        proximityManager.stopScanning()
+        resultObject.success(null)
     }
 
     fun restartScanning(resultObject:  MethodChannel.Result) {
-        if (proximityManager.isScanning) {
-            proximityManager.restartScanning()
-            resultObject.success(null)
-        }
-        else {
-            resultObject.error("restartScanning", "Scanning is not running", null)
-        }
+        proximityManager.restartScanning()
+        resultObject.success(null)
     }
 
     val isScanning: Boolean
