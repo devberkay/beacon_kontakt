@@ -14,10 +14,7 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
     func beaconManager(_ manager: KTKBeaconManager, didChangeLocationAuthorizationStatus status: CLAuthorizationStatus) {
         // print("We are in didChangeLocationAuthStatus")
         switch status {
-            case .authorizedAlways:
-                eventSink?(true)
-            case .authorizedWhenInUse:
-                beaconManager?.requestLocationAlwaysAuthorization()
+            case .authorizedAlways, .authorizedWhenInUse:
                 eventSink?(true)
             case .notDetermined, .restricted, .denied:
                 eventSink?(false)
@@ -32,16 +29,13 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
        // print("We are in locationManagerDidChangeAuthorization")
        if #available(iOS 14.0, *) {
            switch manager.authorizationStatus {
-               case .authorizedAlways:
-                   eventSink?(true)
-               case .authorizedWhenInUse:
-                   beaconManager?.requestLocationAlwaysAuthorization()
-                   eventSink?(true)
-               case .notDetermined, .restricted, .denied:
-                   eventSink?(false)
-               default:
-                   eventSink?(false)
-               }
+           case .authorizedAlways, .authorizedWhenInUse:
+               eventSink?(true)
+           case .notDetermined, .restricted, .denied:
+               eventSink?(true)
+           default:
+               eventSink?(true)
+           }
        } else {
            // Fallback on earlier versions
        }
@@ -54,7 +48,7 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
             return true
         case .notDetermined:
             if !onlyCheck {
-                beaconManager?.requestLocationWhenInUseAuthorization()
+                beaconManager?.requestLocationAlwaysAuthorization()
             }
             return false
         case .restricted, .denied:
