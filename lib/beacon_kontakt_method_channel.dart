@@ -203,3 +203,4 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
     }
   }
 }
+//new permission flow added
