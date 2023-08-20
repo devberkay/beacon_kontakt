@@ -16,7 +16,7 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
         switch status {
             case .authorizedAlways:
                 eventSink?(true)
-        case .authorizedWhenInUse:
+            case .authorizedWhenInUse:
                 beaconManager?.requestLocationAlwaysAuthorization()
                 eventSink?(true)
             case .notDetermined, .restricted, .denied:
