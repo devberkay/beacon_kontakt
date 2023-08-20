@@ -14,7 +14,10 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
     func beaconManager(_ manager: KTKBeaconManager, didChangeLocationAuthorizationStatus status: CLAuthorizationStatus) {
         // print("We are in didChangeLocationAuthStatus")
         switch status {
-            case .authorizedAlways, .authorizedWhenInUse:
+            case .authorizedAlways:
+                eventSink?(true)
+        case .authorizedWhenInUse:
+                beaconManager?.requestLocationAlwaysAuthorization()
                 eventSink?(true)
             case .notDetermined, .restricted, .denied:
                 eventSink?(false)
@@ -44,16 +47,11 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
     
     func checkPermission(onlyCheck: Bool) -> Bool {
         switch KTKBeaconManager.locationAuthorizationStatus() {
-        case .authorizedAlways:
-            return true
-        case .authorizedWhenInUse:
-            if !onlyCheck {
-                beaconManager?.requestLocationAlwaysAuthorization()
-            }
+        case .authorizedAlways, .authorizedWhenInUse:
             return true
         case .notDetermined:
             if !onlyCheck {
-                beaconManager?.requestLocationWhenInUseAuthorization()
+                beaconManager?.requestLocationAlwaysAuthorization()
             }
             return false
         case .restricted, .denied:
