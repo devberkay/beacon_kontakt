@@ -44,11 +44,16 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
     
     func checkPermission(onlyCheck: Bool) -> Bool {
         switch KTKBeaconManager.locationAuthorizationStatus() {
-        case .authorizedAlways, .authorizedWhenInUse:
+        case .authorizedAlways:
+            return true
+        case .authorizedWhenInUse:
+            if !onlyCheck {
+                beaconManager?.requestLocationAlwaysAuthorization()
+            }
             return true
         case .notDetermined:
             if !onlyCheck {
-                beaconManager?.requestLocationAlwaysAuthorization()
+                beaconManager?.requestLocationWhenInUseAuthorization()
             }
             return false
         case .restricted, .denied:
