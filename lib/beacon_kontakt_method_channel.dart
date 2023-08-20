@@ -66,7 +66,8 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
           .map((status) => status as bool)) {
         yield status;
       }
-    } on PlatformException catch (e) { // shut
+    } on PlatformException catch (e) {
+      // shut
       // debugPrints(e.message);
       yield false;
     }
@@ -197,7 +198,8 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
         yield currentStatus as bool;
       }
     } on PlatformException catch (e) {
-      // debugPrint("listenScanStatus : ${e.message}");
+      debugPrint("$e");
+      yield false;
     }
   }
 }
