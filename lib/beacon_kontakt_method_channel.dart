@@ -197,7 +197,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
           .receiveBroadcastStream("statusEventSink")) {
         yield currentStatus as bool;
       }
-    } on PlatformException catch (e) {
+    } on PlatformException catch (e) { // new ios flow
       debugPrint("$e");
       yield false;
     }
