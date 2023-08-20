@@ -31,7 +31,7 @@ class PermissionService: NSObject, FlutterStreamHandler, KTKBeaconManagerDelegat
    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
        // print("We are in locationManagerDidChangeAuthorization")
        if #available(iOS 14.0, *) {
-           switch status {
+           switch manager.authorizationStatus {
                case .authorizedAlways:
                    eventSink?(true)
                case .authorizedWhenInUse:
