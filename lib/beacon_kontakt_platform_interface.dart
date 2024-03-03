@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'beacon_kontakt_method_channel.dart';
@@ -36,26 +37,30 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
   }
 
   Future<String?> emitPermissionStatusString() {
-    throw UnimplementedError('emitPermissionStatusString() has not been implemented.');
+    throw UnimplementedError(
+        'emitPermissionStatusString() has not been implemented.');
   }
 
   Stream<bool?> listenPermissionStatus() {
     throw UnimplementedError('onPermissionChanged() has not been implemented.');
   }
 
-
   Future<void> initKontaktSDK(String apiKey) {
     throw UnimplementedError('initKontaktSDK() has not been implemented.');
   }
 
-  Future<void> startScanning(ScanPeriod scanPeriod,  String proximityUUID, [int? major, int? minor]) {
+  Future<void> startScanning(ScanPeriod scanPeriod, String proximityUUID,
+      [int? major, int? minor]) {
     throw UnimplementedError('startScanning() has not been implemented.');
   }
+
   Future<void> stopScanning() {
     throw UnimplementedError('stopScanning() has not been implemented.');
   }
 
-  Stream<List<IBeaconDevice>>  listenIBeaconsUpdated() {
+  Stream<List<IBeaconDevice>> listenIBeaconsUpdated() {
+    debugPrint("beacon_kontakt : listenIBeaconsUpdated UnimplementedError");
+
     throw UnimplementedError('listenScanResults() has not been implemented.');
   }
 
@@ -68,16 +73,28 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
   }
 
   Stream<bool> listenLocationServiceStatus() {
-    throw UnimplementedError('listenLocationServiceStatus() has not been implemented.');
+    throw UnimplementedError(
+        'listenLocationServiceStatus() has not been implemented.');
   }
+
   Stream<bool> listenBluetoothServiceStatus() {
-    throw UnimplementedError('listenBluetoothServiceStatus() has not been implemented.');
+    throw UnimplementedError(
+        'listenBluetoothServiceStatus() has not been implemented.');
   }
+
   Future<void> openLocationSettings() {
-    throw UnimplementedError('openLocationSettings() has not been implemented.');
+    throw UnimplementedError(
+        'openLocationSettings() has not been implemented.');
   }
+
   Future<void> openBluetoothSettings() {
-    throw UnimplementedError('openBluetoothSettings() has not been implemented.');
+    throw UnimplementedError(
+        'openBluetoothSettings() has not been implemented.');
+  }
+
+  Future<void> openNotificationSettings() {
+    throw UnimplementedError(
+        'openNotificationSettings() has not been implemented.');
   }
 
   Stream<bool> listenScanStatus() {

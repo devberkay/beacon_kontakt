@@ -43,6 +43,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
+      Log.d("KontaktSDK", "onAttachedToEngine started")
       channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
       permissionEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_permission_event")
       foregroundScanStatusEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_status_event")
@@ -55,16 +56,21 @@ import io.flutter.plugin.common.MethodChannel.Result
       channel.setMethodCallHandler(this)
       applicationContext = flutterPluginBinding.applicationContext
       activityService = ActivityService(flutterPluginBinding.applicationContext)
+      Log.d("KontaktSDK", "onAttachedToEngine complete")
     }
 
       override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         try {
+          Log.d("KontaktSDK", "onMethodCall ${call.method}")
           if (call.method == "getPlatformVersion") {
             result.success("Android ${android.os.Build.VERSION.RELEASE}")
           }
           else if(call.method == "initKontaktSDK") {
             apiKey = call.argument("apiKey") as String?
             kontaktSDK = KontaktSDK.initialize(apiKey!!)
+
+            var kontaktValid = kontaktSDK != null
+            Log.d("KontaktSDK", "initialized: $kontaktValid")
             foregroundScanService = ForegroundScanService(applicationContext,apiKey!!)
             foregroundScanStatusEventChannel.setStreamHandler(foregroundScanService)
             foregroundScanIBeaconsUpdatedEventChannel.setStreamHandler(foregroundScanService)
@@ -73,6 +79,7 @@ import io.flutter.plugin.common.MethodChannel.Result
             foregroundScanSecureProfilesUpdatedEventChannel.setStreamHandler(foregroundScanService)
             foregroundScanSecureProfileDiscoveredEventChannel.setStreamHandler(foregroundScanService)
             foregroundScanSecureProfileLostEventChannel.setStreamHandler(foregroundScanService)
+            Log.d("KontaktSDK", "initialization - set stream handlers")
             result.success(null)
           }
           else if(call.method == "checkPermissions") {
@@ -124,14 +131,20 @@ import io.flutter.plugin.common.MethodChannel.Result
           else if(call.method == "emitLocationStatus") {
             result.success(activityService.emitLocationStatus())
           }
+          else if(call.method == "emitNotificationStatus") {
+            result.success(activityService.emitNotificationStatus())
+          }
           else if(call.method=="emitBluetoothStatus") {
             result.success(activityService.emitBluetoothStatus())
           }
-          else if (call.method == "openBluetoothSettings") {
-            result.success(activityService.openBluetoothSettings())
-          }
           else if(call.method == "openLocationSettings") {
             result.success(activityService.openLocationSettings())
+          }
+          else if(call.method == "openNotificationSettings") {
+            result.success(activityService.openNotificationSettings())
+          }
+          else if (call.method == "openBluetoothSettings") {
+            result.success(activityService.openBluetoothSettings())
           }
 
 
@@ -148,6 +161,7 @@ import io.flutter.plugin.common.MethodChannel.Result
   }
 
     override fun onDetachedFromActivity() {
+      Log.d("KontaktSDK", "onDetachedFromActivity started")
       channel.setMethodCallHandler(null)
       permissionEventChannel.setStreamHandler(null)
       foregroundScanStatusEventChannel.setStreamHandler(null)
@@ -157,6 +171,7 @@ import io.flutter.plugin.common.MethodChannel.Result
       foregroundScanSecureProfileDiscoveredEventChannel.setStreamHandler(null)
       foregroundScanSecureProfilesUpdatedEventChannel.setStreamHandler(null)
       foregroundScanSecureProfileLostEventChannel.setStreamHandler(null)
+      Log.d("KontaktSDK", "onDetachedFromActivity started")
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -172,7 +187,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 
 
   override fun onDetachedFromActivityForConfigChanges() {
-      TODO("Not yet implemented")
+      // TODO("Not yet implemented")
     }
 
 }

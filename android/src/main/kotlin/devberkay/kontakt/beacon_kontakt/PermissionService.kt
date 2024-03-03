@@ -1,5 +1,5 @@
 package devberkay.kontakt.beacon_kontakt
-
+import android.util.Log
 import android.Manifest
 import android.app.Activity
 import android.content.Context
@@ -22,6 +22,8 @@ class PermissionService(private val activity: Activity,private val binding: Acti
 
 
     override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
+        Log.d("onListenBase", "$arguments")
+        Log.d("onListenBase", "$sink")
         eventSink = sink
 
         eventSink?.success(checkPermissions(true,null))
@@ -47,9 +49,9 @@ class PermissionService(private val activity: Activity,private val binding: Acti
     fun checkPermissions(onlyCheck:Boolean,resultObject:  MethodChannel.Result?) : Boolean {
 
             val requiredPermissions = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
             } else {
-                arrayOf(Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.ACCESS_FINE_LOCATION)
+                arrayOf(Manifest.permission.BLUETOOTH_SCAN, Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
             }
 
             if (requiredPermissions.any { ContextCompat.checkSelfPermission(context, it) != PackageManager.PERMISSION_GRANTED }) {

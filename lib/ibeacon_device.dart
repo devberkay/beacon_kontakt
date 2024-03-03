@@ -12,16 +12,21 @@ part 'ibeacon_device.g.dart';
 @freezed
 class IBeaconDevice with _$IBeaconDevice {
   const factory IBeaconDevice(
-      {required String proximityUUID,
-      required int major,
-      required int minor,
-      Map<String,dynamic>? payload, // 'userNick' is inside the payload
+      {
+      // required String proximityUUID,
+      // required int major,
+      // required int minor,
+      String? proximityUUID,
+      int? major,
+      int? minor,
+      Map<String, dynamic>? payload, // 'userNick' is inside the payload
       String? userId,
       String? uniqueId,
+      String? mac,
       int? proximity,
       int? timestamp, // msSinceEpoch
       int? rssi,
-      String? txPower // only android
+      int? txPower // only android
       }) = _IBeaconDevice;
 
   factory IBeaconDevice.fromJson(Map<String, Object?> json) =>

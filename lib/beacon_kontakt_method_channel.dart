@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
+import 'package:async/async.dart';
 
 import 'package:beacon_kontakt/ibeacon_device.dart';
 import 'package:beacon_kontakt/scan_period_enum.dart';
@@ -99,30 +100,62 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   @override
   Stream<List<IBeaconDevice>> listenIBeaconsUpdated() async* {
     // da poet
-
     try {
-      await for (final List<Object?> listOfDevices
-          in foregroundScanIBeaconsUpdatedEventChannel
-              .receiveBroadcastStream("iBeaconsUpdatedEventSink")) {
-        final listOfIBeaconsAsMap = listOfDevices
-            .map((e) => jsonDecode(jsonEncode(e)) as Map<String, dynamic>)
-            .toList();
+      //   debugPrint(
+      //       "listenIBeaconsUpdated event: $foregroundScanIBeaconsUpdatedEventChannel");
 
-        debugPrint("listenIBeaconsUpdated: $listOfIBeaconsAsMap");
-        yield listOfIBeaconsAsMap
-            .map((e) => IBeaconDevice.fromJson(e))
-            .toList();
+      // final streamGroup = StreamGroup<dynamic>();
+
+      // streamGroup.add(foregroundScanIBeaconsUpdatedEventChannel
+      //     .receiveBroadcastStream("secureProfilesUpdatedEventSink"));
+      // streamGroup.add(foregroundScanIBeaconsUpdatedEventChannel
+      //     .receiveBroadcastStream("iBeaconsUpdatedEventSink"));
+
+      // final combinedStream = streamGroup.stream;
+
+      //secureProfilesUpdatedEventSink - works on android
+      //iBeaconsUpdatedEventSink
+
+      await for (final List<Object?> listOfDevices in Platform.isIOS
+          ? foregroundScanIBeaconsUpdatedEventChannel
+              .receiveBroadcastStream("iBeaconsUpdatedEventSink")
+          : foregroundScanIBeaconsUpdatedEventChannel
+              .receiveBroadcastStream("secureProfilesUpdatedEventSink")) {
+        // debugPrint("listOfDevices: $listOfDevices");
+
+        try {
+          final listOfIBeaconsAsMap = listOfDevices
+              .map((e) => jsonDecode(jsonEncode(e)) as Map<String, dynamic>)
+              .toList();
+
+          // debugPrint("listenIBeaconsUpdated: $listOfIBeaconsAsMap");
+          yield listOfIBeaconsAsMap
+              .map((e) => IBeaconDevice.fromJson(e))
+              .toList();
+        } catch (e) {
+          debugPrint("Error processing listOfDevices: $e");
+        }
       }
-    } on PlatformException catch (e) {
-      debugPrint("listenIBeaconsUpdated Error: ${e.message}");
+      // debugPrint("listOfDevices looped");
     }
+    // on PlatformException catch (e) {
+    //   debugPrint("listenIBeaconsUpdated Error: ${e.message}");
+    // }
+    on Exception catch (e) {
+      debugPrint("listenIBeaconsUpdated Error: ${e.toString()}");
+    }
+    debugPrint("listOfDevices finished");
   }
 
   @override
   Stream<IBeaconDevice> listenIBeaconLost() async* {
     try {
-      await for (final Object? device in foregroundScanIBeaconLostEventChannel
-          .receiveBroadcastStream("iBeaconLostEventSink")) {
+      //iBeaconLostEventSink
+      await for (final Object? device in Platform.isIOS
+          ? foregroundScanIBeaconLostEventChannel
+              .receiveBroadcastStream("iBeaconLostEventSink")
+          : foregroundScanIBeaconLostEventChannel
+              .receiveBroadcastStream("secureProfileLostEventSink")) {
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
         debugPrint("lost : $device");
@@ -136,9 +169,12 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   @override
   Stream<IBeaconDevice> listenIBeaconDiscovered() async* {
     try {
-      await for (final Object? device
-          in foregroundScanIBeaconDiscoveredEventChannel
-              .receiveBroadcastStream("iBeaconDiscoveredEventSink")) {
+      //secureProfileDiscoveredEventSink
+      await for (final Object? device in Platform.isIOS
+          ? foregroundScanIBeaconDiscoveredEventChannel
+              .receiveBroadcastStream("iBeaconDiscoveredEventSink")
+          : foregroundScanIBeaconDiscoveredEventChannel
+              .receiveBroadcastStream("secureProfileDiscoveredEventSink")) {
         debugPrint("discovered : $device");
         final iBeaconAsMap =
             jsonDecode(jsonEncode(device)) as Map<String, dynamic>;
@@ -166,7 +202,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
           yield currentStatus as bool? ?? false;
         }
       } on PlatformException catch (e) {
-        // debugPrint("listenScanStatus : ${e.message}");
+        debugPrint("listenScanStatus : ${e.message}");
       }
     }
   }
@@ -191,13 +227,19 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
   }
 
   @override
+  Future<void> openNotificationSettings() async {
+    await methodChannel.invokeMethod("openNotificationSettings");
+  }
+
+  @override
   Stream<bool> listenScanStatus() async* {
     try {
       await for (final currentStatus in foregroundScanStatusEventChannel
           .receiveBroadcastStream("statusEventSink")) {
         yield currentStatus as bool;
       }
-    } on PlatformException catch (e) { // new ios flow
+    } on PlatformException catch (e) {
+      // new ios flow
       debugPrint("$e");
       yield false;
     }

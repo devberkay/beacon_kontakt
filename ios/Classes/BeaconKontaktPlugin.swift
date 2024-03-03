@@ -112,13 +112,12 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
         case "openLocationSettings":
             instance?.activityService?.openLocationSettings()
             result(nil)
+        case "openNotificationSettings":
+            instance?.activityService?.openNotificationSettings()
+            result(nil)
         case "openBluetoothSettings":
             instance?.activityService?.openBluetoothSettings()
             result(nil)
-
-
-            
-        
         default:
             result(FlutterMethodNotImplemented)
         }

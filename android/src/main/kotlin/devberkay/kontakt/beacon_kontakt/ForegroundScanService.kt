@@ -32,15 +32,14 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
     private var iBeaconLostEventSink : EventChannel.EventSink? = null
     private var secureProfileDiscoveredEventSink : EventChannel.EventSink? = null
     private var secureProfilesUpdatedEventSink : EventChannel.EventSink? = null
-    private var secureProfileLostEvenSink : EventChannel.EventSink? = null
+    private var secureProfileLostEventSink : EventChannel.EventSink? = null
     private  val proximityManager: ProximityManager = ProximityManagerFactory.create(context, KontaktCloudFactory.create(apiKey))
-
 
     private val iBeaconListener = object : IBeaconListener {
         override fun onIBeaconDiscovered(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
             statusEventSink?.success(true)
             Log.d("onIBeaconDiscovered", "onIBeaconDiscovered ${iBeacon.toString()}")
-            iBeaconDiscoveredEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(),"minor" to it.minor, "major" to it.major )  })
+            iBeaconDiscoveredEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(),"minor" to it.minor, "major" to it.major, "uniqueId" to it.uniqueId  )  })
         }
 
         override fun onIBeaconsUpdated(
@@ -50,16 +49,16 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             Log.d("updatedEventSinks","${iBeaconsUpdatedEventSink.toString()} ve ${statusEventSink.toString()} ah size eventsink diyeni")
             statusEventSink?.success(true)
             Log.d("onIBeaconsUpdated", "onIBeaconsUpdated-0 ${iBeacons.toString()}")
-            val iBeaconsList = iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(), "minor" to it.minor, "major" to it.major  )  }
+            val iBeaconsList = iBeacons?.map { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi, "proximityUUID" to it.proximityUUID.toString().uppercase(), "minor" to it.minor, "major" to it.major,"uniqueId" to it.uniqueId   )  }
             Log.d("onIBeaconsUpdated", "onIBeaconsUpdated-1 ${iBeaconsList.toString()}")
             iBeaconsUpdatedEventSink?.success(iBeaconsList)
 
         }
 
         override fun onIBeaconLost(iBeacon: IBeaconDevice?, region: IBeaconRegion?) {
+            Log.d("onIBeaconLost", "onIBeaconLost ${iBeacon.toString()}")
             statusEventSink?.success(true)
-           Log.d("onIBeaconLost", "onIBeaconLost ${iBeacon.toString()}")
-            iBeaconLostEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi,  "proximityUUID" to it.proximityUUID.toString().uppercase(),"uniqueID" to it.uniqueId, "minor" to it.minor, "major" to it.major )  })
+            iBeaconLostEventSink?.success(iBeacon?.let { mapOf("timestamp" to it.timestamp,"rssi" to it.rssi,  "proximityUUID" to it.proximityUUID.toString().uppercase(), "minor" to it.minor, "major" to it.major,  "uniqueId" to it.uniqueId )  })
         }
     }
 
@@ -68,18 +67,19 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
             statusEventSink?.success(true)
             Log.i(TAG, "onSecureProfileDiscovered: " + iSecureProfile.toString())
-            secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "macAdress" to it.macAddress ) })
+            secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "mac" to it.macAddress, "uniqueId" to it.uniqueId ) })
         }
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
             statusEventSink?.success(true)
-            secureProfilesUpdatedEventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "macAdress" to it.macAddress  ) })
+            Log.i(TAG, "onSecureProfileUpdated: " + list.toString())
+            secureProfilesUpdatedEventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "mac" to it.macAddress, "uniqueId" to it.uniqueId  ) })
         }
 
         override fun onProfileLost(iSecureProfile: ISecureProfile) {
             statusEventSink?.success(true)
             Log.e(TAG, "onSecureProfileLost: " + iSecureProfile.toString())
-            secureProfileLostEvenSink?.success( iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "macAdress" to it.macAddress  ) })
+            secureProfileLostEventSink?.success( iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "mac" to it.macAddress, "uniqueId" to it.uniqueId   ) })
         }
     }
 
@@ -123,6 +123,10 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
 
     override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+        // log inputs
+        Log.d("onListen", "arguments: $arguments")
+        Log.d("onListen", "events: $events")
+
         when (arguments) {
             "statusEventSink" -> {
                 statusEventSink = events
@@ -146,8 +150,8 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             "secureProfilesUpdatedEventSink" -> {
                 secureProfilesUpdatedEventSink = events
             }
-            "secureProfileLostEvenSink" -> {
-                secureProfileLostEvenSink = events
+            "secureProfileLostEventSink" -> {
+                secureProfileLostEventSink = events
             }
             else -> throw IllegalArgumentException("Unknown event channel onListen: $arguments")
         }
@@ -183,9 +187,9 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 secureProfilesUpdatedEventSink?.endOfStream()
                 secureProfilesUpdatedEventSink = null
             }
-            "secureProfileLostEvenSink" -> {
-                secureProfileLostEvenSink?.endOfStream()
-                secureProfileLostEvenSink = null
+            "secureProfileLostEventSink" -> {
+                secureProfileLostEventSink?.endOfStream()
+                secureProfileLostEventSink = null
             }
             null -> {
                 // The channel implementation may call this method with null arguments to separate a pair of two consecutive set up requests. Such request pairs may occur during Flutter hot restart.
@@ -199,7 +203,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
 
     fun startScanning(scanPeriod: ScanPeriod?, proximityUUID:String?, major:Int?,  minor:Int?, resultObject:  MethodChannel.Result) {
 
-
+         Log.d("startScanning","Scanning Handler started")
          val primaryRegion : IBeaconRegion = BeaconRegion.Builder()
             .identifier("primaryRegion")
             .proximity(UUID.fromString(proximityUUID))
@@ -224,8 +228,8 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                     .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
 
                 proximityManager.setScanStatusListener(scanStatusListener)
-                proximityManager.setIBeaconListener(iBeaconListener)
-//                proximityManager.setSecureProfileListener(secureProfileListener)
+                // proximityManager.setIBeaconListener(iBeaconListener)
+                proximityManager.setSecureProfileListener(secureProfileListener)
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
                 // Bluetooth adapter is ready, start scanning
                 proximityManager.startScanning()
@@ -234,6 +238,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
             }
 
             override fun onServiceBindError(message: String?) {
+                Log.d("onServiceBindError","onServiceBindError.")
 
                 super.onServiceBindError(message)
                 resultObject.error("onServiceBindError", message, null)

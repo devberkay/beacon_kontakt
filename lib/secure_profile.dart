@@ -4,16 +4,17 @@ class SecureProfile {
   final int batteryLevel;
   final String name;
   final String instanceId;
-  final String macAddress;
+  final String mac;
+  final String uniqueId;
 
-  SecureProfile({
-    required this.rssi,
-    required this.txPower,
-    required this.batteryLevel,
-    required this.name,
-    required this.instanceId,
-    required this.macAddress,
-  });
+  SecureProfile(
+      {required this.rssi,
+      required this.txPower,
+      required this.batteryLevel,
+      required this.name,
+      required this.instanceId,
+      required this.mac,
+      required this.uniqueId});
 
   factory SecureProfile.fromJson(Map<String, dynamic> json) {
     return SecureProfile(
@@ -22,7 +23,8 @@ class SecureProfile {
       batteryLevel: json['batteryLevel'] as int,
       name: json['name'] as String,
       instanceId: json['instanceId'] as String,
-      macAddress: json['macAddress'] as String,
+      mac: json['macAddress'] as String,
+      uniqueId: json['uniqueId'] as String,
     );
   }
 
@@ -33,7 +35,8 @@ class SecureProfile {
       'batteryLevel': batteryLevel,
       'name': name,
       'instanceId': instanceId,
-      'macAddress': macAddress,
+      'mac': mac,
+      'uniqueId': uniqueId,
     };
   }
 }

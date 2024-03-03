@@ -84,6 +84,10 @@ class ActivityService: NSObject,FlutterStreamHandler, CLLocationManagerDelegate,
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
-    
-    
+
+    func openNotificationSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
 }
