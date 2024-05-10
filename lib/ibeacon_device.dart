@@ -13,13 +13,9 @@ part 'ibeacon_device.g.dart';
 class IBeaconDevice with _$IBeaconDevice {
   const factory IBeaconDevice(
       {
-      // required String proximityUUID,
-      // required int major,
-      // required int minor,
       String? proximityUUID,
       int? major,
       int? minor,
-      Map<String, dynamic>? payload, // 'userNick' is inside the payload
       String? userId,
       String? uniqueId,
       String? mac,

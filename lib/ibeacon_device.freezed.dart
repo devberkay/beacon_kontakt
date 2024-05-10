@@ -12,7 +12,7 @@ part of 'ibeacon_device.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 IBeaconDevice _$IBeaconDeviceFromJson(Map<String, dynamic> json) {
   return _IBeaconDevice.fromJson(json);
@@ -20,17 +20,19 @@ IBeaconDevice _$IBeaconDeviceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$IBeaconDevice {
-  String get proximityUUID => throw _privateConstructorUsedError;
-  int get major => throw _privateConstructorUsedError;
-  int get minor => throw _privateConstructorUsedError;
-  Map<String, dynamic>? get payload =>
-      throw _privateConstructorUsedError; // 'userNick' is inside the payload
+// required String proximityUUID,
+// required int major,
+// required int minor,
+  String? get proximityUUID => throw _privateConstructorUsedError;
+  int? get major => throw _privateConstructorUsedError;
+  int? get minor => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
   String? get uniqueId => throw _privateConstructorUsedError;
+  String? get mac => throw _privateConstructorUsedError;
   int? get proximity => throw _privateConstructorUsedError;
   int? get timestamp => throw _privateConstructorUsedError; // msSinceEpoch
   int? get rssi => throw _privateConstructorUsedError;
-  String? get txPower => throw _privateConstructorUsedError;
+  int? get txPower => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,16 +47,16 @@ abstract class $IBeaconDeviceCopyWith<$Res> {
       _$IBeaconDeviceCopyWithImpl<$Res, IBeaconDevice>;
   @useResult
   $Res call(
-      {String proximityUUID,
-      int major,
-      int minor,
-      Map<String, dynamic>? payload,
+      {String? proximityUUID,
+      int? major,
+      int? minor,
       String? userId,
       String? uniqueId,
+      String? mac,
       int? proximity,
       int? timestamp,
       int? rssi,
-      String? txPower});
+      int? txPower});
 }
 
 /// @nodoc
@@ -70,34 +72,30 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? proximityUUID = null,
-    Object? major = null,
-    Object? minor = null,
-    Object? payload = freezed,
+    Object? proximityUUID = freezed,
+    Object? major = freezed,
+    Object? minor = freezed,
     Object? userId = freezed,
     Object? uniqueId = freezed,
+    Object? mac = freezed,
     Object? proximity = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
     Object? txPower = freezed,
   }) {
     return _then(_value.copyWith(
-      proximityUUID: null == proximityUUID
+      proximityUUID: freezed == proximityUUID
           ? _value.proximityUUID
           : proximityUUID // ignore: cast_nullable_to_non_nullable
-              as String,
-      major: null == major
+              as String?,
+      major: freezed == major
           ? _value.major
           : major // ignore: cast_nullable_to_non_nullable
-              as int,
-      minor: null == minor
+              as int?,
+      minor: freezed == minor
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
-              as int,
-      payload: freezed == payload
-          ? _value.payload
-          : payload // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as int?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -105,6 +103,10 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
       uniqueId: freezed == uniqueId
           ? _value.uniqueId
           : uniqueId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mac: freezed == mac
+          ? _value.mac
+          : mac // ignore: cast_nullable_to_non_nullable
               as String?,
       proximity: freezed == proximity
           ? _value.proximity
@@ -121,71 +123,67 @@ class _$IBeaconDeviceCopyWithImpl<$Res, $Val extends IBeaconDevice>
       txPower: freezed == txPower
           ? _value.txPower
           : txPower // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_IBeaconDeviceCopyWith<$Res>
+abstract class _$$IBeaconDeviceImplCopyWith<$Res>
     implements $IBeaconDeviceCopyWith<$Res> {
-  factory _$$_IBeaconDeviceCopyWith(
-          _$_IBeaconDevice value, $Res Function(_$_IBeaconDevice) then) =
-      __$$_IBeaconDeviceCopyWithImpl<$Res>;
+  factory _$$IBeaconDeviceImplCopyWith(
+          _$IBeaconDeviceImpl value, $Res Function(_$IBeaconDeviceImpl) then) =
+      __$$IBeaconDeviceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {String proximityUUID,
-      int major,
-      int minor,
-      Map<String, dynamic>? payload,
+      {String? proximityUUID,
+      int? major,
+      int? minor,
       String? userId,
       String? uniqueId,
+      String? mac,
       int? proximity,
       int? timestamp,
       int? rssi,
-      String? txPower});
+      int? txPower});
 }
 
 /// @nodoc
-class __$$_IBeaconDeviceCopyWithImpl<$Res>
-    extends _$IBeaconDeviceCopyWithImpl<$Res, _$_IBeaconDevice>
-    implements _$$_IBeaconDeviceCopyWith<$Res> {
-  __$$_IBeaconDeviceCopyWithImpl(
-      _$_IBeaconDevice _value, $Res Function(_$_IBeaconDevice) _then)
+class __$$IBeaconDeviceImplCopyWithImpl<$Res>
+    extends _$IBeaconDeviceCopyWithImpl<$Res, _$IBeaconDeviceImpl>
+    implements _$$IBeaconDeviceImplCopyWith<$Res> {
+  __$$IBeaconDeviceImplCopyWithImpl(
+      _$IBeaconDeviceImpl _value, $Res Function(_$IBeaconDeviceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? proximityUUID = null,
-    Object? major = null,
-    Object? minor = null,
-    Object? payload = freezed,
+    Object? proximityUUID = freezed,
+    Object? major = freezed,
+    Object? minor = freezed,
     Object? userId = freezed,
     Object? uniqueId = freezed,
+    Object? mac = freezed,
     Object? proximity = freezed,
     Object? timestamp = freezed,
     Object? rssi = freezed,
     Object? txPower = freezed,
   }) {
-    return _then(_$_IBeaconDevice(
-      proximityUUID: null == proximityUUID
+    return _then(_$IBeaconDeviceImpl(
+      proximityUUID: freezed == proximityUUID
           ? _value.proximityUUID
           : proximityUUID // ignore: cast_nullable_to_non_nullable
-              as String,
-      major: null == major
+              as String?,
+      major: freezed == major
           ? _value.major
           : major // ignore: cast_nullable_to_non_nullable
-              as int,
-      minor: null == minor
+              as int?,
+      minor: freezed == minor
           ? _value.minor
           : minor // ignore: cast_nullable_to_non_nullable
-              as int,
-      payload: freezed == payload
-          ? _value._payload
-          : payload // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as int?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -193,6 +191,10 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
       uniqueId: freezed == uniqueId
           ? _value.uniqueId
           : uniqueId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mac: freezed == mac
+          ? _value.mac
+          : mac // ignore: cast_nullable_to_non_nullable
               as String?,
       proximity: freezed == proximity
           ? _value.proximity
@@ -209,51 +211,46 @@ class __$$_IBeaconDeviceCopyWithImpl<$Res>
       txPower: freezed == txPower
           ? _value.txPower
           : txPower // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
-  const _$_IBeaconDevice(
-      {required this.proximityUUID,
-      required this.major,
-      required this.minor,
-      final Map<String, dynamic>? payload,
+class _$IBeaconDeviceImpl
+    with DiagnosticableTreeMixin
+    implements _IBeaconDevice {
+  const _$IBeaconDeviceImpl(
+      {this.proximityUUID,
+      this.major,
+      this.minor,
       this.userId,
       this.uniqueId,
+      this.mac,
       this.proximity,
       this.timestamp,
       this.rssi,
-      this.txPower})
-      : _payload = payload;
+      this.txPower});
 
-  factory _$_IBeaconDevice.fromJson(Map<String, dynamic> json) =>
-      _$$_IBeaconDeviceFromJson(json);
+  factory _$IBeaconDeviceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$IBeaconDeviceImplFromJson(json);
 
+// required String proximityUUID,
+// required int major,
+// required int minor,
   @override
-  final String proximityUUID;
+  final String? proximityUUID;
   @override
-  final int major;
+  final int? major;
   @override
-  final int minor;
-  final Map<String, dynamic>? _payload;
-  @override
-  Map<String, dynamic>? get payload {
-    final value = _payload;
-    if (value == null) return null;
-    if (_payload is EqualUnmodifiableMapView) return _payload;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
-
-// 'userNick' is inside the payload
+  final int? minor;
   @override
   final String? userId;
   @override
   final String? uniqueId;
+  @override
+  final String? mac;
   @override
   final int? proximity;
   @override
@@ -262,11 +259,11 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   @override
   final int? rssi;
   @override
-  final String? txPower;
+  final int? txPower;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, payload: $payload, userId: $userId, uniqueId: $uniqueId, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
+    return 'IBeaconDevice(proximityUUID: $proximityUUID, major: $major, minor: $minor, userId: $userId, uniqueId: $uniqueId, mac: $mac, proximity: $proximity, timestamp: $timestamp, rssi: $rssi, txPower: $txPower)';
   }
 
   @override
@@ -277,9 +274,9 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
       ..add(DiagnosticsProperty('proximityUUID', proximityUUID))
       ..add(DiagnosticsProperty('major', major))
       ..add(DiagnosticsProperty('minor', minor))
-      ..add(DiagnosticsProperty('payload', payload))
       ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('uniqueId', uniqueId))
+      ..add(DiagnosticsProperty('mac', mac))
       ..add(DiagnosticsProperty('proximity', proximity))
       ..add(DiagnosticsProperty('timestamp', timestamp))
       ..add(DiagnosticsProperty('rssi', rssi))
@@ -287,18 +284,18 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_IBeaconDevice &&
+            other is _$IBeaconDeviceImpl &&
             (identical(other.proximityUUID, proximityUUID) ||
                 other.proximityUUID == proximityUUID) &&
             (identical(other.major, major) || other.major == major) &&
             (identical(other.minor, minor) || other.minor == minor) &&
-            const DeepCollectionEquality().equals(other._payload, _payload) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.uniqueId, uniqueId) ||
                 other.uniqueId == uniqueId) &&
+            (identical(other.mac, mac) || other.mac == mac) &&
             (identical(other.proximity, proximity) ||
                 other.proximity == proximity) &&
             (identical(other.timestamp, timestamp) ||
@@ -309,28 +306,18 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      proximityUUID,
-      major,
-      minor,
-      const DeepCollectionEquality().hash(_payload),
-      userId,
-      uniqueId,
-      proximity,
-      timestamp,
-      rssi,
-      txPower);
+  int get hashCode => Object.hash(runtimeType, proximityUUID, major, minor,
+      userId, uniqueId, mac, proximity, timestamp, rssi, txPower);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_IBeaconDeviceCopyWith<_$_IBeaconDevice> get copyWith =>
-      __$$_IBeaconDeviceCopyWithImpl<_$_IBeaconDevice>(this, _$identity);
+  _$$IBeaconDeviceImplCopyWith<_$IBeaconDeviceImpl> get copyWith =>
+      __$$IBeaconDeviceImplCopyWithImpl<_$IBeaconDeviceImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_IBeaconDeviceToJson(
+    return _$$IBeaconDeviceImplToJson(
       this,
     );
   }
@@ -338,32 +325,34 @@ class _$_IBeaconDevice with DiagnosticableTreeMixin implements _IBeaconDevice {
 
 abstract class _IBeaconDevice implements IBeaconDevice {
   const factory _IBeaconDevice(
-      {required final String proximityUUID,
-      required final int major,
-      required final int minor,
-      final Map<String, dynamic>? payload,
+      {final String? proximityUUID,
+      final int? major,
+      final int? minor,
       final String? userId,
       final String? uniqueId,
+      final String? mac,
       final int? proximity,
       final int? timestamp,
       final int? rssi,
-      final String? txPower}) = _$_IBeaconDevice;
+      final int? txPower}) = _$IBeaconDeviceImpl;
 
   factory _IBeaconDevice.fromJson(Map<String, dynamic> json) =
-      _$_IBeaconDevice.fromJson;
+      _$IBeaconDeviceImpl.fromJson;
 
+  @override // required String proximityUUID,
+// required int major,
+// required int minor,
+  String? get proximityUUID;
   @override
-  String get proximityUUID;
+  int? get major;
   @override
-  int get major;
+  int? get minor;
   @override
-  int get minor;
-  @override
-  Map<String, dynamic>? get payload;
-  @override // 'userNick' is inside the payload
   String? get userId;
   @override
   String? get uniqueId;
+  @override
+  String? get mac;
   @override
   int? get proximity;
   @override
@@ -371,9 +360,9 @@ abstract class _IBeaconDevice implements IBeaconDevice {
   @override // msSinceEpoch
   int? get rssi;
   @override
-  String? get txPower;
+  int? get txPower;
   @override
   @JsonKey(ignore: true)
-  _$$_IBeaconDeviceCopyWith<_$_IBeaconDevice> get copyWith =>
+  _$$IBeaconDeviceImplCopyWith<_$IBeaconDeviceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -18,7 +18,7 @@ final isScanningProvider = StreamProvider.autoDispose<bool>((ref) async* {
   await for (bool currentStatus in beaconKontaktApi.listenScanStatus()) {
     yield currentStatus;
   }
-});
+},name:"isScanningProvider");
 
 final didEnterStreamProvider =
     StreamProvider.autoDispose<IBeaconDevice>((ref) async* {
@@ -78,8 +78,8 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   Future<void> initKontaktSDK() async {
-    await _beaconKontaktPlugin
-        .initKontaktSDK("YOUR_OWN_KONTAKT_API_KEY"); // CAN BE FOUND ON KONTAKT DASHBOARD
+    await _beaconKontaktPlugin.initKontaktSDK(
+        "YOUR_OWN_KONTAKT_API_KEY"); // CAN BE FOUND ON KONTAKT DASHBOARD
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -123,7 +123,6 @@ class _MyAppState extends ConsumerState<MyApp> {
       return false;
     });
 
-
     return MaterialApp(
       home: Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -148,7 +147,7 @@ class _MyAppState extends ConsumerState<MyApp> {
                   }),
               TextButton(
                   onPressed: () async {
-                    
+                    debugPrint("Whatsgonhappen");
                   },
                   child: const Text("Start Scanning")),
               TextButton(
