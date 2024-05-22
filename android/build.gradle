@@ -26,7 +26,7 @@ apply plugin: 'kotlin-android'
 
 android {
     namespace 'devberkay.kontakt.beacon_kontakt'
-    compileSdkVersion 34
+    compileSdk 34
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,6 +47,6 @@ android {
 }
 
 dependencies {
-    implementation("io.kontakt.mvn:sdk:7.1.3")
+    implementation("io.kontakt.mvn:sdk:7.1.13")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

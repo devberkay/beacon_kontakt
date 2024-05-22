@@ -120,7 +120,7 @@ class MethodChannelBeaconKontakt extends BeaconKontaktPlatform {
           ? foregroundScanIBeaconsUpdatedEventChannel
               .receiveBroadcastStream("iBeaconsUpdatedEventSink")
           : foregroundScanIBeaconsUpdatedEventChannel
-              .receiveBroadcastStream("secureProfilesUpdatedEventSink")) {
+              .receiveBroadcastStream("iBeaconsUpdatedEventSink")) {
         // debugPrint("listOfDevices: $listOfDevices");
 
         try {

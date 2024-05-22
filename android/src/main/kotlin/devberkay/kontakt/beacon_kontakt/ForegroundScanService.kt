@@ -66,19 +66,19 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
         override fun onProfileDiscovered(iSecureProfile: ISecureProfile) {
 
             statusEventSink?.success(true)
-            Log.i(TAG, "onSecureProfileDiscovered: " + iSecureProfile.toString())
+            Log.d(TAG, "onSecureProfileDiscovered: " + iSecureProfile.toString())
             secureProfileDiscoveredEventSink?.success(iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "mac" to it.macAddress, "uniqueId" to it.uniqueId ) })
         }
 
         override fun onProfilesUpdated(list: List<ISecureProfile>) {
             statusEventSink?.success(true)
-            Log.i(TAG, "onSecureProfileUpdated: " + list.toString())
+            Log.d(TAG, "onSecureProfileUpdated: " + list.toString())
             secureProfilesUpdatedEventSink?.success(list.map { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "mac" to it.macAddress, "uniqueId" to it.uniqueId  ) })
         }
 
         override fun onProfileLost(iSecureProfile: ISecureProfile) {
             statusEventSink?.success(true)
-            Log.e(TAG, "onSecureProfileLost: " + iSecureProfile.toString())
+            Log.d(TAG, "onSecureProfileLost: " + iSecureProfile.toString())
             secureProfileLostEventSink?.success( iSecureProfile.let { mapOf("rssi" to it.rssi, "txPower" to it.txPower, "mac" to it.macAddress, "uniqueId" to it.uniqueId   ) })
         }
     }
@@ -192,6 +192,8 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 secureProfileLostEventSink = null
             }
             null -> {
+
+                proximityManager.disconnect();
                 // The channel implementation may call this method with null arguments to separate a pair of two consecutive set up requests. Such request pairs may occur during Flutter hot restart.
             }
             else -> throw IllegalArgumentException("Unknown event channel onCancel: $arguments")
@@ -228,7 +230,7 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                     .kontaktScanFilters(KontaktScanFilter.DEFAULT_FILTERS_LIST)
 
                 proximityManager.setScanStatusListener(scanStatusListener)
-                // proximityManager.setIBeaconListener(iBeaconListener)
+                proximityManager.setIBeaconListener(iBeaconListener)
                 proximityManager.setSecureProfileListener(secureProfileListener)
                 proximityManager.spaces().iBeaconRegions(listOf(primaryRegion))
                 // Bluetooth adapter is ready, start scanning

@@ -1,7 +1,6 @@
 import 'package:beacon_kontakt/ibeacon_device.dart';
 
 import 'package:beacon_kontakt/permission_enum.dart';
-import 'package:beacon_kontakt/scan_period_enum.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -12,13 +11,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final beaconKontaktApiProvider = Provider<BeaconKontakt>((ref) {
   return BeaconKontakt.instance;
 });
-
-final isScanningProvider = StreamProvider.autoDispose<bool>((ref) async* {
-  final beaconKontaktApi = ref.watch(beaconKontaktApiProvider);
-  await for (bool currentStatus in beaconKontaktApi.listenScanStatus()) {
-    yield currentStatus;
-  }
-},name:"isScanningProvider");
 
 final didEnterStreamProvider =
     StreamProvider.autoDispose<IBeaconDevice>((ref) async* {

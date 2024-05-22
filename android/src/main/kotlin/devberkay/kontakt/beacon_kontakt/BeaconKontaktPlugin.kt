@@ -157,7 +157,6 @@ import io.flutter.plugin.common.MethodChannel.Result
   }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-
   }
 
     override fun onDetachedFromActivity() {
