@@ -14,21 +14,19 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
      var foregroundScanIBeaconLostEventChannel : FlutterEventChannel? = nil
 
      
-     var permissionService : PermissionService? = nil
-     var activityService : ActivityService? = nil
      var foregroundScanService : ForegroundScanService? = nil
     
     var instance: BeaconKontaktPlugin? = nil
     
     public static func register(with registrar: FlutterPluginRegistrar) {
+        
+        let channel = FlutterMethodChannel(name: "beacon_kontakt", binaryMessenger: registrar.messenger())
         let instance = BeaconKontaktPlugin()
+        registrar.addMethodCallDelegate(instance, channel: channel)
         instance.instance = instance
-        instance.permissionService = PermissionService()
-        instance.activityService = ActivityService()
         instance.foregroundScanService = ForegroundScanService()
         
         
-        instance.channel = FlutterMethodChannel(name: "beacon_kontakt", binaryMessenger: registrar.messenger())
         
         instance.activityLocationEventChannel = FlutterEventChannel(name: "beacon_kontakt_activity_location_event", binaryMessenger: registrar.messenger())
         
@@ -44,8 +42,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
         
         
         
-        instance.activityLocationEventChannel?.setStreamHandler(instance.activityService)
-        instance.permissionEventChannel?.setStreamHandler(instance.permissionService)
+        
         instance.foregroundScanStatusEventChannel?.setStreamHandler(instance.foregroundScanService)
         instance.foregroundScanIBeaconsUpdatedEventChannel?.setStreamHandler(instance.foregroundScanService)
         instance.foregroundScanIBeaconDiscoveredEventChannel?.setStreamHandler(instance.foregroundScanService)
@@ -54,7 +51,6 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
         
         
         
-        registrar.addMethodCallDelegate(instance, channel: instance.channel!)
     }
     
     
@@ -70,11 +66,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
             } else {
                 result(FlutterError(code: "initKontaktSDK", message: "initKontaktSDK Invalid arguments", details: nil))
             }
-        case "checkPermissions":
-            result(instance!.permissionService!.checkPermission(onlyCheck: false))
-        case "emitPermissionStatusString": //ios-only
-            result(instance!.permissionService!.emitPermissionStatusString())
-        case "startScanning":
+                case "startScanning":
             guard let args = call.arguments as? [String: Any],
                 let scanPeriod = args["scanPeriod"] as? String,
                 let minor = args["minor"] as? Int,
@@ -106,18 +98,7 @@ public class BeaconKontaktPlugin: NSObject, FlutterPlugin {
                 result(FlutterError(code: "stopScanning", message: "Error stopping scanning", details: "\(error)"))
             }
             return
-        case "emitBluetoothStatus":
-            result(instance?.activityService?.emitBluetoothStatus())
-            return
-        case "openLocationSettings":
-            instance?.activityService?.openLocationSettings()
-            result(nil)
-        case "openNotificationSettings":
-            instance?.activityService?.openNotificationSettings()
-            result(nil)
-        case "openBluetoothSettings":
-            instance?.activityService?.openBluetoothSettings()
-            result(nil)
+        
         default:
             result(FlutterMethodNotImplemented)
         }

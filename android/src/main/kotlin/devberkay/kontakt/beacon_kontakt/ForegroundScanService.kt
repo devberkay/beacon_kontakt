@@ -192,8 +192,13 @@ class ForegroundScanService(private val context: Context, private val apiKey : S
                 secureProfileLostEventSink = null
             }
             null -> {
-
-                proximityManager.disconnect();
+                statusEventSink?.endOfStream()
+                iBeaconDiscoveredEventSink?.endOfStream()
+                iBeaconLostEventSink?.endOfStream()
+                secureProfileDiscoveredEventSink?.endOfStream()
+                secureProfilesUpdatedEventSink?.endOfStream()
+                secureProfileLostEventSink?.endOfStream()
+                iBeaconDiscoveredEventSink?.endOfStream()
                 // The channel implementation may call this method with null arguments to separate a pair of two consecutive set up requests. Such request pairs may occur during Flutter hot restart.
             }
             else -> throw IllegalArgumentException("Unknown event channel onCancel: $arguments")

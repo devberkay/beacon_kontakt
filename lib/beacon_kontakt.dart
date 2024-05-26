@@ -19,18 +19,6 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.getPlatformVersion();
   }
 
-  Future<bool?> checkPermissions() {
-    return BeaconKontaktPlatform.instance.checkPermissions();
-  }
-
-  Future<String?> emitPermissionStatusString() async {
-    return BeaconKontaktPlatform.instance.emitPermissionStatusString();
-  }
-
-  Stream<bool?> listenPermissionStatus() {
-    return BeaconKontaktPlatform.instance.listenPermissionStatus();
-  }
-
   Future<void> initKontaktSDK(String apiKey) {
     return BeaconKontaktPlatform.instance.initKontaktSDK(apiKey);
   }
@@ -57,28 +45,4 @@ class BeaconKontakt {
     return BeaconKontaktPlatform.instance.listenIBeaconDiscovered();
   }
 
-  Future<void> openBluetoothSettings() async {
-    return BeaconKontaktPlatform.instance.openBluetoothSettings();
-  }
-
-  Future<void> openLocationSettings() async {
-    return BeaconKontaktPlatform.instance.openLocationSettings();
-  }
-
-  Future<void> openNotificationSettings() async {
-    return BeaconKontaktPlatform.instance.openNotificationSettings();
-  }
-
-  Stream<bool> listenBluetoothServiceStatus() {
-    return BeaconKontaktPlatform.instance.listenBluetoothServiceStatus();
-  }
-
-  Stream<bool> listenLocationServiceStatus() {
-    // ios-only because monitoring needs location services to use on the background
-    return BeaconKontaktPlatform.instance.listenLocationServiceStatus();
-  }
-
-  Stream<bool> listenScanStatus() {
-    return BeaconKontaktPlatform.instance.listenScanStatus();
-  }
 }

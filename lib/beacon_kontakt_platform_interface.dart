@@ -32,19 +32,6 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<bool?> checkPermissions() {
-    throw UnimplementedError('checkPermissions() has not been implemented.');
-  }
-
-  Future<String?> emitPermissionStatusString() {
-    throw UnimplementedError(
-        'emitPermissionStatusString() has not been implemented.');
-  }
-
-  Stream<bool?> listenPermissionStatus() {
-    throw UnimplementedError('onPermissionChanged() has not been implemented.');
-  }
-
   Future<void> initKontaktSDK(String apiKey) {
     throw UnimplementedError('initKontaktSDK() has not been implemented.');
   }
@@ -72,32 +59,4 @@ abstract class BeaconKontaktPlatform extends PlatformInterface {
     throw UnimplementedError('listenScanResults() has not been implemented.');
   }
 
-  Stream<bool> listenLocationServiceStatus() {
-    throw UnimplementedError(
-        'listenLocationServiceStatus() has not been implemented.');
-  }
-
-  Stream<bool> listenBluetoothServiceStatus() {
-    throw UnimplementedError(
-        'listenBluetoothServiceStatus() has not been implemented.');
-  }
-
-  Future<void> openLocationSettings() {
-    throw UnimplementedError(
-        'openLocationSettings() has not been implemented.');
-  }
-
-  Future<void> openBluetoothSettings() {
-    throw UnimplementedError(
-        'openBluetoothSettings() has not been implemented.');
-  }
-
-  Future<void> openNotificationSettings() {
-    throw UnimplementedError(
-        'openNotificationSettings() has not been implemented.');
-  }
-
-  Stream<bool> listenScanStatus() {
-    throw UnimplementedError('isScanning() has not been implemented.');
-  }
 }

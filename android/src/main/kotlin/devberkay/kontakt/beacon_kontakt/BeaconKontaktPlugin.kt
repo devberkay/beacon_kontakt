@@ -16,6 +16,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.StandardMethodCodec
 
 
 /** BeaconKontaktPlugin */
@@ -28,9 +29,8 @@ import io.flutter.plugin.common.MethodChannel.Result
     private lateinit var applicationContext : Context
     private lateinit var activity : Activity
     private var kontaktSDK : KontaktSDK? = null
-    private lateinit var permissionService : PermissionService
+
     private lateinit var foregroundScanService : ForegroundScanService
-    private lateinit var permissionEventChannel : EventChannel
     private lateinit var foregroundScanStatusEventChannel : EventChannel
     private lateinit var foregroundScanIBeaconsUpdatedEventChannel : EventChannel
     private lateinit var foregroundScanIBeaconDiscoveredEventChannel : EventChannel
@@ -38,14 +38,17 @@ import io.flutter.plugin.common.MethodChannel.Result
     private lateinit var foregroundScanSecureProfilesUpdatedEventChannel : EventChannel
     private lateinit var foregroundScanSecureProfileDiscoveredEventChannel : EventChannel
     private lateinit var foregroundScanSecureProfileLostEventChannel : EventChannel
-    private lateinit var activityService: ActivityService
+
     private var apiKey : String? = null
 
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
       Log.d("KontaktSDK", "onAttachedToEngine started")
-      channel = MethodChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt")
-      permissionEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_permission_event")
+
+      channel = MethodChannel(flutterPluginBinding.binaryMessenger,
+        "beacon_kontakt")
+      channel.setMethodCallHandler(this)
+
       foregroundScanStatusEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_status_event")
       foregroundScanIBeaconsUpdatedEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_ibeacons_updated_event")
       foregroundScanIBeaconDiscoveredEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_ibeacon_discovered_event")
@@ -53,11 +56,15 @@ import io.flutter.plugin.common.MethodChannel.Result
       foregroundScanSecureProfilesUpdatedEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_secure_profiles_updated_event")
       foregroundScanSecureProfileDiscoveredEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_secure_profile_discovered_event")
       foregroundScanSecureProfileLostEventChannel = EventChannel(flutterPluginBinding.binaryMessenger, "beacon_kontakt_foreground_scan_secure_profile_lost_event")
-      channel.setMethodCallHandler(this)
+
+
       applicationContext = flutterPluginBinding.applicationContext
-      activityService = ActivityService(flutterPluginBinding.applicationContext)
+
+
       Log.d("KontaktSDK", "onAttachedToEngine complete")
     }
+
+
 
       override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         try {
@@ -67,8 +74,8 @@ import io.flutter.plugin.common.MethodChannel.Result
           }
           else if(call.method == "initKontaktSDK") {
             apiKey = call.argument("apiKey") as String?
+            Log.d("KontaktSDK","methodCall: initKontaktSDK, apiKey: $apiKey")
             kontaktSDK = KontaktSDK.initialize(apiKey!!)
-
             var kontaktValid = kontaktSDK != null
             Log.d("KontaktSDK", "initialized: $kontaktValid")
             foregroundScanService = ForegroundScanService(applicationContext,apiKey!!)
@@ -82,14 +89,7 @@ import io.flutter.plugin.common.MethodChannel.Result
             Log.d("KontaktSDK", "initialization - set stream handlers")
             result.success(null)
           }
-          else if(call.method == "checkPermissions") {
-            if(kontaktSDK!=null) {
-              permissionService.checkPermissions(false,result)
-            }
-            else {
-              result.error("SDK_NOT_INITIALIZED", "SDK is not initialized", null)
-            }
-          }
+
           else if(call.method == "startScanning") {
 
             val scanPeriod = call.argument("scanPeriod") as String? // Monitoring or Ranging
@@ -128,26 +128,6 @@ import io.flutter.plugin.common.MethodChannel.Result
             Log.d("KontaktSDK", "Current Scanning Status: $currentStatus")
             result.success(currentStatus)
           }
-          else if(call.method == "emitLocationStatus") {
-            result.success(activityService.emitLocationStatus())
-          }
-          else if(call.method == "emitNotificationStatus") {
-            result.success(activityService.emitNotificationStatus())
-          }
-          else if(call.method=="emitBluetoothStatus") {
-            result.success(activityService.emitBluetoothStatus())
-          }
-          else if(call.method == "openLocationSettings") {
-            result.success(activityService.openLocationSettings())
-          }
-          else if(call.method == "openNotificationSettings") {
-            result.success(activityService.openNotificationSettings())
-          }
-          else if (call.method == "openBluetoothSettings") {
-            result.success(activityService.openBluetoothSettings())
-          }
-
-
           else {
             result.notImplemented()
           }
@@ -160,9 +140,9 @@ import io.flutter.plugin.common.MethodChannel.Result
   }
 
     override fun onDetachedFromActivity() {
+      Log.d("AndroidLifecycle","onDetachedFromActivity-AndroidLifecycle")
       Log.d("KontaktSDK", "onDetachedFromActivity started")
       channel.setMethodCallHandler(null)
-      permissionEventChannel.setStreamHandler(null)
       foregroundScanStatusEventChannel.setStreamHandler(null)
       foregroundScanIBeaconDiscoveredEventChannel.setStreamHandler(null)
       foregroundScanIBeaconsUpdatedEventChannel.setStreamHandler(null)
@@ -174,18 +154,19 @@ import io.flutter.plugin.common.MethodChannel.Result
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+      Log.d("AndroidLifecycle","onReattachedToActivityForConfigChanges-AndroidLifecycle")
 
     }
 
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+    Log.d("AndroidLifecycle","onAttachedToActivity-AndroidLifecycle")
     activity = binding.activity
-    permissionService = PermissionService(activity,binding,applicationContext)
-    permissionEventChannel.setStreamHandler(permissionService)
   }
 
 
   override fun onDetachedFromActivityForConfigChanges() {
+    Log.d("AndroidLifecycle","onDetachedFromActivityForConfigChanges-AndroidLifecycle")
       // TODO("Not yet implemented")
     }
 

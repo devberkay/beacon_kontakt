@@ -166,6 +166,13 @@ import KontaktSDK
             case "secureProfileLostEventSink":
                 secureProfileLostEventSink = nil
             case nil :
+            statusEventSink = nil
+            iBeaconDiscoveredEventSink = nil
+            iBeaconsUpdatedEventSink = nil
+            iBeaconLostEventSink = nil
+            secureProfileDiscoveredEventSink = nil
+            secureProfilesUpdatedEventSink = nil
+            secureProfileLostEventSink = nil
                 return nil
             default:
                 return FlutterError(code: "unknown_channel", message: "Unknown event channel", details: argument)
